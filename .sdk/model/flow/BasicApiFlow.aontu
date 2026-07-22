@@ -1,0 +1,22 @@
+# BasicApiFlow
+
+main: kit: flow: BasicApiFlow:
+{
+  entity: "api",
+  kind: "basic",
+  name: "BasicApiFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "api_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicApiFlow"
+}

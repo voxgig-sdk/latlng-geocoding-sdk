@@ -1,0 +1,108 @@
+# Entity: api
+
+main: kit: entity: api: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "geometry"
+      req: true
+      type: "`$OBJECT`"
+    }
+    {
+      name: "property"
+      req: true
+      type: "`$OBJECT`"
+    }
+    {
+      name: "type"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "api"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "en"
+                kind: "query"
+                name: "lang"
+                orig: "lang"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 52.52
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+              {
+                example: 5
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 13.405
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+              {
+                example: "Berlin"
+                kind: "query"
+                name: "q"
+                orig: "q"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api"
+          parts: [
+            "api"
+          ]
+          select: {
+            exist: [
+              "api_key"
+              "lang"
+              "lat"
+              "limit"
+              "lon"
+              "q"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

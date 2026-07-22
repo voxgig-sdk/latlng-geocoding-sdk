@@ -1,0 +1,65 @@
+{
+  "existing": {
+    "place": {
+      "PLACE00": {
+        "brand": "s78",
+        "category": "s79",
+        "confidence": 122,
+        "count": "s7b",
+        "country": "s7c",
+        "distance_m": 125,
+        "id": "PLACE00",
+        "lat": 127,
+        "locality": "s80",
+        "lon": 129,
+        "name": "s82",
+        "region": "s83"
+      },
+      "PLACE01": {
+        "brand": "sf0",
+        "category": "sf1",
+        "confidence": 242,
+        "count": "sf3",
+        "country": "sf4",
+        "distance_m": 245,
+        "id": "PLACE01",
+        "lat": 247,
+        "locality": "sf8",
+        "lon": 249,
+        "name": "sfa",
+        "region": "sfb"
+      },
+      "PLACE02": {
+        "brand": "s168",
+        "category": "s169",
+        "confidence": 362,
+        "count": "s16b",
+        "country": "s16c",
+        "distance_m": 365,
+        "id": "PLACE02",
+        "lat": 367,
+        "locality": "s170",
+        "lon": 369,
+        "name": "s172",
+        "region": "s173"
+      }
+    }
+  },
+  "new": {
+    "place": {
+      "place_ref01": {
+        "brand": "s1e0",
+        "category": "s1e1",
+        "confidence": 482,
+        "count": "s1e3",
+        "country": "s1e4",
+        "distance_m": 485,
+        "lat": 487,
+        "locality": "s1e8",
+        "lon": 489,
+        "name": "s1ea",
+        "region": "s1eb"
+      }
+    }
+  }
+}

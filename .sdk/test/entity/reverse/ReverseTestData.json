@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "reverse": {
+      "REVERSE00": {
+        "geometry": {},
+        "property": {},
+        "type": "s20"
+      },
+      "REVERSE01": {
+        "geometry": {},
+        "property": {},
+        "type": "s3e"
+      },
+      "REVERSE02": {
+        "geometry": {},
+        "property": {},
+        "type": "s5c"
+      }
+    }
+  },
+  "new": {
+    "reverse": {
+      "reverse_ref01": {
+        "geometry": {},
+        "property": {},
+        "type": "s7a"
+      }
+    }
+  }
+}

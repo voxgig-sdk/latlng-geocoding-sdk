@@ -1,0 +1,1578 @@
+{
+  "def": "latlng-geocoding_0.1.0.yaml",
+  "main": {
+    "def": {
+      "desc": ""
+    },
+    "kit": {
+      "config": {
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ],
+        "headers": {
+          "content-type": "application/json"
+        }
+      },
+      "entity": {
+        "api": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "geometry",
+              "req": true,
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "property",
+              "req": true,
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "type",
+              "req": true,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "api",
+          "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": "en",
+                        "kind": "query",
+                        "name": "lang",
+                        "orig": "lang",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": 52.52,
+                        "kind": "query",
+                        "name": "lat",
+                        "orig": "lat",
+                        "reqd": false,
+                        "type": "`$NUMBER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 5,
+                        "kind": "query",
+                        "name": "limit",
+                        "orig": "limit",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 13.405,
+                        "kind": "query",
+                        "name": "lon",
+                        "orig": "lon",
+                        "reqd": false,
+                        "type": "`$NUMBER`"
+                      },
+                      {
+                        "active": true,
+                        "example": "Berlin",
+                        "kind": "query",
+                        "name": "q",
+                        "orig": "q",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/api",
+                  "parts": [
+                    "api"
+                  ],
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "lang",
+                      "lat",
+                      "limit",
+                      "lon",
+                      "q"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "dataset": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [],
+          "name": "dataset",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {},
+                  "method": "POST",
+                  "orig": "/v1/datasets",
+                  "parts": [
+                    "v1",
+                    "datasets"
+                  ],
+                  "select": {},
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "dataset_id",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/v1/datasets/{datasetId}",
+                  "parts": [
+                    "v1",
+                    "datasets",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "datasetId": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {},
+                  "method": "GET",
+                  "orig": "/v1/datasets",
+                  "parts": [
+                    "v1",
+                    "datasets"
+                  ],
+                  "select": {},
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "remove": {
+              "input": "data",
+              "name": "remove",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "dataset_id",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "DELETE",
+                  "orig": "/v1/datasets/{datasetId}",
+                  "parts": [
+                    "v1",
+                    "datasets",
+                    "{id}"
+                  ],
+                  "rename": {
+                    "param": {
+                      "datasetId": "id"
+                    }
+                  },
+                  "select": {
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "map": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "feature",
+              "req": true,
+              "type": "`$ARRAY`"
+            },
+            {
+              "active": true,
+              "name": "type",
+              "req": true,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "map",
+          "op": {
+            "create": {
+              "input": "data",
+              "name": "create",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "example": "latlng_xxxxx",
+                        "kind": "query",
+                        "name": "key",
+                        "orig": "key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "POST",
+                  "orig": "/v1/static",
+                  "parts": [
+                    "v1",
+                    "static"
+                  ],
+                  "select": {
+                    "exist": [
+                      "key"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            },
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "example": "40.748,-73.985",
+                        "kind": "query",
+                        "name": "center",
+                        "orig": "center",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": 600,
+                        "kind": "query",
+                        "name": "height",
+                        "orig": "height",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": "latlng_xxxxx",
+                        "kind": "query",
+                        "name": "key",
+                        "orig": "key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": "40.748,-73.985",
+                        "kind": "query",
+                        "name": "marker",
+                        "orig": "marker",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": 800,
+                        "kind": "query",
+                        "name": "width",
+                        "orig": "width",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 12,
+                        "kind": "query",
+                        "name": "zoom",
+                        "orig": "zoom",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/v1/static",
+                  "parts": [
+                    "v1",
+                    "static"
+                  ],
+                  "select": {
+                    "exist": [
+                      "center",
+                      "height",
+                      "key",
+                      "marker",
+                      "width",
+                      "zoom"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "place": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "brand",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "category",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "confidence",
+              "req": false,
+              "type": "`$NUMBER`"
+            },
+            {
+              "active": true,
+              "name": "count",
+              "req": false,
+              "type": "`$INTEGER`"
+            },
+            {
+              "active": true,
+              "name": "country",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "distance_m",
+              "req": false,
+              "type": "`$NUMBER`"
+            },
+            {
+              "active": true,
+              "name": "id",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "lat",
+              "req": false,
+              "type": "`$NUMBER`"
+            },
+            {
+              "active": true,
+              "name": "locality",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "lon",
+              "req": false,
+              "type": "`$NUMBER`"
+            },
+            {
+              "active": true,
+              "name": "name",
+              "req": false,
+              "type": "`$STRING`"
+            },
+            {
+              "active": true,
+              "name": "region",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "place",
+          "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": "cafe",
+                        "kind": "query",
+                        "name": "category",
+                        "orig": "category",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": "US",
+                        "kind": "query",
+                        "name": "country",
+                        "orig": "country",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": 40.748,
+                        "kind": "query",
+                        "name": "lat",
+                        "orig": "lat",
+                        "reqd": false,
+                        "type": "`$NUMBER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 5,
+                        "kind": "query",
+                        "name": "limit",
+                        "orig": "limit",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": -73.985,
+                        "kind": "query",
+                        "name": "lon",
+                        "orig": "lon",
+                        "reqd": false,
+                        "type": "`$NUMBER`"
+                      },
+                      {
+                        "active": true,
+                        "example": "Starbucks",
+                        "kind": "query",
+                        "name": "q",
+                        "orig": "q",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": "cafe",
+                        "kind": "query",
+                        "name": "type",
+                        "orig": "type",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/v1/places/search",
+                  "parts": [
+                    "v1",
+                    "places",
+                    "search"
+                  ],
+                  "select": {
+                    "$action": "search",
+                    "exist": [
+                      "api_key",
+                      "category",
+                      "country",
+                      "lat",
+                      "limit",
+                      "lon",
+                      "q",
+                      "type"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": "cafe",
+                        "kind": "query",
+                        "name": "category",
+                        "orig": "category",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": 40.748,
+                        "kind": "query",
+                        "name": "lat",
+                        "orig": "lat",
+                        "reqd": true,
+                        "type": "`$NUMBER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 10,
+                        "kind": "query",
+                        "name": "limit",
+                        "orig": "limit",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": -73.985,
+                        "kind": "query",
+                        "name": "lon",
+                        "orig": "lon",
+                        "reqd": true,
+                        "type": "`$NUMBER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 500,
+                        "kind": "query",
+                        "name": "radius",
+                        "orig": "radius",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": "cafe",
+                        "kind": "query",
+                        "name": "type",
+                        "orig": "type",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/v1/places/nearby",
+                  "parts": [
+                    "v1",
+                    "places",
+                    "nearby"
+                  ],
+                  "select": {
+                    "$action": "nearby",
+                    "exist": [
+                      "api_key",
+                      "category",
+                      "lat",
+                      "limit",
+                      "lon",
+                      "radius",
+                      "type"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
+                  "args": {},
+                  "method": "GET",
+                  "orig": "/v1/places/categories",
+                  "parts": [
+                    "v1",
+                    "places",
+                    "categories"
+                  ],
+                  "select": {
+                    "$action": "category"
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "reverse": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "geometry",
+              "req": true,
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "property",
+              "req": true,
+              "type": "`$OBJECT`"
+            },
+            {
+              "active": true,
+              "name": "type",
+              "req": true,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "reverse",
+          "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "active": true,
+                  "args": {
+                    "query": [
+                      {
+                        "active": true,
+                        "kind": "query",
+                        "name": "api_key",
+                        "orig": "api_key",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": "en",
+                        "kind": "query",
+                        "name": "lang",
+                        "orig": "lang",
+                        "reqd": false,
+                        "type": "`$STRING`"
+                      },
+                      {
+                        "active": true,
+                        "example": 52.517,
+                        "kind": "query",
+                        "name": "lat",
+                        "orig": "lat",
+                        "reqd": true,
+                        "type": "`$NUMBER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 5,
+                        "kind": "query",
+                        "name": "limit",
+                        "orig": "limit",
+                        "reqd": false,
+                        "type": "`$INTEGER`"
+                      },
+                      {
+                        "active": true,
+                        "example": 13.389,
+                        "kind": "query",
+                        "name": "lon",
+                        "orig": "lon",
+                        "reqd": true,
+                        "type": "`$NUMBER`"
+                      }
+                    ]
+                  },
+                  "method": "GET",
+                  "orig": "/reverse",
+                  "parts": [
+                    "reverse"
+                  ],
+                  "select": {
+                    "exist": [
+                      "api_key",
+                      "lang",
+                      "lat",
+                      "limit",
+                      "lon"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "utility": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": [
+            {
+              "active": true,
+              "name": "status",
+              "req": false,
+              "type": "`$STRING`"
+            }
+          ],
+          "name": "utility",
+          "op": {
+            "load": {
+              "input": "data",
+              "name": "load",
+              "points": [
+                {
+                  "active": true,
+                  "args": {},
+                  "method": "GET",
+                  "orig": "/health",
+                  "parts": [
+                    "health"
+                  ],
+                  "select": {},
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        }
+      },
+      "feature": {
+        "test": {
+          "active": true,
+          "config": {
+            "options": {
+              "active": false
+            }
+          },
+          "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": true,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": true,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PrePoint": {
+              "active": true,
+              "await": false
+            },
+            "PreRequest": {
+              "active": true,
+              "await": false
+            },
+            "PreResponse": {
+              "active": true,
+              "await": false
+            },
+            "PreResult": {
+              "active": true,
+              "await": false
+            },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
+              "await": false
+            }
+          },
+          "name": "test",
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1"
+        }
+      },
+      "flow": {
+        "BasicApiFlow": {
+          "active": true,
+          "entity": "api",
+          "key$": "BasicApiFlow",
+          "kind": "basic",
+          "name": "BasicApiFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "api_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicDatasetFlow": {
+          "active": true,
+          "entity": "dataset",
+          "key$": "BasicDatasetFlow",
+          "kind": "basic",
+          "name": "BasicDatasetFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "dataset_ref01"
+              },
+              "match": {},
+              "op": "create",
+              "spec": [],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "dataset_ref01",
+                "srcdatavar": "dataset_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {},
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-dataset_ref01"
+                  }
+                }
+              ]
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "dataset_ref01",
+                "suffix": "_rm0"
+              },
+              "match": {
+                "id": "dataset01"
+              },
+              "op": "remove",
+              "spec": [],
+              "valid": []
+            }
+          ]
+        },
+        "BasicMapFlow": {
+          "active": true,
+          "entity": "map",
+          "key$": "BasicMapFlow",
+          "kind": "basic",
+          "name": "BasicMapFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "map_ref01"
+              },
+              "match": {},
+              "op": "create",
+              "spec": [],
+              "valid": []
+            },
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "map_ref01",
+                "srcdatavar": "map_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {},
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-map_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicPlaceFlow": {
+          "active": true,
+          "entity": "place",
+          "key$": "BasicPlaceFlow",
+          "kind": "basic",
+          "name": "BasicPlaceFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "place_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicReverseFlow": {
+          "active": true,
+          "entity": "reverse",
+          "key$": "BasicReverseFlow",
+          "kind": "basic",
+          "name": "BasicReverseFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
+              "op": "list",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "reverse_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicUtilityFlow": {
+          "active": true,
+          "entity": "utility",
+          "key$": "BasicUtilityFlow",
+          "kind": "basic",
+          "name": "BasicUtilityFlow",
+          "param": {},
+          "step": [
+            {
+              "active": true,
+              "data": {},
+              "input": {
+                "ref": "utility_ref01",
+                "srcdatavar": "utility_ref01_data",
+                "suffix": "_dt0"
+              },
+              "match": {},
+              "op": "load",
+              "spec": [],
+              "valid": [
+                {
+                  "apply": "TextFieldMark",
+                  "def": {
+                    "mark": "Mark01-utility_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "info": {
+        "contact": {
+          "email": "support@latlng.work",
+          "name": "LatLng",
+          "url": "https://www.latlng.work"
+        },
+        "description": "LatLng provides affordable maps and location APIs for developers building location-aware apps.\n\nThe API includes forward geocoding, reverse geocoding, places search, nearby places,\nplace categories, static maps, and custom dataset map tiles powered by OpenStreetMap data.\n\nDevelopers can start free with a generous daily quota. LatLng also offers an MCP server\nso AI tools can use location APIs directly.\n\nHomepage: https://www.latlng.work\nDocumentation: https://www.latlng.work/docs\nGet a free API key: https://dash.latlng.work\nMCP server: https://mcp.latlng.work/mcp\n",
+        "meta_source": "https://www.freepublicapis.com",
+        "security": {
+          "in": "header",
+          "name": "X-Api-Key",
+          "prefix": "",
+          "scheme": "ApiKeyAuth",
+          "type": "apiKey"
+        },
+        "servers": [
+          {
+            "description": "Production API",
+            "url": "https://api.latlng.work"
+          }
+        ],
+        "summary": "LatLng provides affordable maps and location APIs for developers building location-aware apps.",
+        "termsOfService": "https://www.latlng.work/terms",
+        "title": "LatLng API",
+        "version": "1.0.0",
+        "website": "https://www.latlng.work/docs"
+      },
+      "option": {},
+      "target": {
+        "go": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "go",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "go-cli",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            }
+          },
+          "title": "Go CLI"
+        },
+        "go-mcp": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "go-mcp",
+          "phase": {
+            "agentguide": {
+              "active": false
+            },
+            "entity": {
+              "active": false
+            },
+            "feature": {
+              "active": false
+            },
+            "readme": {
+              "active": false
+            },
+            "test": {
+              "active": false
+            }
+          },
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "",
+              "package": "",
+              "state": "pending",
+              "url": "",
+              "vault": {
+                "alias": "",
+                "env": "",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "root"
+            }
+          },
+          "title": "Go MCP server"
+        },
+        "lua": {
+          "active": true,
+          "comment": {
+            "line": "--"
+          },
+          "deps": {
+            "dkjson": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.5"
+            }
+          },
+          "ext": "lua",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "lua",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "luarocks",
+              "package": "",
+              "state": "pending",
+              "url": "https://luarocks.org",
+              "vault": {
+                "alias": "luarocks",
+                "env": "LUAROCKS_API_KEY",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Lua"
+        },
+        "php": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "php",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "php",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "packagist",
+              "package": "",
+              "state": "pending",
+              "url": "https://packagist.org",
+              "vault": {
+                "alias": "packagist",
+                "env": "PACKAGIST_API_TOKEN",
+                "recipe": ""
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "PHP"
+        },
+        "py": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "requests": {
+              "active": true,
+              "kind": "prod",
+              "version": "2.33"
+            }
+          },
+          "ext": "py",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "py",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "pypi",
+              "package": "",
+              "state": "pending",
+              "url": "https://pypi.org",
+              "vault": {
+                "alias": "pypi",
+                "env": "",
+                "recipe": "pypi"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
+          "deps": {
+            "json": {
+              "active": true,
+              "kind": "prod",
+              "version": "0"
+            },
+            "voxgig-struct": {
+              "active": true,
+              "kind": "prod",
+              "version": "0.0.10"
+            }
+          },
+          "ext": "rb",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "rb",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "rubygems",
+              "package": "",
+              "state": "pending",
+              "url": "https://rubygems.org",
+              "vault": {
+                "alias": "gem",
+                "env": "",
+                "recipe": "gem"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "srcfeature": false,
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "module": {
+            "name": "latlng-geocoding"
+          },
+          "name": "ts",
+          "publish": {
+            "registry": {
+              "active": false,
+              "name": "npm",
+              "package": "",
+              "state": "pending",
+              "url": "https://registry.npmjs.org",
+              "vault": {
+                "alias": "npm",
+                "env": "",
+                "recipe": "npm"
+              }
+            },
+            "tag": {
+              "active": true,
+              "prefix": "",
+              "vault": {
+                "alias": "github",
+                "recipe": "github"
+              },
+              "via": "port"
+            }
+          },
+          "title": "TypeScript"
+        }
+      }
+    }
+  },
+  "name": "latlng-geocoding",
+  "origin": "voxgig-sdk"
+}

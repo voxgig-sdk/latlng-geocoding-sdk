@@ -1,0 +1,139 @@
+# Entity: map
+
+main: kit: entity: map: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "feature"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "type"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "map"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "latlng_xxxxx"
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/v1/static"
+          parts: [
+            "v1"
+            "static"
+          ]
+          select: {
+            exist: [
+              "key"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "40.748,-73.985"
+                kind: "query"
+                name: "center"
+                orig: "center"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 600
+                kind: "query"
+                name: "height"
+                orig: "height"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "latlng_xxxxx"
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "40.748,-73.985"
+                kind: "query"
+                name: "marker"
+                orig: "marker"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 800
+                kind: "query"
+                name: "width"
+                orig: "width"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 12
+                kind: "query"
+                name: "zoom"
+                orig: "zoom"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/v1/static"
+          parts: [
+            "v1"
+            "static"
+          ]
+          select: {
+            exist: [
+              "center"
+              "height"
+              "key"
+              "marker"
+              "width"
+              "zoom"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

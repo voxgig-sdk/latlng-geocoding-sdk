@@ -1,0 +1,279 @@
+# Entity: place
+
+main: kit: entity: place: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "brand"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "category"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "confidence"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "count"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "country"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "distance_m"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "lat"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "locality"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "lon"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "name"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "region"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "place"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "cafe"
+                kind: "query"
+                name: "category"
+                orig: "category"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "US"
+                kind: "query"
+                name: "country"
+                orig: "country"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 40.748
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+              {
+                example: 5
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: -73.985
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: false
+                type: "`$NUMBER`"
+              }
+              {
+                example: "Starbucks"
+                kind: "query"
+                name: "q"
+                orig: "q"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                example: "cafe"
+                kind: "query"
+                name: "type"
+                orig: "type"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/v1/places/search"
+          parts: [
+            "v1"
+            "places"
+            "search"
+          ]
+          select: {
+            "$action": "search"
+            exist: [
+              "api_key"
+              "category"
+              "country"
+              "lat"
+              "limit"
+              "lon"
+              "q"
+              "type"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "api_key"
+                orig: "api_key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "cafe"
+                kind: "query"
+                name: "category"
+                orig: "category"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: 40.748
+                kind: "query"
+                name: "lat"
+                orig: "lat"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: 10
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: -73.985
+                kind: "query"
+                name: "lon"
+                orig: "lon"
+                reqd: true
+                type: "`$NUMBER`"
+              }
+              {
+                example: 500
+                kind: "query"
+                name: "radius"
+                orig: "radius"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: "cafe"
+                kind: "query"
+                name: "type"
+                orig: "type"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/v1/places/nearby"
+          parts: [
+            "v1"
+            "places"
+            "nearby"
+          ]
+          select: {
+            "$action": "nearby"
+            exist: [
+              "api_key"
+              "category"
+              "lat"
+              "limit"
+              "lon"
+              "radius"
+              "type"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/v1/places/categories"
+          parts: [
+            "v1"
+            "places"
+            "categories"
+          ]
+          select: {
+            "$action": "category"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

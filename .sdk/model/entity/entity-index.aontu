@@ -1,0 +1,8 @@
+# Entity Models
+
+@"api.aontu"
+@"dataset.aontu"
+@"map.aontu"
+@"place.aontu"
+@"reverse.aontu"
+@"utility.aontu"

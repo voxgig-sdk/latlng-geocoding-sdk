@@ -1,0 +1,29 @@
+{
+  "existing": {
+    "map": {
+      "MAP00": {
+        "feature": [],
+        "type": "s15",
+        "id": "MAP00"
+      },
+      "MAP01": {
+        "feature": [],
+        "type": "s29",
+        "id": "MAP01"
+      },
+      "MAP02": {
+        "feature": [],
+        "type": "s3d",
+        "id": "MAP02"
+      }
+    }
+  },
+  "new": {
+    "map": {
+      "map_ref01": {
+        "feature": [],
+        "type": "s51"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "existing": {
+    "api": {
+      "API00": {
+        "geometry": {},
+        "property": {},
+        "type": "s20"
+      },
+      "API01": {
+        "geometry": {},
+        "property": {},
+        "type": "s3e"
+      },
+      "API02": {
+        "geometry": {},
+        "property": {},
+        "type": "s5c"
+      }
+    }
+  },
+  "new": {
+    "api": {
+      "api_ref01": {
+        "geometry": {},
+        "property": {},
+        "type": "s7a"
+      }
+    }
+  }
+}

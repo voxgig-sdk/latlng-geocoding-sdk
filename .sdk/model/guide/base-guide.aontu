@@ -1,0 +1,60 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 6
+  metrics: count: path: 9
+  metrics: count: method: 12
+
+  entity: api: {
+    path: "/api": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: dataset: {
+    path: "/v1/datasets": {
+      op: create: method: *POST
+      op: load: method: *GET
+    }
+    path: "/v1/datasets/{datasetId}": {
+      rename: param: "datasetId": *"id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
+    }
+  }
+
+  entity: map: {
+    path: "/v1/static": {
+      op: create: method: *POST
+      op: load: method: *GET
+    }
+  }
+
+  entity: place: {
+    path: "/v1/places/categories": {
+      action: "category": {}
+      op: list: method: *GET
+    }
+    path: "/v1/places/nearby": {
+      action: "nearby": {}
+      op: list: method: *GET
+    }
+    path: "/v1/places/search": {
+      action: "search": {}
+      op: list: method: *GET
+    }
+  }
+
+  entity: reverse: {
+    path: "/reverse": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: utility: {
+    path: "/health": {
+      op: load: method: *GET
+    }
+  }
+
+}

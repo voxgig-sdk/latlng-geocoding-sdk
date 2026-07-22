@@ -1,0 +1,25 @@
+{
+  "existing": {
+    "utility": {
+      "UTILITY00": {
+        "status": "sa",
+        "id": "UTILITY00"
+      },
+      "UTILITY01": {
+        "status": "s14",
+        "id": "UTILITY01"
+      },
+      "UTILITY02": {
+        "status": "s1e",
+        "id": "UTILITY02"
+      }
+    }
+  },
+  "new": {
+    "utility": {
+      "utility_ref01": {
+        "status": "s28"
+      }
+    }
+  }
+}

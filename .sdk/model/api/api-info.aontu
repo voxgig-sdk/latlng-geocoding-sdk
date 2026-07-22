@@ -1,0 +1,46 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        email: "support@latlng.work"
+        name: "LatLng"
+        url: "https://www.latlng.work"
+      }
+      description: `LatLng provides affordable maps and location APIs for developers building location-aware apps.
+
+The API includes forward geocoding, reverse geocoding, places search, nearby places,
+place categories, static maps, and custom dataset map tiles powered by OpenStreetMap data.
+
+Developers can start free with a generous daily quota. LatLng also offers an MCP server
+so AI tools can use location APIs directly.
+
+Homepage: https://www.latlng.work
+Documentation: https://www.latlng.work/docs
+Get a free API key: https://dash.latlng.work
+MCP server: https://mcp.latlng.work/mcp
+`
+      security: {
+        in: "header"
+        name: "X-Api-Key"
+        prefix: ""
+        scheme: "ApiKeyAuth"
+        type: "apiKey"
+      }
+      servers: [
+        {
+          description: "Production API"
+          url: "https://api.latlng.work"
+        }
+      ]
+      summary: "LatLng provides affordable maps and location APIs for developers building location-aware apps."
+      termsOfService: "https://www.latlng.work/terms"
+      title: "LatLng API"
+      version: "1.0.0"
+      website: "https://www.latlng.work/docs"
+    }
+  }
+}
+

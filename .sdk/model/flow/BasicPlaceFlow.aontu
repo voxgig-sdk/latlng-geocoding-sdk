@@ -1,0 +1,22 @@
+# BasicPlaceFlow
+
+main: kit: flow: BasicPlaceFlow:
+{
+  entity: "place",
+  kind: "basic",
+  name: "BasicPlaceFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "place_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPlaceFlow"
+}
