@@ -26,8 +26,8 @@ import {
 describe('MapEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LATLNGGEOCODING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LATLNGGEOCODING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LATLNG_GEOCODING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LATLNG_GEOCODING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LatlngGeocodingSDK.test()
@@ -62,13 +62,13 @@ describe('MapEntity', async () => {
     const map_ref01_ent = client.Map()
     let map_ref01_data = setup.data.new.map['map_ref01']
 
-    map_ref01_data = await map_ref01_ent.create(map_ref01_data)
+    map_ref01_data = (await map_ref01_ent.create(map_ref01_data)).data()
     assert(null != map_ref01_data)
 
 
     // LOAD
     const map_ref01_match_dt0: any = {}
-    const map_ref01_data_dt0 = await map_ref01_ent.load(map_ref01_match_dt0)
+    const map_ref01_data_dt0 = (await map_ref01_ent.load(map_ref01_match_dt0)).data()
     assert(null != map_ref01_data_dt0)
 
 

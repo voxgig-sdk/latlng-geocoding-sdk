@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ LatlngGeocodingUtility.registrar = ->(u) {
   u.prepare_params = LatlngGeocodingUtilities::PrepareParams
   u.prepare_path = LatlngGeocodingUtilities::PreparePath
   u.prepare_query = LatlngGeocodingUtilities::PrepareQuery
+  u.graphql_body = LatlngGeocodingUtilities::GraphqlBody
+  u.graphql_errors = LatlngGeocodingUtilities::GraphqlErrors
   u.result_basic = LatlngGeocodingUtilities::ResultBasic
   u.result_body = LatlngGeocodingUtilities::ResultBody
   u.result_headers = LatlngGeocodingUtilities::ResultHeaders

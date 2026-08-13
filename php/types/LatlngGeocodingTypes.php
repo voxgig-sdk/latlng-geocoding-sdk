@@ -16,7 +16,7 @@ declare(strict_types=1);
 class Api
 {
     public array $geometry;
-    public array $property;
+    public array $properties;
     public string $type;
 }
 
@@ -24,7 +24,7 @@ class Api
 class ApiListMatch
 {
     public ?array $geometry = null;
-    public ?array $property = null;
+    public ?array $properties = null;
     public ?string $type = null;
 }
 
@@ -53,21 +53,21 @@ class DatasetRemoveMatch
 /** Map entity data model. */
 class Map
 {
-    public array $feature;
+    public array $features;
     public string $type;
 }
 
 /** Request payload for Map#load. */
 class MapLoadMatch
 {
-    public ?array $feature = null;
+    public ?array $features = null;
     public ?string $type = null;
 }
 
 /** Request payload for Map#create. */
 class MapCreateData
 {
-    public array $feature;
+    public array $features;
     public string $type;
 }
 
@@ -109,7 +109,7 @@ class PlaceListMatch
 class Reverse
 {
     public array $geometry;
-    public array $property;
+    public array $properties;
     public string $type;
 }
 
@@ -117,7 +117,7 @@ class Reverse
 class ReverseListMatch
 {
     public ?array $geometry = null;
-    public ?array $property = null;
+    public ?array $properties = null;
     public ?string $type = null;
 }
 

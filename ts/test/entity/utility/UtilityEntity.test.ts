@@ -26,8 +26,8 @@ import {
 describe('UtilityEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LATLNGGEOCODING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LATLNGGEOCODING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LATLNG_GEOCODING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LATLNG_GEOCODING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LatlngGeocodingSDK.test()
@@ -62,7 +62,7 @@ describe('UtilityEntity', async () => {
     // LOAD
     const utility_ref01_ent = client.Utility()
     const utility_ref01_match_dt0: any = {}
-    const utility_ref01_data_dt0 = await utility_ref01_ent.load(utility_ref01_match_dt0)
+    const utility_ref01_data_dt0 = (await utility_ref01_ent.load(utility_ref01_match_dt0)).data()
     assert(null != utility_ref01_data_dt0)
 
 

@@ -37,7 +37,7 @@ class PlaceEntity extends LatlngGeocodingEntityBase<Place> {
 
 
 
-  async list(this: any, reqmatch?: PlaceListMatch, ctrl?: Control): Promise<Place[]> {
+  async list(this: any, reqmatch?: PlaceListMatch, ctrl?: Control): Promise<PlaceEntity[]> {
 
     const utility = this._utility
 

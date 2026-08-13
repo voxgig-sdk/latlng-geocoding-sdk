@@ -7,13 +7,13 @@
 
 export interface Api {
   geometry: Record<string, any>
-  property: Record<string, any>
+  properties: Record<string, any>
   type: string
 }
 
 export interface ApiListMatch {
   geometry?: Record<string, any>
-  property?: Record<string, any>
+  properties?: Record<string, any>
   type?: string
 }
 
@@ -32,17 +32,17 @@ export interface DatasetRemoveMatch {
 }
 
 export interface Map {
-  feature: any[]
+  features: any[]
   type: string
 }
 
 export interface MapLoadMatch {
-  feature?: any[]
+  features?: any[]
   type?: string
 }
 
 export interface MapCreateData {
-  feature: any[]
+  features: any[]
   type: string
 }
 
@@ -74,17 +74,23 @@ export interface PlaceListMatch {
   lon?: number
   name?: string
   region?: string
+
+  // Selects a custom action instead of the plain list:
+  //   'category' | 'nearby' | 'search'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface Reverse {
   geometry: Record<string, any>
-  property: Record<string, any>
+  properties: Record<string, any>
   type: string
 }
 
 export interface ReverseListMatch {
   geometry?: Record<string, any>
-  property?: Record<string, any>
+  properties?: Record<string, any>
   type?: string
 }
 

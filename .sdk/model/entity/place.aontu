@@ -267,7 +267,7 @@ main: kit: entity: place: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.categories`"
           }
         }
       ]

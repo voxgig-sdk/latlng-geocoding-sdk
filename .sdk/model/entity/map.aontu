@@ -6,7 +6,7 @@ main: kit: entity: map: {
 
   fields: [
     {
-      name: "feature"
+      name: "features"
       req: true
       type: "`$ARRAY`"
     }

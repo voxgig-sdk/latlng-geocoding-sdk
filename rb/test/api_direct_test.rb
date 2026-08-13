@@ -60,16 +60,16 @@ def api_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "LATLNGGEOCODING_TEST_API_ENTID" => {},
-    "LATLNGGEOCODING_TEST_LIVE" => "FALSE",
-    "LATLNGGEOCODING_APIKEY" => "NONE",
+    "LATLNG_GEOCODING_TEST_API_ENTID" => {},
+    "LATLNG_GEOCODING_TEST_LIVE" => "FALSE",
+    "LATLNG_GEOCODING_APIKEY" => "NONE",
   })
 
-  live = env["LATLNGGEOCODING_TEST_LIVE"] == "TRUE"
+  live = env["LATLNG_GEOCODING_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["LATLNGGEOCODING_APIKEY"],
+      "apikey" => env["LATLNG_GEOCODING_APIKEY"],
     }
     client = LatlngGeocodingSDK.new(merged_opts)
     return {

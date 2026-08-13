@@ -37,7 +37,9 @@ const client = new LatlngGeocodingSDK({
 
 ### 2. List api records
 
-`list()` resolves to an array of Api objects — iterate it directly:
+`list()` resolves to an array of Api ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const apis = await client.Api().list()
@@ -54,8 +56,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const apis = await client.Api().list()
-  console.log(apis)
+  const reverses = await client.Reverse().list()
+  console.log(reverses)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -121,9 +123,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = LatlngGeocodingSDK.test()
 
-const api = await client.Api().list()
-// api is a bare entity populated with mock response data
-console.log(api)
+const reverse = await client.Reverse().list()
+// reverse is the entity, populated with mock response data
+// — call reverse.data() for the record itself
+console.log(reverse)
 ```
 
 You can also use the instance method:
@@ -138,7 +141,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Api()
+const entity = client.Reverse()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -301,7 +304,7 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: list.
@@ -321,7 +324,7 @@ API path: `/v1/datasets`
 
 | Field | Description |
 | --- | --- |
-| `feature` |  |
+| `features` |  |
 | `type` |  |
 
 Operations: create, load.
@@ -354,7 +357,7 @@ API path: `/v1/places/search`
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: list.
@@ -391,7 +394,7 @@ Create an instance: `const api = client.Api()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `Record<string, any>` |  |
-| `property` | `Record<string, any>` |  |
+| `properties` | `Record<string, any>` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -442,7 +445,7 @@ Create an instance: `const map = client.Map()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `feature` | `any[]` |  |
+| `features` | `any[]` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -455,7 +458,7 @@ const map = await client.Map().load()
 
 ```ts
 const map = await client.Map().create({
-  feature: [],
+  features: [],
   type: 'example_type',
 })
 ```
@@ -510,7 +513,7 @@ Create an instance: `const reverse = client.Reverse()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `Record<string, any>` |  |
-| `property` | `Record<string, any>` |  |
+| `properties` | `Record<string, any>` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -612,11 +615,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const api = client.Api()
-await api.list()
+const reverse = client.Reverse()
+await reverse.list()
 
-// api.data() now returns the api data from the last `list`
-// api.match() returns the last match criteria
+// reverse.data() now returns the reverse data from the last `list`
+// reverse.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

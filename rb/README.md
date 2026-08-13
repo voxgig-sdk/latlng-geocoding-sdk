@@ -53,7 +53,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  apis = client.Api.list()
+  reverses = client.Reverse.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -121,9 +121,10 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = LatlngGeocodingSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-api = client.Api.list()
-puts api
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+reverse = client.Reverse.list()
+puts reverse
 ```
 
 ### Use a custom fetch function
@@ -249,7 +250,7 @@ returns a result `Hash` with these keys:
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -269,7 +270,7 @@ API path: `/v1/datasets`
 
 | Field | Description |
 | --- | --- |
-| `feature` |  |
+| `features` |  |
 | `type` |  |
 
 Operations: Create, Load.
@@ -302,7 +303,7 @@ API path: `/v1/places/search`
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -339,7 +340,7 @@ Create an instance: `api = client.Api`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `Hash` |  |
-| `property` | `Hash` |  |
+| `properties` | `Hash` |  |
 | `type` | `String` |  |
 
 #### Example: List
@@ -365,7 +366,7 @@ Create an instance: `dataset = client.Dataset`
 #### Example: Load
 
 ```ruby
-# load returns the bare Dataset record (raises on error).
+# load returns the ENTITY — call data_get for the Dataset record (raises on error).
 dataset = client.Dataset.load({ "id" => "dataset_id" })
 ```
 
@@ -392,13 +393,13 @@ Create an instance: `map = client.Map`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `feature` | `Array` |  |
+| `features` | `Array` |  |
 | `type` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Map record (raises on error).
+# load returns the ENTITY — call data_get for the Map record (raises on error).
 map = client.Map.load()
 ```
 
@@ -406,7 +407,7 @@ map = client.Map.load()
 
 ```ruby
 map = client.Map.create({
-  "feature" => [], # Array
+  "features" => [], # Array
   "type" => "example_type", # String
 })
 ```
@@ -462,7 +463,7 @@ Create an instance: `reverse = client.Reverse`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `Hash` |  |
-| `property` | `Hash` |  |
+| `properties` | `Hash` |  |
 | `type` | `String` |  |
 
 #### Example: List
@@ -492,7 +493,7 @@ Create an instance: `utility = client.Utility`
 #### Example: Load
 
 ```ruby
-# load returns the bare Utility record (raises on error).
+# load returns the ENTITY — call data_get for the Utility record (raises on error).
 utility = client.Utility.load()
 ```
 
@@ -573,11 +574,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-api = client.Api
-api.list()
+reverse = client.Reverse
+reverse.list()
 
-# api.data_get now returns the api data from the last list
-# api.match_get returns the last match criteria
+# reverse.data_get now returns the reverse data from the last list
+# reverse.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import LatlngGeocodingControl
-from core.error import LatlngGeocodingError
-from core.result import LatlngGeocodingResult
-from core.spec import LatlngGeocodingSpec
+from latlnggeocoding_sdk.config import make_config
+from latlnggeocoding_sdk.features import _make_feature
+from latlnggeocoding_sdk.core.control import LatlngGeocodingControl
+from latlnggeocoding_sdk.core.error import LatlngGeocodingError
+from latlnggeocoding_sdk.core.result import LatlngGeocodingResult
+from latlnggeocoding_sdk.core.spec import LatlngGeocodingSpec
 
 
 # True when this SDK was generated with the named feature.

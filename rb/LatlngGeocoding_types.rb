@@ -13,14 +13,14 @@
 # @!attribute [rw] geometry
 #   @return [Hash]
 #
-# @!attribute [rw] property
+# @!attribute [rw] properties
 #   @return [Hash]
 #
 # @!attribute [rw] type
 #   @return [String]
 Api = Struct.new(
   :geometry,
-  :property,
+  :properties,
   :type,
   keyword_init: true
 )
@@ -30,14 +30,14 @@ Api = Struct.new(
 # @!attribute [rw] geometry
 #   @return [Hash, nil]
 #
-# @!attribute [rw] property
+# @!attribute [rw] properties
 #   @return [Hash, nil]
 #
 # @!attribute [rw] type
 #   @return [String, nil]
 ApiListMatch = Struct.new(
   :geometry,
-  :property,
+  :properties,
   :type,
   keyword_init: true
 )
@@ -70,39 +70,39 @@ DatasetRemoveMatch = Struct.new(
 
 # Map entity data model.
 #
-# @!attribute [rw] feature
+# @!attribute [rw] features
 #   @return [Array]
 #
 # @!attribute [rw] type
 #   @return [String]
 Map = Struct.new(
-  :feature,
+  :features,
   :type,
   keyword_init: true
 )
 
 # Request payload for Map#load.
 #
-# @!attribute [rw] feature
+# @!attribute [rw] features
 #   @return [Array, nil]
 #
 # @!attribute [rw] type
 #   @return [String, nil]
 MapLoadMatch = Struct.new(
-  :feature,
+  :features,
   :type,
   keyword_init: true
 )
 
 # Request payload for Map#create.
 #
-# @!attribute [rw] feature
+# @!attribute [rw] features
 #   @return [Array]
 #
 # @!attribute [rw] type
 #   @return [String]
 MapCreateData = Struct.new(
-  :feature,
+  :features,
   :type,
   keyword_init: true
 )
@@ -218,14 +218,14 @@ PlaceListMatch = Struct.new(
 # @!attribute [rw] geometry
 #   @return [Hash]
 #
-# @!attribute [rw] property
+# @!attribute [rw] properties
 #   @return [Hash]
 #
 # @!attribute [rw] type
 #   @return [String]
 Reverse = Struct.new(
   :geometry,
-  :property,
+  :properties,
   :type,
   keyword_init: true
 )
@@ -235,14 +235,14 @@ Reverse = Struct.new(
 # @!attribute [rw] geometry
 #   @return [Hash, nil]
 #
-# @!attribute [rw] property
+# @!attribute [rw] properties
 #   @return [Hash, nil]
 #
 # @!attribute [rw] type
 #   @return [String, nil]
 ReverseListMatch = Struct.new(
   :geometry,
-  :property,
+  :properties,
   :type,
   keyword_init: true
 )

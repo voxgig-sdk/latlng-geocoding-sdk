@@ -11,7 +11,7 @@ main: kit: entity: reverse: {
       type: "`$OBJECT`"
     }
     {
-      name: "property"
+      name: "properties"
       req: true
       type: "`$OBJECT`"
     }
@@ -87,7 +87,7 @@ main: kit: entity: reverse: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.features`"
           }
         }
       ]

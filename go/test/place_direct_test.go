@@ -36,9 +36,10 @@ func TestPlaceDirect(t *testing.T) {
 			"params": map[string]any{},
 		})
 		if setup.live {
-			// Live mode is lenient: synthetic IDs frequently 4xx and the
-			// list-response shape varies wildly across public APIs. Skip
-			// rather than fail when the call doesn't return a usable list.
+			// Live-mode leniency is a model decision
+			// (main.kit.test.live.strict): synthetic IDs 4xx constantly
+			// against an arbitrary public API, so the default SKIPS here.
+			// A project that owns its test server sets strict and FAILS.
 			if err != nil {
 				t.Skipf("list call failed (likely synthetic IDs against live API): %v", err)
 			}
@@ -91,21 +92,21 @@ func placeDirectSetup(mockres any) *placeDirectSetupResult {
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"LATLNGGEOCODING_TEST_PLACE_ENTID": map[string]any{},
-		"LATLNGGEOCODING_TEST_LIVE":    "FALSE",
-		"LATLNGGEOCODING_APIKEY":       "NONE",
+		"LATLNG_GEOCODING_TEST_PLACE_ENTID": map[string]any{},
+		"LATLNG_GEOCODING_TEST_LIVE":    "FALSE",
+		"LATLNG_GEOCODING_APIKEY":       "NONE",
 	})
 
-	live := env["LATLNGGEOCODING_TEST_LIVE"] == "TRUE"
+	live := env["LATLNG_GEOCODING_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["LATLNGGEOCODING_APIKEY"],
+			"apikey": env["LATLNG_GEOCODING_APIKEY"],
 		}
 		client := sdk.NewLatlngGeocodingSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["LATLNGGEOCODING_TEST_PLACE_ENTID"]; ok {
+		if entidRaw, ok := env["LATLNG_GEOCODING_TEST_PLACE_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {

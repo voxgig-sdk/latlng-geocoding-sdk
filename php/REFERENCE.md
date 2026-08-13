@@ -114,7 +114,7 @@ $api = $client->Api();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `array` | Yes |  |
-| `property` | `array` | Yes |  |
+| `properties` | `array` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -230,7 +230,7 @@ $map = $client->Map();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `feature` | `array` | Yes |  |
+| `features` | `array` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -241,7 +241,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Map()->create([
-  "feature" => null, // array
+  "features" => null, // array
   "type" => null, // string
 ]);
 ```
@@ -358,7 +358,7 @@ $reverse = $client->Reverse();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `array` | Yes |  |
-| `property` | `array` | Yes |  |
+| `properties` | `array` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations

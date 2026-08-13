@@ -35,7 +35,8 @@ func TestUtilityDirect(t *testing.T) {
 		if setup.live {
 			// Live mode is lenient: synthetic IDs frequently 4xx. Skip
 			// rather than fail when the load endpoint isn't reachable with
-			// the IDs we can construct from setup.idmap.
+			// the IDs we can construct from setup.idmap — unless the model
+			// sets main.kit.test.live.strict.
 			if err != nil {
 				t.Skipf("load call failed (likely synthetic IDs against live API): %v", err)
 			}
@@ -97,21 +98,21 @@ func utilityDirectSetup(mockres any) *utilityDirectSetupResult {
 	calls := &[]map[string]any{}
 
 	env := envOverride(map[string]any{
-		"LATLNGGEOCODING_TEST_UTILITY_ENTID": map[string]any{},
-		"LATLNGGEOCODING_TEST_LIVE":    "FALSE",
-		"LATLNGGEOCODING_APIKEY":       "NONE",
+		"LATLNG_GEOCODING_TEST_UTILITY_ENTID": map[string]any{},
+		"LATLNG_GEOCODING_TEST_LIVE":    "FALSE",
+		"LATLNG_GEOCODING_APIKEY":       "NONE",
 	})
 
-	live := env["LATLNGGEOCODING_TEST_LIVE"] == "TRUE"
+	live := env["LATLNG_GEOCODING_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["LATLNGGEOCODING_APIKEY"],
+			"apikey": env["LATLNG_GEOCODING_APIKEY"],
 		}
 		client := sdk.NewLatlngGeocodingSDK(mergedOpts)
 
 		idmap := map[string]any{}
-		if entidRaw, ok := env["LATLNGGEOCODING_TEST_UTILITY_ENTID"]; ok {
+		if entidRaw, ok := env["LATLNG_GEOCODING_TEST_UTILITY_ENTID"]; ok {
 			if entidStr, ok := entidRaw.(string); ok && strings.HasPrefix(entidStr, "{") {
 				json.Unmarshal([]byte(entidStr), &idmap)
 			} else if entidMap, ok := entidRaw.(map[string]any); ok {

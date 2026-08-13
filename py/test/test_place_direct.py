@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from latlnggeocoding_sdk.utility.voxgig_struct import voxgig_struct as vs
 from latlnggeocoding_sdk import LatlngGeocodingSDK
-from core import helpers
+from latlnggeocoding_sdk.core import helpers
 from test import runner
 
 
@@ -58,16 +58,16 @@ def _place_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "LATLNGGEOCODING_TEST_PLACE_ENTID": {},
-        "LATLNGGEOCODING_TEST_LIVE": "FALSE",
-        "LATLNGGEOCODING_APIKEY": "NONE",
+        "LATLNG_GEOCODING_TEST_PLACE_ENTID": {},
+        "LATLNG_GEOCODING_TEST_LIVE": "FALSE",
+        "LATLNG_GEOCODING_APIKEY": "NONE",
     })
 
-    live = env.get("LATLNGGEOCODING_TEST_LIVE") == "TRUE"
+    live = env.get("LATLNG_GEOCODING_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("LATLNGGEOCODING_APIKEY"),
+            "apikey": env.get("LATLNG_GEOCODING_APIKEY"),
         }
         client = LatlngGeocodingSDK(merged_opts)
         return {

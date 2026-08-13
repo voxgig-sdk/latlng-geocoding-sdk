@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = LatlngGeocodingSDK.test()
-const apis = await client.Api().list()
-// apis is an array of bare Api records populated with mock data
-console.log(apis)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = LatlngGeocodingSDK.test({
+  entity: {
+    reverse: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const reverses = await client.Reverse().list()
+// reverses is an array of Reverse entities, populated with mock data
+// — call reverses[0].data() for the record itself
+console.log(reverses)
 ```
 
 ### Python
 
 ```python
 client = LatlngGeocodingSDK.test()
-apis = client.Api().list()
-print(apis)
+reverses = client.Reverse().list()
+print(reverses)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(apis)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = LatlngGeocodingSDK::test([
-    "entity" => ["api" => ["test01" => []]],
+    "entity" => ["reverse" => ["test01" => []]],
 ]);
-$apis = $client->Api()->list();
+$reverses = $client->Reverse()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Api(nil).List(
+result, err := client.Reverse(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.Api(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = LatlngGeocodingSDK.test({
-  "entity" => { "api" => { "test01" => {} } },
+  "entity" => { "reverse" => { "test01" => {} } },
 })
-apis = client.Api.list()
+reverses = client.Reverse.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Api():list()
+local results, err = client:Reverse():list()
 ```
 
 ## Packages
@@ -112,7 +121,7 @@ const client = new LatlngGeocodingSDK({
   apikey: process.env.LATLNG_GEOCODING_APIKEY,
 })
 
-// List all apis (returns Api[])
+// List all apis (returns ApiEntity[] — .data() for the record)
 const apis = await client.Api().list()
 for (const api of apis) {
   console.log(api)
@@ -158,7 +167,7 @@ The API exposes 6 entities:
 | Entity | Description | API path |
 | --- | --- | --- |
 | **Api** | The Api entity (list). | `/api` |
-| **Dataset** | The Dataset entity (create, load, remove). | `/v1/datasets` |
+| **Dataset** | The Dataset entity (create, load, remove). | `/v1/datasets/{datasetId}` |
 | **Map** | The Map entity (create, load). | `/v1/static` |
 | **Place** | The Place entity (list). | `/v1/places/search` |
 | **Reverse** | The Reverse entity (list). | `/reverse` |
@@ -361,6 +370,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://www.latlng.work](https://www.latlng.work)
 

@@ -8,12 +8,12 @@
 
 ---@class Api
 ---@field geometry table
----@field property table
+---@field properties table
 ---@field type string
 
 ---@class ApiListMatch
 ---@field geometry? table
----@field property? table
+---@field properties? table
 ---@field type? string
 
 ---@class Dataset
@@ -27,15 +27,15 @@
 ---@field id string
 
 ---@class Map
----@field feature table
+---@field features table
 ---@field type string
 
 ---@class MapLoadMatch
----@field feature? table
+---@field features? table
 ---@field type? string
 
 ---@class MapCreateData
----@field feature table
+---@field features table
 ---@field type string
 
 ---@class Place
@@ -68,12 +68,12 @@
 
 ---@class Reverse
 ---@field geometry table
----@field property table
+---@field properties table
 ---@field type string
 
 ---@class ReverseListMatch
 ---@field geometry? table
----@field property? table
+---@field properties? table
 ---@field type? string
 
 ---@class Utility

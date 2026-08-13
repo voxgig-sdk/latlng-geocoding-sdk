@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# LatlngGeocoding SDK exists test
 
 import pytest
 from latlnggeocoding_sdk import LatlngGeocodingSDK

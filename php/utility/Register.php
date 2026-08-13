@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ LatlngGeocodingUtility::setRegistrar(function (LatlngGeocodingUtility $u): void 
     $u->prepare_params = [LatlngGeocodingPrepareParams::class, 'call'];
     $u->prepare_path = [LatlngGeocodingPreparePath::class, 'call'];
     $u->prepare_query = [LatlngGeocodingPrepareQuery::class, 'call'];
+    $u->graphql_body = [LatlngGeocodingGraphql::class, 'body'];
+    $u->graphql_errors = [LatlngGeocodingGraphql::class, 'errors'];
     $u->result_basic = [LatlngGeocodingResultBasic::class, 'call'];
     $u->result_body = [LatlngGeocodingResultBody::class, 'call'];
     $u->result_headers = [LatlngGeocodingResultHeaders::class, 'call'];

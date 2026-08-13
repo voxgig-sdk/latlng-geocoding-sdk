@@ -56,7 +56,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local apis, err = client:Api():list()
+local reverses, err = client:Reverse():list()
 if err then error(err) end
 ```
 
@@ -114,7 +114,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Api():list()
+local result, err = client:Reverse():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -231,9 +231,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local api, err = client:Api():load()
+    local dataset, err = client:Dataset():load({ id = "example_id" })
     if err then error(err) end
-    -- api is the loaded record
+    -- dataset is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -245,7 +245,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -265,7 +265,7 @@ API path: `/v1/datasets`
 
 | Field | Description |
 | --- | --- |
-| `feature` |  |
+| `features` |  |
 | `type` |  |
 
 Operations: Create, Load.
@@ -298,7 +298,7 @@ API path: `/v1/places/search`
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -335,7 +335,7 @@ Create an instance: `local api = client:Api(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `table` |  |
-| `property` | `table` |  |
+| `properties` | `table` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -386,7 +386,7 @@ Create an instance: `local map = client:Map(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `feature` | `table` |  |
+| `features` | `table` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -399,7 +399,7 @@ local map, err = client:Map():load()
 
 ```lua
 local map, err = client:Map():create({
-  feature = {}, -- table
+  features = {}, -- table
   type = "example_type", -- string
 })
 ```
@@ -454,7 +454,7 @@ Create an instance: `local reverse = client:Reverse(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `table` |  |
-| `property` | `table` |  |
+| `properties` | `table` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -563,11 +563,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local api = client:Api()
-api:list()
+local reverse = client:Reverse()
+reverse:list()
 
--- api:data_get() now returns the api data from the last list
--- api:match_get() returns the last match criteria
+-- reverse:data_get() now returns the reverse data from the last list
+-- reverse:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'LatlngGeocoding',
   }
 
 
@@ -82,7 +82,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "property",
+          "name": "properties",
           "req": true,
           "type": "`$OBJECT`",
           "index$": 1
@@ -160,6 +160,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api",
               "parts": [
@@ -177,7 +178,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.features`"
               },
               "index$": 0
             }
@@ -200,6 +201,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/v1/datasets",
               "parts": [
@@ -235,6 +237,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/v1/datasets/{datasetId}",
               "parts": [
@@ -261,6 +264,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/v1/datasets",
               "parts": [
@@ -296,6 +300,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "DELETE",
               "orig": "/v1/datasets/{datasetId}",
               "parts": [
@@ -331,7 +336,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "feature",
+          "name": "features",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 0
@@ -365,6 +370,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/v1/static",
               "parts": [
@@ -449,6 +455,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/v1/static",
               "parts": [
@@ -649,6 +656,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/v1/places/search",
               "parts": [
@@ -743,6 +751,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/v1/places/nearby",
               "parts": [
@@ -771,6 +780,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/v1/places/categories",
               "parts": [
@@ -783,7 +793,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.categories`"
               },
               "index$": 2
             }
@@ -806,7 +816,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "property",
+          "name": "properties",
           "req": true,
           "type": "`$OBJECT`",
           "index$": 1
@@ -875,6 +885,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/reverse",
               "parts": [
@@ -891,7 +902,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.features`"
               },
               "index$": 0
             }
@@ -922,6 +933,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/health",
               "parts": [

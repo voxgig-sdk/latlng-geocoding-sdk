@@ -66,16 +66,16 @@ function reverse_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "LATLNGGEOCODING_TEST_REVERSE_ENTID" => [],
-        "LATLNGGEOCODING_TEST_LIVE" => "FALSE",
-        "LATLNGGEOCODING_APIKEY" => "NONE",
+        "LATLNG_GEOCODING_TEST_REVERSE_ENTID" => [],
+        "LATLNG_GEOCODING_TEST_LIVE" => "FALSE",
+        "LATLNG_GEOCODING_APIKEY" => "NONE",
     ]);
 
-    $live = $env["LATLNGGEOCODING_TEST_LIVE"] === "TRUE";
+    $live = $env["LATLNG_GEOCODING_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["LATLNGGEOCODING_APIKEY"],
+            "apikey" => $env["LATLNG_GEOCODING_APIKEY"],
         ];
         $client = new LatlngGeocodingSDK($merged_opts);
         return [

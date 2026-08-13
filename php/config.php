@@ -47,7 +47,7 @@ class LatlngGeocodingConfig
             ],
             [
               'active' => true,
-              'name' => 'property',
+              'name' => 'properties',
               'req' => true,
               'type' => '`$OBJECT`',
               'index$' => 1,
@@ -125,6 +125,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api',
                   'parts' => [
@@ -142,7 +143,7 @@ class LatlngGeocodingConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.features`',
                   ],
                   'index$' => 0,
                 ],
@@ -165,6 +166,7 @@ class LatlngGeocodingConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/v1/datasets',
                   'parts' => [
@@ -200,6 +202,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/datasets/{datasetId}',
                   'parts' => [
@@ -226,6 +229,7 @@ class LatlngGeocodingConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/datasets',
                   'parts' => [
@@ -261,6 +265,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/v1/datasets/{datasetId}',
                   'parts' => [
@@ -296,7 +301,7 @@ class LatlngGeocodingConfig
           'fields' => [
             [
               'active' => true,
-              'name' => 'feature',
+              'name' => 'features',
               'req' => true,
               'type' => '`$ARRAY`',
               'index$' => 0,
@@ -330,6 +335,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/v1/static',
                   'parts' => [
@@ -414,6 +420,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/static',
                   'parts' => [
@@ -614,6 +621,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/places/search',
                   'parts' => [
@@ -708,6 +716,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/places/nearby',
                   'parts' => [
@@ -736,6 +745,7 @@ class LatlngGeocodingConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/places/categories',
                   'parts' => [
@@ -748,7 +758,7 @@ class LatlngGeocodingConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.categories`',
                   ],
                   'index$' => 2,
                 ],
@@ -771,7 +781,7 @@ class LatlngGeocodingConfig
             ],
             [
               'active' => true,
-              'name' => 'property',
+              'name' => 'properties',
               'req' => true,
               'type' => '`$OBJECT`',
               'index$' => 1,
@@ -840,6 +850,7 @@ class LatlngGeocodingConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/reverse',
                   'parts' => [
@@ -856,7 +867,7 @@ class LatlngGeocodingConfig
                   ],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.features`',
                   ],
                   'index$' => 0,
                 ],
@@ -887,6 +898,7 @@ class LatlngGeocodingConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/health',
                   'parts' => [

@@ -55,7 +55,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $apis = $client->Api()->list();
+    $reverses = $client->Reverse()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -127,9 +127,10 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = LatlngGeocodingSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$api = $client->Api()->list();
-print_r($api);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$reverse = $client->Reverse()->list();
+print_r($reverse);
 ```
 
 ### Use a custom fetch function
@@ -236,7 +237,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -259,7 +260,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -279,7 +280,7 @@ API path: `/v1/datasets`
 
 | Field | Description |
 | --- | --- |
-| `feature` |  |
+| `features` |  |
 | `type` |  |
 
 Operations: Create, Load.
@@ -312,7 +313,7 @@ API path: `/v1/places/search`
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -349,7 +350,7 @@ Create an instance: `$api = $client->Api();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `array` |  |
-| `property` | `array` |  |
+| `properties` | `array` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -375,7 +376,7 @@ Create an instance: `$dataset = $client->Dataset();`
 #### Example: Load
 
 ```php
-// load() returns the bare Dataset record (throws on error).
+// load() returns the ENTITY — call data_get() for the Dataset record (throws on error).
 $dataset = $client->Dataset()->load(["id" => "dataset_id"]);
 ```
 
@@ -402,13 +403,13 @@ Create an instance: `$map = $client->Map();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `feature` | `array` |  |
+| `features` | `array` |  |
 | `type` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Map record (throws on error).
+// load() returns the ENTITY — call data_get() for the Map record (throws on error).
 $map = $client->Map()->load();
 ```
 
@@ -416,7 +417,7 @@ $map = $client->Map()->load();
 
 ```php
 $map = $client->Map()->create([
-    "feature" => null, // array
+    "features" => null, // array
     "type" => null, // string
 ]);
 ```
@@ -472,7 +473,7 @@ Create an instance: `$reverse = $client->Reverse();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `array` |  |
-| `property` | `array` |  |
+| `properties` | `array` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -502,7 +503,7 @@ Create an instance: `$utility = $client->Utility();`
 #### Example: Load
 
 ```php
-// load() returns the bare Utility record (throws on error).
+// load() returns the ENTITY — call data_get() for the Utility record (throws on error).
 $utility = $client->Utility()->load();
 ```
 
@@ -583,11 +584,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$api = $client->Api();
-$api->list();
+$reverse = $client->Reverse();
+$reverse->list();
 
-// $api->data_get() now returns the api data from the last list
-// $api->match_get() returns the last match criteria
+// $reverse->data_get() now returns the reverse data from the last list
+// $reverse->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

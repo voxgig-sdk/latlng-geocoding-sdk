@@ -60,8 +60,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    apis = client.Api().list()
-    print(apis)
+    reverses = client.Reverse().list()
+    print(reverses)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -127,9 +127,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = LatlngGeocodingSDK.test()
 
-# Entity ops return the bare record and raise on error.
-api = client.Api().list()
-# api contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+reverse = client.Reverse().list()
+# reverse contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -233,7 +234,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -256,7 +257,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -276,7 +277,7 @@ API path: `/v1/datasets`
 
 | Field | Description |
 | --- | --- |
-| `feature` |  |
+| `features` |  |
 | `type` |  |
 
 Operations: Create, Load.
@@ -309,7 +310,7 @@ API path: `/v1/places/search`
 | Field | Description |
 | --- | --- |
 | `geometry` |  |
-| `property` |  |
+| `properties` |  |
 | `type` |  |
 
 Operations: List.
@@ -346,7 +347,7 @@ Create an instance: `api = client.Api()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `dict` |  |
-| `property` | `dict` |  |
+| `properties` | `dict` |  |
 | `type` | `str` |  |
 
 #### Example: List
@@ -397,7 +398,7 @@ Create an instance: `map = client.Map()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `feature` | `list` |  |
+| `features` | `list` |  |
 | `type` | `str` |  |
 
 #### Example: Load
@@ -410,7 +411,7 @@ map = client.Map().load()
 
 ```python
 map = client.Map().create({
-    "feature": [],  # list
+    "features": [],  # list
     "type": "example_type",  # str
 })
 ```
@@ -465,7 +466,7 @@ Create an instance: `reverse = client.Reverse()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `dict` |  |
-| `property` | `dict` |  |
+| `properties` | `dict` |  |
 | `type` | `str` |  |
 
 #### Example: List
@@ -573,11 +574,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-api = client.Api()
-api.list()
+reverse = client.Reverse()
+reverse.list()
 
-# api.data_get() now returns the api data from the last list
-# api.match_get() returns the last match criteria
+# reverse.data_get() now returns the reverse data from the last list
+# reverse.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

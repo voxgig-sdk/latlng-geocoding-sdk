@@ -29,7 +29,7 @@ describe("DatasetEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set LATLNGGEOCODING_TEST_DATASET_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set LATLNG_GEOCODING_TEST_DATASET_ENTID JSON to run live")
       return
     end
     local client = setup.client
@@ -41,7 +41,7 @@ describe("DatasetEntity", function()
 
     local dataset_ref01_data_result, err = dataset_ref01_ent:create(dataset_ref01_data, nil)
     assert.is_nil(err)
-    dataset_ref01_data = helpers.to_map(dataset_ref01_data_result)
+    dataset_ref01_data = helpers.to_map(type(dataset_ref01_data_result) == 'table' and dataset_ref01_data_result.data_get and dataset_ref01_data_result:data_get() or dataset_ref01_data_result)
     assert.is_not_nil(dataset_ref01_data)
 
     -- LOAD
@@ -50,12 +50,6 @@ describe("DatasetEntity", function()
     assert.is_nil(err)
     assert.is_not_nil(dataset_ref01_data_dt0_loaded)
 
-    -- REMOVE
-    local dataset_ref01_match_rm0 = {
-      id = dataset_ref01_data["id"],
-    }
-    local _, err = dataset_ref01_ent:remove(dataset_ref01_match_rm0, nil)
-    assert.is_nil(err)
 
   end)
 end)
@@ -92,39 +86,39 @@ function dataset_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("LATLNGGEOCODING_TEST_DATASET_ENTID")
+  local entid_env_raw = os.getenv("LATLNG_GEOCODING_TEST_DATASET_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["LATLNGGEOCODING_TEST_DATASET_ENTID"] = idmap,
-    ["LATLNGGEOCODING_TEST_LIVE"] = "FALSE",
-    ["LATLNGGEOCODING_TEST_EXPLAIN"] = "FALSE",
-    ["LATLNGGEOCODING_APIKEY"] = "NONE",
+    ["LATLNG_GEOCODING_TEST_DATASET_ENTID"] = idmap,
+    ["LATLNG_GEOCODING_TEST_LIVE"] = "FALSE",
+    ["LATLNG_GEOCODING_TEST_EXPLAIN"] = "FALSE",
+    ["LATLNG_GEOCODING_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["LATLNGGEOCODING_TEST_DATASET_ENTID"])
+    env["LATLNG_GEOCODING_TEST_DATASET_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["LATLNGGEOCODING_TEST_LIVE"] == "TRUE" then
+  if env["LATLNG_GEOCODING_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["LATLNGGEOCODING_APIKEY"],
+        apikey = env["LATLNG_GEOCODING_APIKEY"],
       },
       extra or {},
     })
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["LATLNGGEOCODING_TEST_LIVE"] == "TRUE"
+  local live = env["LATLNG_GEOCODING_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["LATLNGGEOCODING_TEST_EXPLAIN"] == "TRUE",
+    explain = env["LATLNG_GEOCODING_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

@@ -3,17 +3,17 @@
     "reverse": {
       "REVERSE00": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s20"
       },
       "REVERSE01": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s3e"
       },
       "REVERSE02": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s5c"
       }
     }
@@ -22,7 +22,7 @@
     "reverse": {
       "reverse_ref01": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s7a"
       }
     }

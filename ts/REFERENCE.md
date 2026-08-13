@@ -178,7 +178,7 @@ const api = client.Api()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `Record<string, any>` | Yes |  |
-| `property` | `Record<string, any>` | Yes |  |
+| `properties` | `Record<string, any>` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -290,7 +290,7 @@ const map = client.Map()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `feature` | `any[]` | Yes |  |
+| `features` | `any[]` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -301,7 +301,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Map().create({
-  feature: [],
+  features: [],
   type: 'example_type',
 })
 ```
@@ -365,6 +365,28 @@ const place = client.Place()
 | `name` | `string` | No |  |
 | `region` | `string` | No |  |
 
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `category` | `/v1/places/categories` | `client.Place().list({ $action: 'category', ... })` |
+| `nearby` | `/v1/places/nearby` | `client.Place().list({ $action: 'nearby', ... })` |
+| `search` | `/v1/places/search` | `client.Place().list({ $action: 'search', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Place record — check the API definition for its shape.
+
+```ts
+const result = await client.Place().list({
+  $action: 'category',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
 
 #### `list(match: object, ctrl?: object)`
@@ -414,7 +436,7 @@ const reverse = client.Reverse()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `Record<string, any>` | Yes |  |
-| `property` | `Record<string, any>` | Yes |  |
+| `properties` | `Record<string, any>` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations

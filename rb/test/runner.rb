@@ -23,8 +23,8 @@ module LatlngGeocodingTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("LATLNGGEOCODING_TEST_LIVE")
-    override = getenv("LATLNGGEOCODING_TEST_OVERRIDE")
+    live = getenv("LATLNG_GEOCODING_TEST_LIVE")
+    override = getenv("LATLNG_GEOCODING_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module LatlngGeocodingTestRunner
       end
     end
 
-    explain = getenv("LATLNGGEOCODING_TEST_EXPLAIN")
-    m["LATLNGGEOCODING_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("LATLNG_GEOCODING_TEST_EXPLAIN")
+    m["LATLNG_GEOCODING_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

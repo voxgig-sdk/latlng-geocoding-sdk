@@ -3,17 +3,17 @@
     "api": {
       "API00": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s20"
       },
       "API01": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s3e"
       },
       "API02": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s5c"
       }
     }
@@ -22,7 +22,7 @@
     "api": {
       "api_ref01": {
         "geometry": {},
-        "property": {},
+        "properties": {},
         "type": "s7a"
       }
     }

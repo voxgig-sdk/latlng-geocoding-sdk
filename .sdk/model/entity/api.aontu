@@ -11,7 +11,7 @@ main: kit: entity: api: {
       type: "`$OBJECT`"
     }
     {
-      name: "property"
+      name: "properties"
       req: true
       type: "`$OBJECT`"
     }
@@ -96,7 +96,7 @@ main: kit: entity: api: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.features`"
           }
         }
       ]

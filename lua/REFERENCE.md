@@ -112,7 +112,7 @@ local api = client:Api(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `table` | Yes |  |
-| `property` | `table` | Yes |  |
+| `properties` | `table` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -228,7 +228,7 @@ local map = client:Map(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `feature` | `table` | Yes |  |
+| `features` | `table` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -239,7 +239,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Map():create({
-  feature = --[[ table ]],
+  features = --[[ table ]],
   type = --[[ string ]],
 })
 ```
@@ -356,7 +356,7 @@ local reverse = client:Reverse(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `table` | Yes |  |
-| `property` | `table` | Yes |  |
+| `properties` | `table` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations

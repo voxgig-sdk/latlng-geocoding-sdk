@@ -43,8 +43,8 @@ class LatlngGeocodingTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('LATLNGGEOCODING_TEST_LIVE');
-        $override = self::getenv('LATLNGGEOCODING_TEST_OVERRIDE');
+        $live = self::getenv('LATLNG_GEOCODING_TEST_LIVE');
+        $override = self::getenv('LATLNG_GEOCODING_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class LatlngGeocodingTestRunner
             }
         }
 
-        $explain = self::getenv('LATLNGGEOCODING_TEST_EXPLAIN');
+        $explain = self::getenv('LATLNG_GEOCODING_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['LATLNGGEOCODING_TEST_EXPLAIN'] = $explain;
+            $m['LATLNG_GEOCODING_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

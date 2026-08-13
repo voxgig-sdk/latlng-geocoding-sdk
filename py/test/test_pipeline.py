@@ -16,11 +16,11 @@
 import pytest
 
 from latlnggeocoding_sdk import LatlngGeocodingSDK
-from core.error import LatlngGeocodingError
-from core.result import LatlngGeocodingResult
-from core.response import LatlngGeocodingResponse
-from core.spec import LatlngGeocodingSpec
-from feature.base_feature import LatlngGeocodingBaseFeature
+from latlnggeocoding_sdk.core.error import LatlngGeocodingError
+from latlnggeocoding_sdk.core.result import LatlngGeocodingResult
+from latlnggeocoding_sdk.core.response import LatlngGeocodingResponse
+from latlnggeocoding_sdk.core.spec import LatlngGeocodingSpec
+from latlnggeocoding_sdk.feature.base_feature import LatlngGeocodingBaseFeature
 
 
 def _client():

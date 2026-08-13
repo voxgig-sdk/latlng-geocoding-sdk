@@ -19,11 +19,15 @@ import {
 describe('ReverseDirect', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LATLNGGEOCODING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LATLNGGEOCODING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LATLNG_GEOCODING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LATLNG_GEOCODING_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new LatlngGeocodingSDK({
+      // Concrete base: a live construction must satisfy any server
+      // variables a templated base URL declares; overriding base with a
+      // literal (as the direct flow tests do) sidesteps the requirement.
+      base: 'http://localhost:8080',
       system: { fetch: async () => ({}) }
     })
     assert('function' === typeof sdk.direct)
@@ -81,19 +85,19 @@ function directSetup(mockres?: any) {
   const calls: any[] = []
 
   const env = envOverride({
-    'LATLNGGEOCODING_TEST_REVERSE_ENTID': {},
-    'LATLNGGEOCODING_TEST_LIVE': 'FALSE',
-    'LATLNGGEOCODING_APIKEY': 'NONE',
+    'LATLNG_GEOCODING_TEST_REVERSE_ENTID': {},
+    'LATLNG_GEOCODING_TEST_LIVE': 'FALSE',
+    'LATLNG_GEOCODING_APIKEY': 'NONE',
   })
 
-  const live = 'TRUE' === env.LATLNGGEOCODING_TEST_LIVE
+  const live = 'TRUE' === env.LATLNG_GEOCODING_TEST_LIVE
 
   if (live) {
     const client = new LatlngGeocodingSDK({
-      apikey: env.LATLNGGEOCODING_APIKEY,
+      apikey: env.LATLNG_GEOCODING_APIKEY,
     })
 
-    let idmap: any = env['LATLNGGEOCODING_TEST_REVERSE_ENTID']
+    let idmap: any = env['LATLNG_GEOCODING_TEST_REVERSE_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {
       idmap = JSON.parse(idmap)
     }

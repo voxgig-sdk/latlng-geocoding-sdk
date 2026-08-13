@@ -60,16 +60,16 @@ function utility_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["LATLNGGEOCODING_TEST_UTILITY_ENTID"] = {},
-    ["LATLNGGEOCODING_TEST_LIVE"] = "FALSE",
-    ["LATLNGGEOCODING_APIKEY"] = "NONE",
+    ["LATLNG_GEOCODING_TEST_UTILITY_ENTID"] = {},
+    ["LATLNG_GEOCODING_TEST_LIVE"] = "FALSE",
+    ["LATLNG_GEOCODING_APIKEY"] = "NONE",
   })
 
-  local live = env["LATLNGGEOCODING_TEST_LIVE"] == "TRUE"
+  local live = env["LATLNG_GEOCODING_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["LATLNGGEOCODING_APIKEY"],
+      apikey = env["LATLNG_GEOCODING_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

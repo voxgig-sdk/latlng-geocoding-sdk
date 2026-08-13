@@ -8,6 +8,7 @@ guide: {
   entity: api: {
     path: "/api": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.features`")|top
     }
   }
 
@@ -34,6 +35,7 @@ guide: {
     path: "/v1/places/categories": {
       action: "category": {}
       op: list: method: *GET
+      op: list: transform: res: *("`body.categories`")|top
     }
     path: "/v1/places/nearby": {
       action: "nearby": {}
@@ -48,6 +50,7 @@ guide: {
   entity: reverse: {
     path: "/reverse": {
       op: list: method: *GET
+      op: list: transform: res: *("`body.features`")|top
     }
   }
 

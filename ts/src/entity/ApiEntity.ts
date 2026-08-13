@@ -37,7 +37,7 @@ class ApiEntity extends LatlngGeocodingEntityBase<Api> {
 
 
 
-  async list(this: any, reqmatch?: ApiListMatch, ctrl?: Control): Promise<Api[]> {
+  async list(this: any, reqmatch?: ApiListMatch, ctrl?: Control): Promise<ApiEntity[]> {
 
     const utility = this._utility
 

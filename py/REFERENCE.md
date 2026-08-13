@@ -109,7 +109,7 @@ api = client.Api()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `dict` | Yes |  |
-| `property` | `dict` | Yes |  |
+| `properties` | `dict` | Yes |  |
 | `type` | `str` | Yes |  |
 
 ### Operations
@@ -225,7 +225,7 @@ map = client.Map()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `feature` | `list` | Yes |  |
+| `features` | `list` | Yes |  |
 | `type` | `str` | Yes |  |
 
 ### Operations
@@ -236,7 +236,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Map().create({
-    "feature": [],  # list
+    "features": [],  # list
     "type": "example_type",  # str
 })
 ```
@@ -353,7 +353,7 @@ reverse = client.Reverse()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `dict` | Yes |  |
-| `property` | `dict` | Yes |  |
+| `properties` | `dict` | Yes |  |
 | `type` | `str` | Yes |  |
 
 ### Operations

@@ -71,12 +71,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-apis, err := client.Api(nil).List(nil, nil)
+reverses, err := client.Reverse(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = apis
+_ = reverses
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -140,13 +140,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-api, err := client.Api(nil).List(
+reverse, err := client.Reverse(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(api) // the returned mock data
+fmt.Println(reverse) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -275,7 +275,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"geometry"` |  |
-| `"property"` |  |
+| `"properties"` |  |
 | `"type"` |  |
 
 Operations: List.
@@ -295,7 +295,7 @@ API path: `/v1/datasets`
 
 | Field | Description |
 | --- | --- |
-| `"feature"` |  |
+| `"features"` |  |
 | `"type"` |  |
 
 Operations: Create, Load.
@@ -328,7 +328,7 @@ API path: `/v1/places/search`
 | Field | Description |
 | --- | --- |
 | `"geometry"` |  |
-| `"property"` |  |
+| `"properties"` |  |
 | `"type"` |  |
 
 Operations: List.
@@ -365,7 +365,7 @@ Create an instance: `api := client.Api(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `map[string]any` |  |
-| `property` | `map[string]any` |  |
+| `properties` | `map[string]any` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -428,7 +428,7 @@ Create an instance: `map_ := client.Map(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `feature` | `[]any` |  |
+| `features` | `[]any` |  |
 | `type` | `string` |  |
 
 #### Example: Load
@@ -445,7 +445,7 @@ fmt.Println(map_) // the loaded record
 
 ```go
 result, err := client.Map(nil).Create(map[string]any{
-    "feature": []any{},
+    "features": []any{},
     "type": "example_type",
 }, nil)
 if err != nil {
@@ -508,7 +508,7 @@ Create an instance: `reverse := client.Reverse(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `geometry` | `map[string]any` |  |
-| `property` | `map[string]any` |  |
+| `properties` | `map[string]any` |  |
 | `type` | `string` |  |
 
 #### Example: List
@@ -622,11 +622,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-api := client.Api(nil)
-api.List(nil, nil)
+reverse := client.Reverse(nil)
+reverse.List(nil, nil)
 
-// api.Data() now returns the api data from the last list
-// api.Match() returns the last match criteria
+// reverse.Data() now returns the reverse data from the last list
+// reverse.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

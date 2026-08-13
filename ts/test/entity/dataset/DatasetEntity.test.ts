@@ -26,8 +26,8 @@ import {
 describe('DatasetEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when LATLNGGEOCODING_TEST_LIVE=TRUE.
-  afterEach(liveDelay('LATLNGGEOCODING_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when LATLNG_GEOCODING_TEST_LIVE=TRUE.
+  afterEach(liveDelay('LATLNG_GEOCODING_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = LatlngGeocodingSDK.test()
@@ -62,15 +62,11 @@ describe('DatasetEntity', async () => {
     const dataset_ref01_ent = client.Dataset()
     let dataset_ref01_data = setup.data.new.dataset['dataset_ref01']
 
-    dataset_ref01_data = await dataset_ref01_ent.create(dataset_ref01_data)
+    dataset_ref01_data = (await dataset_ref01_ent.create(dataset_ref01_data)).data()
     assert(null != dataset_ref01_data)
 
 
 
-    // REMOVE
-    const dataset_ref01_match_rm0: any = { id: dataset_ref01_data.id }
-    await dataset_ref01_ent.remove(dataset_ref01_match_rm0)
-  
 
   })
 })

@@ -115,7 +115,7 @@ api = client.Api
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `Hash` | Yes |  |
-| `property` | `Hash` | Yes |  |
+| `properties` | `Hash` | Yes |  |
 | `type` | `String` | Yes |  |
 
 ### Operations
@@ -231,7 +231,7 @@ map = client.Map
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `feature` | `Array` | Yes |  |
+| `features` | `Array` | Yes |  |
 | `type` | `String` | Yes |  |
 
 ### Operations
@@ -242,7 +242,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Map.create({
-  "feature" => [], # Array
+  "features" => [], # Array
   "type" => "example_type", # String
 })
 ```
@@ -359,7 +359,7 @@ reverse = client.Reverse
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `Hash` | Yes |  |
-| `property` | `Hash` | Yes |  |
+| `properties` | `Hash` | Yes |  |
 | `type` | `String` | Yes |  |
 
 ### Operations

@@ -120,7 +120,7 @@ fmt.Println(api.GetName()) // "api"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `map[string]any` | Yes |  |
-| `property` | `map[string]any` | Yes |  |
+| `properties` | `map[string]any` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -242,7 +242,7 @@ fmt.Println(map_.GetName()) // "map"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `feature` | `[]any` | Yes |  |
+| `features` | `[]any` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations
@@ -265,7 +265,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Map(nil).Create(map[string]any{
-    "feature": []any{},
+    "features": []any{},
     "type": "example_type",
 }, nil)
 if err != nil {
@@ -372,7 +372,7 @@ fmt.Println(reverse.GetName()) // "reverse"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `geometry` | `map[string]any` | Yes |  |
-| `property` | `map[string]any` | Yes |  |
+| `properties` | `map[string]any` | Yes |  |
 | `type` | `string` | Yes |  |
 
 ### Operations

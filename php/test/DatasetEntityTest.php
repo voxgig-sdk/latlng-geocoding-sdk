@@ -33,7 +33,7 @@ class DatasetEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set LATLNGGEOCODING_TEST_DATASET_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set LATLNG_GEOCODING_TEST_DATASET_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -44,7 +44,7 @@ class DatasetEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.dataset"), "dataset_ref01"));
 
         $dataset_ref01_data_result = $dataset_ref01_ent->create($dataset_ref01_data, null);
-        $dataset_ref01_data = Helpers::to_map($dataset_ref01_data_result);
+        $dataset_ref01_data = Helpers::to_map(is_object($dataset_ref01_data_result) && method_exists($dataset_ref01_data_result, 'data_get') ? $dataset_ref01_data_result->data_get() : $dataset_ref01_data_result);
         $this->assertNotNull($dataset_ref01_data);
 
         // LOAD
@@ -52,11 +52,6 @@ class DatasetEntityTest extends TestCase
         $dataset_ref01_data_dt0_loaded = $dataset_ref01_ent->load($dataset_ref01_match_dt0, null);
         $this->assertNotNull($dataset_ref01_data_dt0_loaded);
 
-        // REMOVE
-        $dataset_ref01_match_rm0 = [
-            "id" => $dataset_ref01_data["id"],
-        ];
-        $dataset_ref01_ent->remove($dataset_ref01_match_rm0, null);
 
     }
 }
@@ -83,39 +78,39 @@ function dataset_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("LATLNGGEOCODING_TEST_DATASET_ENTID");
+    $entid_env_raw = getenv("LATLNG_GEOCODING_TEST_DATASET_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "LATLNGGEOCODING_TEST_DATASET_ENTID" => $idmap,
-        "LATLNGGEOCODING_TEST_LIVE" => "FALSE",
-        "LATLNGGEOCODING_TEST_EXPLAIN" => "FALSE",
-        "LATLNGGEOCODING_APIKEY" => "NONE",
+        "LATLNG_GEOCODING_TEST_DATASET_ENTID" => $idmap,
+        "LATLNG_GEOCODING_TEST_LIVE" => "FALSE",
+        "LATLNG_GEOCODING_TEST_EXPLAIN" => "FALSE",
+        "LATLNG_GEOCODING_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["LATLNGGEOCODING_TEST_DATASET_ENTID"]);
+        $env["LATLNG_GEOCODING_TEST_DATASET_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["LATLNGGEOCODING_TEST_LIVE"] === "TRUE") {
+    if ($env["LATLNG_GEOCODING_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["LATLNGGEOCODING_APIKEY"],
+                "apikey" => $env["LATLNG_GEOCODING_APIKEY"],
             ],
             $extra ?? [],
         ]);
         $client = new LatlngGeocodingSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["LATLNGGEOCODING_TEST_LIVE"] === "TRUE";
+    $live = $env["LATLNG_GEOCODING_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["LATLNGGEOCODING_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["LATLNG_GEOCODING_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),
