@@ -28,7 +28,7 @@ class LatlngGeocodingSDK
     utility = LatlngGeocodingUtility.new
     @_utility = utility
 
-    config = LatlngGeocodingConfig.make_config
+    config = LatlngGeocodingConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

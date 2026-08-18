@@ -40,7 +40,7 @@ class LatlngGeocodingSDK
         $utility = new LatlngGeocodingUtility();
         $this->_utility = $utility;
 
-        $config = LatlngGeocodingConfig::make_config();
+        $config = LatlngGeocodingConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

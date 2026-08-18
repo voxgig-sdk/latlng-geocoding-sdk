@@ -33,7 +33,7 @@ class ReverseEntityTest < Minitest::Test
     assert_equal 3, seen.length
 
     # Inbound: streaming active -> yields each item from the feature.
-    cfg = LatlngGeocodingConfig.make_config
+    cfg = LatlngGeocodingConfig.shared_config
     if cfg["feature"].is_a?(Hash) && cfg["feature"].key?("streaming")
       sdk = LatlngGeocodingSDK.test(seed, { "feature" => { "streaming" => { "active" => true } } })
       got = []

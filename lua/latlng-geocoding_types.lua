@@ -19,7 +19,7 @@
 ---@class Dataset
 
 ---@class DatasetLoadMatch
----@field id? string
+---@field id string
 
 ---@class DatasetCreateData
 

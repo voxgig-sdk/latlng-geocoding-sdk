@@ -32,7 +32,7 @@ class Dataset(TypedDict):
     pass
 
 
-class DatasetLoadMatch(TypedDict, total=False):
+class DatasetLoadMatch(TypedDict):
     id: str
 
 

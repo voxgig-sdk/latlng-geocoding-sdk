@@ -1,6 +1,20 @@
 # LatlngGeocoding SDK configuration
 
 module LatlngGeocodingConfig
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -34,25 +48,19 @@ module LatlngGeocodingConfig
         "api" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "geometry",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "properties",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "type",
               "req" => true,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
           ],
           "name" => "api",
@@ -62,55 +70,43 @@ module LatlngGeocodingConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "api_key",
                         "orig" => "api_key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "en",
                         "kind" => "query",
                         "name" => "lang",
                         "orig" => "lang",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 52.52,
                         "kind" => "query",
                         "name" => "lat",
                         "orig" => "lat",
-                        "reqd" => false,
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => 5,
                         "kind" => "query",
                         "name" => "limit",
                         "orig" => "limit",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => 13.405,
                         "kind" => "query",
                         "name" => "lon",
                         "orig" => "lon",
-                        "reqd" => false,
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => "Berlin",
                         "kind" => "query",
                         "name" => "q",
@@ -140,10 +136,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body.features`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -159,7 +153,6 @@ module LatlngGeocodingConfig
               "name" => "create",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
@@ -173,27 +166,22 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "create",
             },
             "load" => {
               "input" => "data",
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "dataset_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -219,10 +207,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -236,27 +222,22 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
               ],
-              "key$" => "load",
             },
             "remove" => {
               "input" => "data",
               "name" => "remove",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "dataset_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                     ],
                   },
@@ -282,10 +263,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "remove",
             },
           },
           "relations" => {
@@ -295,18 +274,14 @@ module LatlngGeocodingConfig
         "map" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "features",
               "req" => true,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "type",
               "req" => true,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
           ],
           "name" => "map",
@@ -316,16 +291,13 @@ module LatlngGeocodingConfig
               "name" => "create",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => "latlng_xxxxx",
                         "kind" => "query",
                         "name" => "key",
                         "orig" => "key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -346,71 +318,56 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "create",
             },
             "load" => {
               "input" => "data",
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "example" => "40.748,-73.985",
                         "kind" => "query",
                         "name" => "center",
                         "orig" => "center",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 600,
                         "kind" => "query",
                         "name" => "height",
                         "orig" => "height",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => "latlng_xxxxx",
                         "kind" => "query",
                         "name" => "key",
                         "orig" => "key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "40.748,-73.985",
                         "kind" => "query",
                         "name" => "marker",
                         "orig" => "marker",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 800,
                         "kind" => "query",
                         "name" => "width",
                         "orig" => "width",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => 12,
                         "kind" => "query",
                         "name" => "zoom",
                         "orig" => "zoom",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                     ],
@@ -436,10 +393,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {
@@ -449,88 +404,52 @@ module LatlngGeocodingConfig
         "place" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "brand",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "category",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "confidence",
-              "req" => false,
               "type" => "`$NUMBER`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "count",
-              "req" => false,
               "type" => "`$INTEGER`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "country",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 4,
             },
             {
-              "active" => true,
               "name" => "distance_m",
-              "req" => false,
               "type" => "`$NUMBER`",
-              "index$" => 5,
             },
             {
-              "active" => true,
               "name" => "id",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 6,
             },
             {
-              "active" => true,
               "name" => "lat",
-              "req" => false,
               "type" => "`$NUMBER`",
-              "index$" => 7,
             },
             {
-              "active" => true,
               "name" => "locality",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 8,
             },
             {
-              "active" => true,
               "name" => "lon",
-              "req" => false,
               "type" => "`$NUMBER`",
-              "index$" => 9,
             },
             {
-              "active" => true,
               "name" => "name",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 10,
             },
             {
-              "active" => true,
               "name" => "region",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 11,
             },
           ],
           "name" => "place",
@@ -540,64 +459,50 @@ module LatlngGeocodingConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "api_key",
                         "orig" => "api_key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "cafe",
                         "kind" => "query",
                         "name" => "category",
                         "orig" => "category",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "US",
                         "kind" => "query",
                         "name" => "country",
                         "orig" => "country",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 40.748,
                         "kind" => "query",
                         "name" => "lat",
                         "orig" => "lat",
-                        "reqd" => false,
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => 5,
                         "kind" => "query",
                         "name" => "limit",
                         "orig" => "limit",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => -73.985,
                         "kind" => "query",
                         "name" => "lon",
                         "orig" => "lon",
-                        "reqd" => false,
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => "Starbucks",
                         "kind" => "query",
                         "name" => "q",
@@ -606,12 +511,10 @@ module LatlngGeocodingConfig
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "cafe",
                         "kind" => "query",
                         "name" => "type",
                         "orig" => "type",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -641,31 +544,24 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "api_key",
                         "orig" => "api_key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "cafe",
                         "kind" => "query",
                         "name" => "category",
                         "orig" => "category",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 40.748,
                         "kind" => "query",
                         "name" => "lat",
@@ -674,16 +570,13 @@ module LatlngGeocodingConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => 10,
                         "kind" => "query",
                         "name" => "limit",
                         "orig" => "limit",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => -73.985,
                         "kind" => "query",
                         "name" => "lon",
@@ -692,21 +585,17 @@ module LatlngGeocodingConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => 500,
                         "kind" => "query",
                         "name" => "radius",
                         "orig" => "radius",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => "cafe",
                         "kind" => "query",
                         "name" => "type",
                         "orig" => "type",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -735,10 +624,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 1,
                 },
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -755,10 +642,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body.categories`",
                   },
-                  "index$" => 2,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -768,25 +653,19 @@ module LatlngGeocodingConfig
         "reverse" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "geometry",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "properties",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "type",
               "req" => true,
               "type" => "`$STRING`",
-              "index$" => 2,
             },
           ],
           "name" => "reverse",
@@ -796,28 +675,22 @@ module LatlngGeocodingConfig
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "api_key",
                         "orig" => "api_key",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => "en",
                         "kind" => "query",
                         "name" => "lang",
                         "orig" => "lang",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "example" => 52.517,
                         "kind" => "query",
                         "name" => "lat",
@@ -826,16 +699,13 @@ module LatlngGeocodingConfig
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "example" => 5,
                         "kind" => "query",
                         "name" => "limit",
                         "orig" => "limit",
-                        "reqd" => false,
                         "type" => "`$INTEGER`",
                       },
                       {
-                        "active" => true,
                         "example" => 13.389,
                         "kind" => "query",
                         "name" => "lon",
@@ -864,10 +734,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body.features`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {
@@ -877,11 +745,8 @@ module LatlngGeocodingConfig
         "utility" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "status",
-              "req" => false,
               "type" => "`$STRING`",
-              "index$" => 0,
             },
           ],
           "name" => "utility",
@@ -891,7 +756,6 @@ module LatlngGeocodingConfig
               "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {},
                   "kind" => "http",
                   "method" => "GET",
@@ -904,10 +768,8 @@ module LatlngGeocodingConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "load",
             },
           },
           "relations" => {

@@ -36,7 +36,7 @@ class Dataset
 /** Request payload for Dataset#load. */
 class DatasetLoadMatch
 {
-    public ?string $id = null;
+    public string $id;
 }
 
 /** Request payload for Dataset#create. */

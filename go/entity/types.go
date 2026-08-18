@@ -32,7 +32,7 @@ type Dataset struct {
 
 // DatasetLoadMatch is the typed request payload for Dataset.LoadTyped.
 type DatasetLoadMatch struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 }
 
 // DatasetCreateData is the typed request payload for Dataset.CreateTyped.

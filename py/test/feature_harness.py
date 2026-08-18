@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from latlnggeocoding_sdk.config import make_config
+from latlnggeocoding_sdk.config import shared_config
 from latlnggeocoding_sdk.features import _make_feature
 from latlnggeocoding_sdk.core.control import LatlngGeocodingControl
 from latlnggeocoding_sdk.core.error import LatlngGeocodingError
@@ -24,7 +24,7 @@ from latlnggeocoding_sdk.core.spec import LatlngGeocodingSpec
 
 # True when this SDK was generated with the named feature.
 def has_feature(name):
-    feature = make_config().get("feature")
+    feature = shared_config().get("feature")
     return isinstance(feature, dict) and feature.get(name) is not None
 
 

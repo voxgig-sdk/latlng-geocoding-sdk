@@ -21,7 +21,7 @@ export interface Dataset {
 }
 
 export interface DatasetLoadMatch {
-  id?: string
+  id: string
 }
 
 export interface DatasetCreateData {
