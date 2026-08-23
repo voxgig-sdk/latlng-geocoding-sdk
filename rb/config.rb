@@ -19,6 +19,9 @@ module LatlngGeocodingConfig
     {
       "main" => {
         "name" => "LatlngGeocoding",
+        "slug" => "latlng-geocoding",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {

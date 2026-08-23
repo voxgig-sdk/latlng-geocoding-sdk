@@ -33,6 +33,9 @@ class LatlngGeocodingConfig
         return [
             "main" => [
                 "name" => "LatlngGeocoding",
+                "slug" => "latlng-geocoding",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [

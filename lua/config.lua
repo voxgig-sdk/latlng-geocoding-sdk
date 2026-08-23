@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "LatlngGeocoding",
+      slug = "latlng-geocoding",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {

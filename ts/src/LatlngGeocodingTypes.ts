@@ -31,7 +31,7 @@ export interface DatasetRemoveMatch {
   id: string
 }
 
-export interface Map {
+export interface MapType {
   features: any[]
   type: string
 }

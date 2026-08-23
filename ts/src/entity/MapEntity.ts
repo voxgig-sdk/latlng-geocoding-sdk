@@ -15,13 +15,13 @@ import type {
 } from '../types'
 
 import type {
-  Map,
+  MapType,
   MapLoadMatch,
   MapCreateData,
 } from '../LatlngGeocodingTypes'
 
 // TODO: needs Entity superclass
-class MapEntity extends LatlngGeocodingEntityBase<Map> {
+class MapEntity extends LatlngGeocodingEntityBase<MapType> {
 
   constructor(client: LatlngGeocodingSDK, entopts: any) {
     super(client, entopts)
