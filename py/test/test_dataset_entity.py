@@ -46,12 +46,22 @@ class TestDatasetEntity:
 
         dataset_ref01_data = helpers.to_map(runner.entity_data(dataset_ref01_ent.create(dataset_ref01_data, None)))
         assert dataset_ref01_data is not None
+        assert dataset_ref01_data["id"] is not None
 
         # LOAD
-        dataset_ref01_match_dt0 = {}
+        dataset_ref01_match_dt0 = {
+            "id": dataset_ref01_data["id"],
+        }
         dataset_ref01_data_dt0_loaded = dataset_ref01_ent.load(dataset_ref01_match_dt0, None)
-        assert dataset_ref01_data_dt0_loaded is not None
+        dataset_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(dataset_ref01_data_dt0_loaded))
+        assert dataset_ref01_data_dt0_load_result is not None
+        assert dataset_ref01_data_dt0_load_result["id"] == dataset_ref01_data["id"]
 
+        # REMOVE
+        dataset_ref01_match_rm0 = {
+            "id": dataset_ref01_data["id"],
+        }
+        dataset_ref01_ent.remove(dataset_ref01_match_rm0, None)
 
 
 

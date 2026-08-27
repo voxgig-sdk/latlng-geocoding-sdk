@@ -31,6 +31,7 @@ class ApiListMatch
 /** Dataset entity data model. */
 class Dataset
 {
+    public ?string $id = null;
 }
 
 /** Request payload for Dataset#load. */
@@ -42,6 +43,7 @@ class DatasetLoadMatch
 /** Request payload for Dataset#create. */
 class DatasetCreateData
 {
+    public ?string $id = null;
 }
 
 /** Request payload for Dataset#remove. */

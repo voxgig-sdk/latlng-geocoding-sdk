@@ -43,8 +43,13 @@ ApiListMatch = Struct.new(
 )
 
 # Dataset entity data model.
-class Dataset
-end
+#
+# @!attribute [rw] id
+#   @return [String, nil]
+Dataset = Struct.new(
+  :id,
+  keyword_init: true
+)
 
 # Request payload for Dataset#load.
 #
@@ -56,8 +61,13 @@ DatasetLoadMatch = Struct.new(
 )
 
 # Request payload for Dataset#create.
-class DatasetCreateData
-end
+#
+# @!attribute [rw] id
+#   @return [String, nil]
+DatasetCreateData = Struct.new(
+  :id,
+  keyword_init: true
+)
 
 # Request payload for Dataset#remove.
 #

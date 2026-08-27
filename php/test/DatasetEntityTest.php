@@ -46,12 +46,22 @@ class DatasetEntityTest extends TestCase
         $dataset_ref01_data_result = $dataset_ref01_ent->create($dataset_ref01_data, null);
         $dataset_ref01_data = Helpers::to_map(is_object($dataset_ref01_data_result) && method_exists($dataset_ref01_data_result, 'data_get') ? $dataset_ref01_data_result->data_get() : $dataset_ref01_data_result);
         $this->assertNotNull($dataset_ref01_data);
+        $this->assertNotNull($dataset_ref01_data["id"]);
 
         // LOAD
-        $dataset_ref01_match_dt0 = [];
+        $dataset_ref01_match_dt0 = [
+            "id" => $dataset_ref01_data["id"],
+        ];
         $dataset_ref01_data_dt0_loaded = $dataset_ref01_ent->load($dataset_ref01_match_dt0, null);
-        $this->assertNotNull($dataset_ref01_data_dt0_loaded);
+        $dataset_ref01_data_dt0_load_result = Helpers::to_map(is_object($dataset_ref01_data_dt0_loaded) && method_exists($dataset_ref01_data_dt0_loaded, 'data_get') ? $dataset_ref01_data_dt0_loaded->data_get() : $dataset_ref01_data_dt0_loaded);
+        $this->assertNotNull($dataset_ref01_data_dt0_load_result);
+        $this->assertEquals($dataset_ref01_data_dt0_load_result["id"], $dataset_ref01_data["id"]);
 
+        // REMOVE
+        $dataset_ref01_match_rm0 = [
+            "id" => $dataset_ref01_data["id"],
+        ];
+        $dataset_ref01_ent->remove($dataset_ref01_match_rm0, null);
 
     }
 }

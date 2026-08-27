@@ -63,10 +63,20 @@ describe('DatasetEntity', async () => {
     let dataset_ref01_data = setup.data.new.dataset['dataset_ref01']
 
     dataset_ref01_data = (await dataset_ref01_ent.create(dataset_ref01_data)).data()
-    assert(null != dataset_ref01_data)
+    assert(null != dataset_ref01_data.id)
 
 
+    // LOAD
+    const dataset_ref01_match_dt0: any = {}
+    dataset_ref01_match_dt0.id = dataset_ref01_data.id
+    const dataset_ref01_data_dt0 = (await dataset_ref01_ent.load(dataset_ref01_match_dt0)).data()
+    assert(dataset_ref01_data_dt0.id === dataset_ref01_data.id)
 
+
+    // REMOVE
+    const dataset_ref01_match_rm0: any = { id: dataset_ref01_data.id }
+    await dataset_ref01_ent.remove(dataset_ref01_match_rm0)
+  
 
   })
 })

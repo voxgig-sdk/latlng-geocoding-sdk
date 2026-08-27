@@ -42,6 +42,7 @@ class LatlngGeocodingConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
@@ -162,7 +163,12 @@ class LatlngGeocodingConfig
           ],
         ],
         'dataset' => [
-          'fields' => [],
+          'fields' => [
+            [
+              'name' => 'id',
+              'type' => '`$STRING`',
+            ],
+          ],
           'name' => 'dataset',
           'op' => [
             'create' => [

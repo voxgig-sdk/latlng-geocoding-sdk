@@ -28,6 +28,7 @@ type ApiListMatch struct {
 
 // Dataset is the typed data model for the dataset entity.
 type Dataset struct {
+	Id *string `json:"id,omitempty"`
 }
 
 // DatasetLoadMatch is the typed request payload for Dataset.LoadTyped.
@@ -37,6 +38,7 @@ type DatasetLoadMatch struct {
 
 // DatasetCreateData is the typed request payload for Dataset.CreateTyped.
 type DatasetCreateData struct {
+	Id *string `json:"id,omitempty"`
 }
 
 // DatasetRemoveMatch is the typed request payload for Dataset.RemoveTyped.

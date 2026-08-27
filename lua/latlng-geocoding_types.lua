@@ -17,11 +17,13 @@
 ---@field type? string
 
 ---@class Dataset
+---@field id? string
 
 ---@class DatasetLoadMatch
 ---@field id string
 
 ---@class DatasetCreateData
+---@field id? string
 
 ---@class DatasetRemoveMatch
 ---@field id string

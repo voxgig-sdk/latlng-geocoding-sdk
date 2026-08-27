@@ -159,6 +159,12 @@ Return the entity name.
 dataset = client.Dataset()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `str` | No |  |
+
 ### Operations
 
 #### `create(reqdata, ctrl=None) -> dict`

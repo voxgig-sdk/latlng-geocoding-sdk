@@ -168,6 +168,12 @@ dataset := client.Dataset(nil)
 fmt.Println(dataset.GetName()) // "dataset"
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`

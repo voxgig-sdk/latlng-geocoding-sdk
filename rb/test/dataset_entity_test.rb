@@ -39,12 +39,22 @@ class DatasetEntityTest < Minitest::Test
     dataset_ref01_data_result = dataset_ref01_ent.create(dataset_ref01_data, nil)
     dataset_ref01_data = Helpers.to_map(dataset_ref01_data_result.respond_to?(:data_get) ? dataset_ref01_data_result.data_get : dataset_ref01_data_result)
     assert !dataset_ref01_data.nil?
+    assert !dataset_ref01_data["id"].nil?
 
     # LOAD
-    dataset_ref01_match_dt0 = {}
+    dataset_ref01_match_dt0 = {
+      "id" => dataset_ref01_data["id"],
+    }
     dataset_ref01_data_dt0_loaded = dataset_ref01_ent.load(dataset_ref01_match_dt0, nil)
-    assert !dataset_ref01_data_dt0_loaded.nil?
+    dataset_ref01_data_dt0_load_result = Helpers.to_map(dataset_ref01_data_dt0_loaded.respond_to?(:data_get) ? dataset_ref01_data_dt0_loaded.data_get : dataset_ref01_data_dt0_loaded)
+    assert !dataset_ref01_data_dt0_load_result.nil?
+    assert_equal dataset_ref01_data_dt0_load_result["id"], dataset_ref01_data["id"]
 
+    # REMOVE
+    dataset_ref01_match_rm0 = {
+      "id" => dataset_ref01_data["id"],
+    }
+    dataset_ref01_ent.remove(dataset_ref01_match_rm0, nil)
 
   end
 end

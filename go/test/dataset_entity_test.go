@@ -62,17 +62,34 @@ func TestDatasetEntity(t *testing.T) {
 		if datasetRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
+		if datasetRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LOAD
-		datasetRef01MatchDt0 := map[string]any{}
+		datasetRef01MatchDt0 := map[string]any{
+			"id": datasetRef01Data["id"],
+		}
 		datasetRef01DataDt0Loaded, err := datasetRef01Ent.Load(datasetRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if datasetRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		datasetRef01DataDt0LoadResult := core.ToMapAny(entityData(datasetRef01DataDt0Loaded))
+		if datasetRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if datasetRef01DataDt0LoadResult["id"] != datasetRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
+		// REMOVE
+		datasetRef01MatchRm0 := map[string]any{
+			"id": datasetRef01Data["id"],
+		}
+		_, err = datasetRef01Ent.Remove(datasetRef01MatchRm0, nil)
+		if err != nil {
+			t.Fatalf("remove failed: %v", err)
+		}
 
 	})
 }

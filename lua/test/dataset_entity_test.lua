@@ -43,13 +43,24 @@ describe("DatasetEntity", function()
     assert.is_nil(err)
     dataset_ref01_data = helpers.to_map(type(dataset_ref01_data_result) == 'table' and dataset_ref01_data_result.data_get and dataset_ref01_data_result:data_get() or dataset_ref01_data_result)
     assert.is_not_nil(dataset_ref01_data)
+    assert.is_not_nil(dataset_ref01_data["id"])
 
     -- LOAD
-    local dataset_ref01_match_dt0 = {}
+    local dataset_ref01_match_dt0 = {
+      id = dataset_ref01_data["id"],
+    }
     local dataset_ref01_data_dt0_loaded, err = dataset_ref01_ent:load(dataset_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(dataset_ref01_data_dt0_loaded)
+    local dataset_ref01_data_dt0_load_result = helpers.to_map(type(dataset_ref01_data_dt0_loaded) == 'table' and dataset_ref01_data_dt0_loaded.data_get and dataset_ref01_data_dt0_loaded:data_get() or dataset_ref01_data_dt0_loaded)
+    assert.is_not_nil(dataset_ref01_data_dt0_load_result)
+    assert.are.equal(dataset_ref01_data_dt0_load_result["id"], dataset_ref01_data["id"])
 
+    -- REMOVE
+    local dataset_ref01_match_rm0 = {
+      id = dataset_ref01_data["id"],
+    }
+    local _, err = dataset_ref01_ent:remove(dataset_ref01_match_rm0, nil)
+    assert.is_nil(err)
 
   end)
 end)

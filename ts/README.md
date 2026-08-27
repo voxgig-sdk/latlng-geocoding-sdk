@@ -315,6 +315,7 @@ API path: `/api`
 
 | Field | Description |
 | --- | --- |
+| `id` |  |
 
 Operations: create, load, remove.
 
@@ -415,6 +416,12 @@ Create an instance: `const dataset = client.Dataset()`
 | `create(data)` | Create a new entity with the given data. |
 | `load(match)` | Load a single entity by match criteria. |
 | `remove(match)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `id` | `string` |  |
 
 #### Example: Load
 

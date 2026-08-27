@@ -225,6 +225,12 @@ Return a copy of the entity options.
 const dataset = client.Dataset()
 ```
 
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `id` | `string` | No |  |
+
 ### Operations
 
 #### `create(data: object, ctrl?: object)`

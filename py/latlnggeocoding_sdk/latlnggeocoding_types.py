@@ -28,16 +28,16 @@ class ApiListMatch(TypedDict, total=False):
     type: str
 
 
-class Dataset(TypedDict):
-    pass
+class Dataset(TypedDict, total=False):
+    id: str
 
 
 class DatasetLoadMatch(TypedDict):
     id: str
 
 
-class DatasetCreateData(TypedDict):
-    pass
+class DatasetCreateData(TypedDict, total=False):
+    id: str
 
 
 class DatasetRemoveMatch(TypedDict):

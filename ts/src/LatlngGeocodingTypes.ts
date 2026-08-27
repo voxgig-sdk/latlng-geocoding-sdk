@@ -18,6 +18,7 @@ export interface ApiListMatch {
 }
 
 export interface Dataset {
+  id?: string
 }
 
 export interface DatasetLoadMatch {
@@ -25,6 +26,7 @@ export interface DatasetLoadMatch {
 }
 
 export interface DatasetCreateData {
+  id?: string
 }
 
 export interface DatasetRemoveMatch {
