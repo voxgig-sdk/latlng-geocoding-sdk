@@ -23,9 +23,12 @@ class Api
 /** Request payload for Api#list. */
 class ApiListMatch
 {
-    public ?array $geometry = null;
-    public ?array $properties = null;
-    public ?string $type = null;
+    public ?string $api_key = null;
+    public ?string $lang = null;
+    public ?float $lat = null;
+    public ?int $limit = null;
+    public ?float $lon = null;
+    public string $q;
 }
 
 /** Dataset entity data model. */
@@ -62,13 +65,18 @@ class Map
 /** Request payload for Map#load. */
 class MapLoadMatch
 {
-    public ?array $features = null;
-    public ?string $type = null;
+    public ?string $center = null;
+    public ?int $height = null;
+    public ?string $key = null;
+    public ?string $marker = null;
+    public ?int $width = null;
+    public ?int $zoom = null;
 }
 
 /** Request payload for Map#create. */
 class MapCreateData
 {
+    public ?string $key = null;
     public array $features;
     public string $type;
 }
@@ -93,18 +101,14 @@ class Place
 /** Request payload for Place#list. */
 class PlaceListMatch
 {
-    public ?string $brand = null;
+    public ?string $api_key = null;
     public ?string $category = null;
-    public ?float $confidence = null;
-    public ?int $count = null;
     public ?string $country = null;
-    public ?float $distance_m = null;
-    public ?string $id = null;
     public ?float $lat = null;
-    public ?string $locality = null;
+    public ?int $limit = null;
     public ?float $lon = null;
-    public ?string $name = null;
-    public ?string $region = null;
+    public string $q;
+    public ?string $type = null;
 }
 
 /** Reverse entity data model. */
@@ -118,9 +122,11 @@ class Reverse
 /** Request payload for Reverse#list. */
 class ReverseListMatch
 {
-    public ?array $geometry = null;
-    public ?array $properties = null;
-    public ?string $type = null;
+    public ?string $api_key = null;
+    public ?string $lang = null;
+    public float $lat;
+    public ?int $limit = null;
+    public float $lon;
 }
 
 /** Utility entity data model. */

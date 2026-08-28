@@ -42,7 +42,7 @@ resolves to entities, not raw records. Iterate them directly, and call
 `.data()` on one for the record it holds:
 
 ```ts
-const apis = await client.Api().list()
+const apis = await client.Api().list({ q: "example" })
 
 for (const api of apis) {
   console.log(api)
@@ -401,7 +401,7 @@ Create an instance: `const api = client.Api()`
 #### Example: List
 
 ```ts
-const apis = await client.Api().list()
+const apis = await client.Api().list({ q: "example" })
 ```
 
 
@@ -501,7 +501,7 @@ Create an instance: `const place = client.Place()`
 #### Example: List
 
 ```ts
-const places = await client.Place().list()
+const places = await client.Place().list({ q: "example" })
 ```
 
 
@@ -526,7 +526,7 @@ Create an instance: `const reverse = client.Reverse()`
 #### Example: List
 
 ```ts
-const reverses = await client.Reverse().list()
+const reverses = await client.Reverse().list({ lat: 1, lon: 1 })
 ```
 
 
@@ -551,6 +551,29 @@ Create an instance: `const utility = client.Utility()`
 ```ts
 const utility = await client.Utility().load()
 ```
+
+## Features
+
+This SDK ships 1 optional features. Each is **inactive until you
+switch it on**, so an SDK you have not configured behaves exactly as if none of
+them existed — no retries, no cache, no logging, no measurable overhead.
+
+Activate a feature by name in the client options, alongside the options shown
+above:
+
+| Feature | What it does |
+|---|---|
+| [`test`](#test) | In-memory mock transport for testing without a live server |
+
+### test
+
+In-memory mock transport for testing without a live server.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.test.active` to enable it, then override any of the options above.
 
 
 ## Advanced

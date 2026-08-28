@@ -27,18 +27,30 @@ Api = Struct.new(
 
 # Request payload for Api#list.
 #
-# @!attribute [rw] geometry
-#   @return [Hash, nil]
-#
-# @!attribute [rw] properties
-#   @return [Hash, nil]
-#
-# @!attribute [rw] type
+# @!attribute [rw] api_key
 #   @return [String, nil]
+#
+# @!attribute [rw] lang
+#   @return [String, nil]
+#
+# @!attribute [rw] lat
+#   @return [Float, nil]
+#
+# @!attribute [rw] limit
+#   @return [Integer, nil]
+#
+# @!attribute [rw] lon
+#   @return [Float, nil]
+#
+# @!attribute [rw] q
+#   @return [String]
 ApiListMatch = Struct.new(
-  :geometry,
-  :properties,
-  :type,
+  :api_key,
+  :lang,
+  :lat,
+  :limit,
+  :lon,
+  :q,
   keyword_init: true
 )
 
@@ -93,18 +105,37 @@ Map = Struct.new(
 
 # Request payload for Map#load.
 #
-# @!attribute [rw] features
-#   @return [Array, nil]
-#
-# @!attribute [rw] type
+# @!attribute [rw] center
 #   @return [String, nil]
+#
+# @!attribute [rw] height
+#   @return [Integer, nil]
+#
+# @!attribute [rw] key
+#   @return [String, nil]
+#
+# @!attribute [rw] marker
+#   @return [String, nil]
+#
+# @!attribute [rw] width
+#   @return [Integer, nil]
+#
+# @!attribute [rw] zoom
+#   @return [Integer, nil]
 MapLoadMatch = Struct.new(
-  :features,
-  :type,
+  :center,
+  :height,
+  :key,
+  :marker,
+  :width,
+  :zoom,
   keyword_init: true
 )
 
 # Request payload for Map#create.
+#
+# @!attribute [rw] key
+#   @return [String, nil]
 #
 # @!attribute [rw] features
 #   @return [Array]
@@ -112,6 +143,7 @@ MapLoadMatch = Struct.new(
 # @!attribute [rw] type
 #   @return [String]
 MapCreateData = Struct.new(
+  :key,
   :features,
   :type,
   keyword_init: true
@@ -172,54 +204,38 @@ Place = Struct.new(
 
 # Request payload for Place#list.
 #
-# @!attribute [rw] brand
+# @!attribute [rw] api_key
 #   @return [String, nil]
 #
 # @!attribute [rw] category
 #   @return [String, nil]
 #
-# @!attribute [rw] confidence
-#   @return [Float, nil]
-#
-# @!attribute [rw] count
-#   @return [Integer, nil]
-#
 # @!attribute [rw] country
-#   @return [String, nil]
-#
-# @!attribute [rw] distance_m
-#   @return [Float, nil]
-#
-# @!attribute [rw] id
 #   @return [String, nil]
 #
 # @!attribute [rw] lat
 #   @return [Float, nil]
 #
-# @!attribute [rw] locality
-#   @return [String, nil]
+# @!attribute [rw] limit
+#   @return [Integer, nil]
 #
 # @!attribute [rw] lon
 #   @return [Float, nil]
 #
-# @!attribute [rw] name
-#   @return [String, nil]
+# @!attribute [rw] q
+#   @return [String]
 #
-# @!attribute [rw] region
+# @!attribute [rw] type
 #   @return [String, nil]
 PlaceListMatch = Struct.new(
-  :brand,
+  :api_key,
   :category,
-  :confidence,
-  :count,
   :country,
-  :distance_m,
-  :id,
   :lat,
-  :locality,
+  :limit,
   :lon,
-  :name,
-  :region,
+  :q,
+  :type,
   keyword_init: true
 )
 
@@ -242,18 +258,26 @@ Reverse = Struct.new(
 
 # Request payload for Reverse#list.
 #
-# @!attribute [rw] geometry
-#   @return [Hash, nil]
-#
-# @!attribute [rw] properties
-#   @return [Hash, nil]
-#
-# @!attribute [rw] type
+# @!attribute [rw] api_key
 #   @return [String, nil]
+#
+# @!attribute [rw] lang
+#   @return [String, nil]
+#
+# @!attribute [rw] lat
+#   @return [Float]
+#
+# @!attribute [rw] limit
+#   @return [Integer, nil]
+#
+# @!attribute [rw] lon
+#   @return [Float]
 ReverseListMatch = Struct.new(
-  :geometry,
-  :properties,
-  :type,
+  :api_key,
+  :lang,
+  :lat,
+  :limit,
+  :lon,
   keyword_init: true
 )
 

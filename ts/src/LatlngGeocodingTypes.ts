@@ -12,9 +12,12 @@ export interface Api {
 }
 
 export interface ApiListMatch {
-  geometry?: Record<string, any>
-  properties?: Record<string, any>
-  type?: string
+  api_key?: string
+  lang?: string
+  lat?: number
+  limit?: number
+  lon?: number
+  q: string
 }
 
 export interface Dataset {
@@ -39,11 +42,16 @@ export interface MapType {
 }
 
 export interface MapLoadMatch {
-  features?: any[]
-  type?: string
+  center?: string
+  height?: number
+  key?: string
+  marker?: string
+  width?: number
+  zoom?: number
 }
 
 export interface MapCreateData {
+  key?: string
   features: any[]
   type: string
 }
@@ -64,18 +72,14 @@ export interface Place {
 }
 
 export interface PlaceListMatch {
-  brand?: string
+  api_key?: string
   category?: string
-  confidence?: number
-  count?: number
   country?: string
-  distance_m?: number
-  id?: string
   lat?: number
-  locality?: string
+  limit?: number
   lon?: number
-  name?: string
-  region?: string
+  q: string
+  type?: string
 
   // Selects a custom action instead of the plain list:
   //   'category' | 'nearby' | 'search'
@@ -91,9 +95,11 @@ export interface Reverse {
 }
 
 export interface ReverseListMatch {
-  geometry?: Record<string, any>
-  properties?: Record<string, any>
-  type?: string
+  api_key?: string
+  lang?: string
+  lat: number
+  limit?: number
+  lon: number
 }
 
 export interface Utility {

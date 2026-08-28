@@ -21,9 +21,12 @@ type Api struct {
 
 // ApiListMatch is the typed request payload for Api.ListTyped.
 type ApiListMatch struct {
-	Geometry *map[string]any `json:"geometry,omitempty"`
-	Properties *map[string]any `json:"properties,omitempty"`
-	Type *string `json:"type,omitempty"`
+	ApiKey *string `json:"api_key,omitempty"`
+	Lang *string `json:"lang,omitempty"`
+	Lat *float64 `json:"lat,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	Lon *float64 `json:"lon,omitempty"`
+	Q string `json:"q"`
 }
 
 // Dataset is the typed data model for the dataset entity.
@@ -54,12 +57,17 @@ type Map struct {
 
 // MapLoadMatch is the typed request payload for Map.LoadTyped.
 type MapLoadMatch struct {
-	Features *[]any `json:"features,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Center *string `json:"center,omitempty"`
+	Height *int `json:"height,omitempty"`
+	Key *string `json:"key,omitempty"`
+	Marker *string `json:"marker,omitempty"`
+	Width *int `json:"width,omitempty"`
+	Zoom *int `json:"zoom,omitempty"`
 }
 
 // MapCreateData is the typed request payload for Map.CreateTyped.
 type MapCreateData struct {
+	Key *string `json:"key,omitempty"`
 	Features []any `json:"features"`
 	Type string `json:"type"`
 }
@@ -82,18 +90,14 @@ type Place struct {
 
 // PlaceListMatch is the typed request payload for Place.ListTyped.
 type PlaceListMatch struct {
-	Brand *string `json:"brand,omitempty"`
+	ApiKey *string `json:"api_key,omitempty"`
 	Category *string `json:"category,omitempty"`
-	Confidence *float64 `json:"confidence,omitempty"`
-	Count *int `json:"count,omitempty"`
 	Country *string `json:"country,omitempty"`
-	DistanceM *float64 `json:"distance_m,omitempty"`
-	Id *string `json:"id,omitempty"`
 	Lat *float64 `json:"lat,omitempty"`
-	Locality *string `json:"locality,omitempty"`
+	Limit *int `json:"limit,omitempty"`
 	Lon *float64 `json:"lon,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Region *string `json:"region,omitempty"`
+	Q string `json:"q"`
+	Type *string `json:"type,omitempty"`
 }
 
 // Reverse is the typed data model for the reverse entity.
@@ -105,9 +109,11 @@ type Reverse struct {
 
 // ReverseListMatch is the typed request payload for Reverse.ListTyped.
 type ReverseListMatch struct {
-	Geometry *map[string]any `json:"geometry,omitempty"`
-	Properties *map[string]any `json:"properties,omitempty"`
-	Type *string `json:"type,omitempty"`
+	ApiKey *string `json:"api_key,omitempty"`
+	Lang *string `json:"lang,omitempty"`
+	Lat float64 `json:"lat"`
+	Limit *int `json:"limit,omitempty"`
+	Lon float64 `json:"lon"`
 }
 
 // Utility is the typed data model for the utility entity.

@@ -46,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    apis = client.Api().list()
+    apis = client.Api().list({"q": "example"})
     for api in apis:
         print(api)
 except Exception as err:
@@ -354,7 +354,7 @@ Create an instance: `api = client.Api()`
 #### Example: List
 
 ```python
-apis = client.Api().list()
+apis = client.Api().list({"q": "example"})
 ```
 
 
@@ -454,7 +454,7 @@ Create an instance: `place = client.Place()`
 #### Example: List
 
 ```python
-places = client.Place().list()
+places = client.Place().list({"q": "example"})
 ```
 
 
@@ -479,7 +479,7 @@ Create an instance: `reverse = client.Reverse()`
 #### Example: List
 
 ```python
-reverses = client.Reverse().list()
+reverses = client.Reverse().list({"lat": 1, "lon": 1})
 ```
 
 
@@ -504,6 +504,29 @@ Create an instance: `utility = client.Utility()`
 ```python
 utility = client.Utility().load()
 ```
+
+## Features
+
+This SDK ships 1 optional features. Each is **inactive until you
+switch it on**, so an SDK you have not configured behaves exactly as if none of
+them existed — no retries, no cache, no logging, no measurable overhead.
+
+Activate a feature by name in the client options, alongside the options shown
+above:
+
+| Feature | What it does |
+|---|---|
+| [`test`](#test) | In-memory mock transport for testing without a live server |
+
+### test
+
+In-memory mock transport for testing without a live server.
+
+| Option | Default |
+|---|---|
+| `active` | `false` |
+
+Set `feature.test.active` to enable it, then override any of the options above.
 
 
 ## Advanced

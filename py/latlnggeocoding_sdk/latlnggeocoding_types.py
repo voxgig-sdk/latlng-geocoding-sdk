@@ -22,10 +22,16 @@ class Api(TypedDict):
     type: str
 
 
-class ApiListMatch(TypedDict, total=False):
-    geometry: dict
-    properties: dict
-    type: str
+class ApiListMatchRequired(TypedDict):
+    q: str
+
+
+class ApiListMatch(ApiListMatchRequired, total=False):
+    api_key: str
+    lang: str
+    lat: float
+    limit: int
+    lon: float
 
 
 class Dataset(TypedDict, total=False):
@@ -50,13 +56,21 @@ class Map(TypedDict):
 
 
 class MapLoadMatch(TypedDict, total=False):
+    center: str
+    height: int
+    key: str
+    marker: str
+    width: int
+    zoom: int
+
+
+class MapCreateDataRequired(TypedDict):
     features: list
     type: str
 
 
-class MapCreateData(TypedDict):
-    features: list
-    type: str
+class MapCreateData(MapCreateDataRequired, total=False):
+    key: str
 
 
 class Place(TypedDict, total=False):
@@ -74,19 +88,18 @@ class Place(TypedDict, total=False):
     region: str
 
 
-class PlaceListMatch(TypedDict, total=False):
-    brand: str
+class PlaceListMatchRequired(TypedDict):
+    q: str
+
+
+class PlaceListMatch(PlaceListMatchRequired, total=False):
+    api_key: str
     category: str
-    confidence: float
-    count: int
     country: str
-    distance_m: float
-    id: str
     lat: float
-    locality: str
+    limit: int
     lon: float
-    name: str
-    region: str
+    type: str
 
 
 class Reverse(TypedDict):
@@ -95,10 +108,15 @@ class Reverse(TypedDict):
     type: str
 
 
-class ReverseListMatch(TypedDict, total=False):
-    geometry: dict
-    properties: dict
-    type: str
+class ReverseListMatchRequired(TypedDict):
+    lat: float
+    lon: float
+
+
+class ReverseListMatch(ReverseListMatchRequired, total=False):
+    api_key: str
+    lang: str
+    limit: int
 
 
 class Utility(TypedDict, total=False):

@@ -12,9 +12,12 @@
 ---@field type string
 
 ---@class ApiListMatch
----@field geometry? table
----@field properties? table
----@field type? string
+---@field api_key? string
+---@field lang? string
+---@field lat? number
+---@field limit? number
+---@field lon? number
+---@field q string
 
 ---@class Dataset
 ---@field id? string
@@ -33,10 +36,15 @@
 ---@field type string
 
 ---@class MapLoadMatch
----@field features? table
----@field type? string
+---@field center? string
+---@field height? number
+---@field key? string
+---@field marker? string
+---@field width? number
+---@field zoom? number
 
 ---@class MapCreateData
+---@field key? string
 ---@field features table
 ---@field type string
 
@@ -55,18 +63,14 @@
 ---@field region? string
 
 ---@class PlaceListMatch
----@field brand? string
+---@field api_key? string
 ---@field category? string
----@field confidence? number
----@field count? number
 ---@field country? string
----@field distance_m? number
----@field id? string
 ---@field lat? number
----@field locality? string
+---@field limit? number
 ---@field lon? number
----@field name? string
----@field region? string
+---@field q string
+---@field type? string
 
 ---@class Reverse
 ---@field geometry table
@@ -74,9 +78,11 @@
 ---@field type string
 
 ---@class ReverseListMatch
----@field geometry? table
----@field properties? table
----@field type? string
+---@field api_key? string
+---@field lang? string
+---@field lat number
+---@field limit? number
+---@field lon number
 
 ---@class Utility
 ---@field status? string
