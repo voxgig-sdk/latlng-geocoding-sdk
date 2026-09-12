@@ -25,9 +25,13 @@ main: kit: entity: dataset: {
         {
           method: "POST"
           orig: "/v1/datasets"
-          parts: [
-            "v1"
-            "datasets"
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "datasets"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -53,16 +57,22 @@ main: kit: entity: dataset: {
           }
           method: "GET"
           orig: "/v1/datasets/{datasetId}"
-          parts: [
-            "v1"
-            "datasets"
-            "{id}"
-          ]
           rename: {
             param: {
               datasetId: "id"
             }
           }
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -76,9 +86,13 @@ main: kit: entity: dataset: {
         {
           method: "GET"
           orig: "/v1/datasets"
-          parts: [
-            "v1"
-            "datasets"
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "datasets"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -104,16 +118,22 @@ main: kit: entity: dataset: {
           }
           method: "DELETE"
           orig: "/v1/datasets/{datasetId}"
-          parts: [
-            "v1"
-            "datasets"
-            "{id}"
-          ]
           rename: {
             param: {
               datasetId: "id"
             }
           }
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "datasets"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

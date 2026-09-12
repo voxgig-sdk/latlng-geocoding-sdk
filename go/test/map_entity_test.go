@@ -52,7 +52,7 @@ func TestMapEntity(t *testing.T) {
 		// CREATE
 		mapRef01Ent := client.Map(nil)
 		mapRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "map"}, setup.data), "map_ref01"))
+			vs.GetPath(setup.data, []any{"new", "map"}), "map_ref01"))
 
 		mapRef01DataResult, err := mapRef01Ent.Create(mapRef01Data, nil)
 		if err != nil {
@@ -100,7 +100,7 @@ func mapBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"map01", "map02", "map03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -120,7 +120,7 @@ func mapBasicSetup(extra map[string]any) *entityTestSetup {
 		"LATLNG_GEOCODING_TEST_MAP_ENTID": idmap,
 		"LATLNG_GEOCODING_TEST_LIVE":      "FALSE",
 		"LATLNG_GEOCODING_TEST_EXPLAIN":   "FALSE",
-		"LATLNG_GEOCODING_APIKEY":         "NONE",
+		"LATLNG_GEOCODING_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["LATLNG_GEOCODING_TEST_MAP_ENTID"])
@@ -129,11 +129,23 @@ func mapBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["LATLNG_GEOCODING_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["LATLNG_GEOCODING_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewLatlngGeocodingSDK(core.ToMapAny(mergedOpts))
 	}

@@ -81,8 +81,10 @@ main: kit: entity: api: {
           }
           method: "GET"
           orig: "/api"
-          parts: [
-            "api"
+          segments: [
+            {
+              lit: "api"
+            }
           ]
           select: {
             exist: [

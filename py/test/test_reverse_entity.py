@@ -125,7 +125,7 @@ def _reverse_basic_setup(extra):
         "LATLNG_GEOCODING_TEST_REVERSE_ENTID": idmap,
         "LATLNG_GEOCODING_TEST_LIVE": "FALSE",
         "LATLNG_GEOCODING_TEST_EXPLAIN": "FALSE",
-        "LATLNG_GEOCODING_APIKEY": "NONE",
+        "LATLNG_GEOCODING_APIKEY": "",
     })
 
     idmap_resolved = helpers.to_map(
@@ -135,6 +135,10 @@ def _reverse_basic_setup(extra):
 
     if env.get("LATLNG_GEOCODING_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
                 "apikey": env.get("LATLNG_GEOCODING_APIKEY"),
             },

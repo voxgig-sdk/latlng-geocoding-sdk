@@ -73,8 +73,10 @@ main: kit: entity: reverse: {
           }
           method: "GET"
           orig: "/reverse"
-          parts: [
-            "reverse"
+          segments: [
+            {
+              lit: "reverse"
+            }
           ]
           select: {
             exist: [

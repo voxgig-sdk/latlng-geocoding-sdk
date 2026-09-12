@@ -147,10 +147,16 @@ main: kit: entity: place: {
           }
           method: "GET"
           orig: "/v1/places/search"
-          parts: [
-            "v1"
-            "places"
-            "search"
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "places"
+            }
+            {
+              lit: "search"
+            }
           ]
           select: {
             "$action": "search"
@@ -232,10 +238,16 @@ main: kit: entity: place: {
           }
           method: "GET"
           orig: "/v1/places/nearby"
-          parts: [
-            "v1"
-            "places"
-            "nearby"
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "places"
+            }
+            {
+              lit: "nearby"
+            }
           ]
           select: {
             "$action": "nearby"
@@ -257,10 +269,16 @@ main: kit: entity: place: {
         {
           method: "GET"
           orig: "/v1/places/categories"
-          parts: [
-            "v1"
-            "places"
-            "categories"
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "places"
+            }
+            {
+              lit: "categories"
+            }
           ]
           select: {
             "$action": "category"

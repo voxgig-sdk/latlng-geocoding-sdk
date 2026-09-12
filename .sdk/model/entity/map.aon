@@ -37,9 +37,13 @@ main: kit: entity: map: {
           }
           method: "POST"
           orig: "/v1/static"
-          parts: [
-            "v1"
-            "static"
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "static"
+            }
           ]
           select: {
             exist: [
@@ -111,9 +115,13 @@ main: kit: entity: map: {
           }
           method: "GET"
           orig: "/v1/static"
-          parts: [
-            "v1"
-            "static"
+          segments: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "static"
+            }
           ]
           select: {
             exist: [

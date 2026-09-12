@@ -137,8 +137,10 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api',
-                  'parts' => [
-                    'api',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -153,6 +155,9 @@ class LatlngGeocodingConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.features`',
+                  ],
+                  'parts' => [
+                    'api',
                   ],
                 ],
               ],
@@ -169,6 +174,10 @@ class LatlngGeocodingConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'dataset',
           'op' => [
             'create' => [
@@ -180,14 +189,22 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/v1/datasets',
-                  'parts' => [
-                    'v1',
-                    'datasets',
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'datasets',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'v1',
+                    'datasets',
                   ],
                 ],
               ],
@@ -211,14 +228,20 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/datasets/{datasetId}',
-                  'parts' => [
-                    'v1',
-                    'datasets',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'datasetId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'datasets',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -230,20 +253,33 @@ class LatlngGeocodingConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'v1',
+                    'datasets',
+                    '{id}',
+                  ],
                 ],
                 [
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/datasets',
-                  'parts' => [
-                    'v1',
-                    'datasets',
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'datasets',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'v1',
+                    'datasets',
                   ],
                 ],
               ],
@@ -267,14 +303,20 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/v1/datasets/{datasetId}',
-                  'parts' => [
-                    'v1',
-                    'datasets',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'datasetId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'datasets',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -285,6 +327,11 @@ class LatlngGeocodingConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'v1',
+                    'datasets',
+                    '{id}',
                   ],
                 ],
               ],
@@ -328,9 +375,13 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/v1/static',
-                  'parts' => [
-                    'v1',
-                    'static',
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'static',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -340,6 +391,10 @@ class LatlngGeocodingConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'v1',
+                    'static',
                   ],
                 ],
               ],
@@ -398,9 +453,13 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/static',
-                  'parts' => [
-                    'v1',
-                    'static',
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'static',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -415,6 +474,10 @@ class LatlngGeocodingConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'v1',
+                    'static',
                   ],
                 ],
               ],
@@ -474,6 +537,10 @@ class LatlngGeocodingConfig
               'name' => 'region',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'place',
           'op' => [
@@ -545,10 +612,16 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/places/search',
-                  'parts' => [
-                    'v1',
-                    'places',
-                    'search',
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'places',
+                    ],
+                    [
+                      'lit' => 'search',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'search',
@@ -566,6 +639,11 @@ class LatlngGeocodingConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'v1',
+                    'places',
+                    'search',
                   ],
                 ],
                 [
@@ -626,10 +704,16 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/places/nearby',
-                  'parts' => [
-                    'v1',
-                    'places',
-                    'nearby',
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'places',
+                    ],
+                    [
+                      'lit' => 'nearby',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'nearby',
@@ -647,16 +731,27 @@ class LatlngGeocodingConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'v1',
+                    'places',
+                    'nearby',
+                  ],
                 ],
                 [
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/v1/places/categories',
-                  'parts' => [
-                    'v1',
-                    'places',
-                    'categories',
+                  'segments' => [
+                    [
+                      'lit' => 'v1',
+                    ],
+                    [
+                      'lit' => 'places',
+                    ],
+                    [
+                      'lit' => 'categories',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'category',
@@ -664,6 +759,11 @@ class LatlngGeocodingConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.categories`',
+                  ],
+                  'parts' => [
+                    'v1',
+                    'places',
+                    'categories',
                   ],
                 ],
               ],
@@ -741,8 +841,10 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/reverse',
-                  'parts' => [
-                    'reverse',
+                  'segments' => [
+                    [
+                      'lit' => 'reverse',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -756,6 +858,9 @@ class LatlngGeocodingConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.features`',
+                  ],
+                  'parts' => [
+                    'reverse',
                   ],
                 ],
               ],
@@ -783,13 +888,18 @@ class LatlngGeocodingConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/health',
-                  'parts' => [
-                    'health',
+                  'segments' => [
+                    [
+                      'lit' => 'health',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'health',
                   ],
                 ],
               ],

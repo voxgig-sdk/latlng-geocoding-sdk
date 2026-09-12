@@ -1,6 +1,14 @@
 # LatlngGeocoding SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -132,8 +140,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api",
-                "parts": [
-                  "api",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -149,6 +159,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.features`",
                 },
+                "parts": [
+                  "api",
+                ],
               },
             ],
           },
@@ -164,6 +177,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "dataset",
         "op": {
           "create": {
@@ -175,15 +192,23 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/v1/datasets",
-                "parts": [
-                  "v1",
-                  "datasets",
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "datasets",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "datasets",
+                ],
               },
             ],
           },
@@ -206,16 +231,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/v1/datasets/{datasetId}",
-                "parts": [
-                  "v1",
-                  "datasets",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "datasetId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "datasets",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -225,21 +256,34 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "datasets",
+                  "{id}",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/v1/datasets",
-                "parts": [
-                  "v1",
-                  "datasets",
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "datasets",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "datasets",
+                ],
               },
             ],
           },
@@ -262,16 +306,22 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/v1/datasets/{datasetId}",
-                "parts": [
-                  "v1",
-                  "datasets",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "datasetId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "datasets",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -281,6 +331,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "datasets",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -323,9 +378,13 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/v1/static",
-                "parts": [
-                  "v1",
-                  "static",
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "static",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -336,6 +395,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "static",
+                ],
               },
             ],
           },
@@ -393,9 +456,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/v1/static",
-                "parts": [
-                  "v1",
-                  "static",
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "static",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -411,6 +478,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "static",
+                ],
               },
             ],
           },
@@ -470,6 +541,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "place",
         "op": {
           "list": {
@@ -540,10 +615,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/v1/places/search",
-                "parts": [
-                  "v1",
-                  "places",
-                  "search",
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "places",
+                  },
+                  {
+                    "lit": "search",
+                  },
                 ],
                 "select": {
                   "$action": "search",
@@ -562,6 +643,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "places",
+                  "search",
+                ],
               },
               {
                 "args": {
@@ -621,10 +707,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/v1/places/nearby",
-                "parts": [
-                  "v1",
-                  "places",
-                  "nearby",
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "places",
+                  },
+                  {
+                    "lit": "nearby",
+                  },
                 ],
                 "select": {
                   "$action": "nearby",
@@ -642,16 +734,27 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "v1",
+                  "places",
+                  "nearby",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/v1/places/categories",
-                "parts": [
-                  "v1",
-                  "places",
-                  "categories",
+                "segments": [
+                  {
+                    "lit": "v1",
+                  },
+                  {
+                    "lit": "places",
+                  },
+                  {
+                    "lit": "categories",
+                  },
                 ],
                 "select": {
                   "$action": "category",
@@ -660,6 +763,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.categories`",
                 },
+                "parts": [
+                  "v1",
+                  "places",
+                  "categories",
+                ],
               },
             ],
           },
@@ -736,8 +844,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/reverse",
-                "parts": [
-                  "reverse",
+                "segments": [
+                  {
+                    "lit": "reverse",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -752,6 +862,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.features`",
                 },
+                "parts": [
+                  "reverse",
+                ],
               },
             ],
           },
@@ -778,14 +891,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/health",
-                "parts": [
-                  "health",
+                "segments": [
+                  {
+                    "lit": "health",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "health",
+                ],
               },
             ],
           },
