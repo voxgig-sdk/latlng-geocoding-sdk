@@ -105,7 +105,7 @@ local results, err = client:Reverse():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
+| TypeScript | `@voxgig-sdk/latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
 | Python | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
 | PHP | `voxgig-sdk/latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/latlng-geocoding-sdk/go` | `go get github.com/voxgig-sdk/latlng-geocoding-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Reverse():list()
 ### TypeScript
 
 ```ts
-import { LatlngGeocodingSDK } from '@voxgig-sdk/latlng-geocoding'
+import { LatlngGeocodingSDK } from '@voxgig-sdk/latlng-geocoding-sdk'
 
 const client = new LatlngGeocodingSDK({
   apikey: process.env.LATLNG_GEOCODING_APIKEY,

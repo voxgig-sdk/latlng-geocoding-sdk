@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { LatlngGeocodingSDK } from '@voxgig-sdk/latlng-geocoding'
+import { LatlngGeocodingSDK } from '@voxgig-sdk/latlng-geocoding-sdk'
 
 const client = new LatlngGeocodingSDK({
   apikey: process.env.LATLNG_GEOCODING_APIKEY,
@@ -635,7 +635,7 @@ latlng-geocoding/
 Import the SDK from the package root:
 
 ```ts
-import { LatlngGeocodingSDK } from '@voxgig-sdk/latlng-geocoding'
+import { LatlngGeocodingSDK } from '@voxgig-sdk/latlng-geocoding-sdk'
 ```
 
 ### Entity state
