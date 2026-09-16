@@ -1,12 +1,18 @@
 # LatlngGeocoding SDK feature factory
 
 from latlnggeocoding_sdk.feature.base_feature import LatlngGeocodingBaseFeature
+from latlnggeocoding_sdk.feature.ratelimit_feature import LatlngGeocodingRatelimitFeature
+from latlnggeocoding_sdk.feature.retry_feature import LatlngGeocodingRetryFeature
 from latlnggeocoding_sdk.feature.test_feature import LatlngGeocodingTestFeature
+from latlnggeocoding_sdk.feature.timeout_feature import LatlngGeocodingTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: LatlngGeocodingBaseFeature(),
+    "ratelimit": lambda: LatlngGeocodingRatelimitFeature(),
+    "retry": lambda: LatlngGeocodingRetryFeature(),
     "test": lambda: LatlngGeocodingTestFeature(),
+    "timeout": lambda: LatlngGeocodingTimeoutFeature(),
 }
 
 

@@ -25,5 +25,386 @@
         "type": "s51"
       }
     }
+  },
+  "requests": {
+    "POST /v1/static": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "postStaticMap",
+        "parameters": [
+          {
+            "example": "latlng_xxxxx",
+            "in": "query",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/geo+json": {
+              "schema": {
+                "properties": {
+                  "features": {
+                    "items": {
+                      "properties": {
+                        "geometry": {
+                          "properties": {
+                            "coordinates": {
+                              "items": {
+                                "type": "number"
+                              },
+                              "type": "array"
+                            },
+                            "type": {
+                              "example": "Point",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "coordinates"
+                          ],
+                          "type": "object"
+                        },
+                        "properties": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        },
+                        "type": {
+                          "enum": [
+                            "Feature"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "geometry",
+                        "properties"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "type": {
+                    "enum": [
+                      "FeatureCollection"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "features"
+                ],
+                "type": "object"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "features": {
+                    "items": {
+                      "properties": {
+                        "geometry": {
+                          "properties": {
+                            "coordinates": {
+                              "items": {
+                                "type": "number"
+                              },
+                              "type": "array"
+                            },
+                            "type": {
+                              "example": "Point",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "coordinates"
+                          ],
+                          "type": "object"
+                        },
+                        "properties": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        },
+                        "type": {
+                          "enum": [
+                            "Feature"
+                          ],
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "geometry",
+                        "properties"
+                      ],
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "type": {
+                    "enum": [
+                      "FeatureCollection"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "type",
+                  "features"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "image/png": {
+                "schema": {
+                  "format": "binary",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Static map image."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request or invalid parameters."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "ApiKeyQuery": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "in": "header",
+            "name": "X-Api-Key",
+            "type": "apiKey"
+          },
+          "ApiKeyQuery": {
+            "in": "query",
+            "name": "api_key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /v1/static": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getStaticMap",
+        "parameters": [
+          {
+            "example": "latlng_xxxxx",
+            "in": "query",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Map center as latitude,longitude.",
+            "example": "40.748,-73.985",
+            "in": "query",
+            "name": "center",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": 12,
+            "in": "query",
+            "name": "zoom",
+            "schema": {
+              "maximum": 22,
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "example": 800,
+            "in": "query",
+            "name": "width",
+            "schema": {
+              "maximum": 2048,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "example": 600,
+            "in": "query",
+            "name": "height",
+            "schema": {
+              "maximum": 2048,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Optional marker coordinates.",
+            "example": "40.748,-73.985",
+            "in": "query",
+            "name": "markers",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "image/png": {
+                "schema": {
+                  "format": "binary",
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Static map image."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request or invalid parameters."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "ApiKeyQuery": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "in": "header",
+            "name": "X-Api-Key",
+            "type": "apiKey"
+          },
+          "ApiKeyQuery": {
+            "in": "query",
+            "name": "api_key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }

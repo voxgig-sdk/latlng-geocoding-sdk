@@ -5,7 +5,7 @@
         "brand": "s78",
         "category": "s79",
         "confidence": 122,
-        "count": "s7b",
+        "count": 123,
         "country": "s7c",
         "distance_m": 125,
         "id": "PLACE00",
@@ -19,7 +19,7 @@
         "brand": "sf0",
         "category": "sf1",
         "confidence": 242,
-        "count": "sf3",
+        "count": 243,
         "country": "sf4",
         "distance_m": 245,
         "id": "PLACE01",
@@ -33,7 +33,7 @@
         "brand": "s168",
         "category": "s169",
         "confidence": 362,
-        "count": "s16b",
+        "count": 363,
         "country": "s16c",
         "distance_m": 365,
         "id": "PLACE02",
@@ -51,7 +51,7 @@
         "brand": "s1e0",
         "category": "s1e1",
         "confidence": 482,
-        "count": "s1e3",
+        "count": 483,
         "country": "s1e4",
         "distance_m": 485,
         "lat": 487,
@@ -59,6 +59,534 @@
         "lon": 489,
         "name": "s1ea",
         "region": "s1eb"
+      }
+    }
+  },
+  "requests": {
+    "GET /v1/places/search": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "placesSearch",
+        "parameters": [
+          {
+            "description": "API key alternative to the X-Api-Key header.",
+            "in": "query",
+            "name": "api_key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "Starbucks",
+            "in": "query",
+            "name": "q",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": 40.748,
+            "in": "query",
+            "name": "lat",
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "example": -73.985,
+            "in": "query",
+            "name": "lon",
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "example": "cafe",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cafe",
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "US",
+            "in": "query",
+            "name": "country",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": 5,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 20,
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "center": {
+                      "properties": {
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lon": {
+                          "type": "number"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "places": {
+                      "items": {
+                        "properties": {
+                          "brand": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "confidence": {
+                            "type": "number"
+                          },
+                          "country": {
+                            "type": "string"
+                          },
+                          "distance_m": {
+                            "type": "number"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "lat": {
+                            "type": "number"
+                          },
+                          "locality": {
+                            "type": "string"
+                          },
+                          "lon": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "region": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "query": {
+                      "type": "string"
+                    },
+                    "radius_m": {
+                      "type": "integer"
+                    },
+                    "source": {
+                      "example": "latlng_places",
+                      "type": "string"
+                    },
+                    "type": {
+                      "example": "nearby",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Search places response."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request or invalid parameters."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "ApiKeyQuery": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "in": "header",
+            "name": "X-Api-Key",
+            "type": "apiKey"
+          },
+          "ApiKeyQuery": {
+            "in": "query",
+            "name": "api_key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /v1/places/nearby": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "placesNearby",
+        "parameters": [
+          {
+            "description": "API key alternative to the X-Api-Key header.",
+            "in": "query",
+            "name": "api_key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": 40.748,
+            "in": "query",
+            "name": "lat",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "example": -73.985,
+            "in": "query",
+            "name": "lon",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "description": "Search radius in meters.",
+            "example": 500,
+            "in": "query",
+            "name": "radius",
+            "schema": {
+              "default": 1000,
+              "maximum": 50000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Optional category filter. Alias of category.",
+            "example": "cafe",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Optional category filter.",
+            "example": "cafe",
+            "in": "query",
+            "name": "category",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": 10,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 20,
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "center": {
+                      "properties": {
+                        "lat": {
+                          "type": "number"
+                        },
+                        "lon": {
+                          "type": "number"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "places": {
+                      "items": {
+                        "properties": {
+                          "brand": {
+                            "type": "string"
+                          },
+                          "category": {
+                            "type": "string"
+                          },
+                          "confidence": {
+                            "type": "number"
+                          },
+                          "country": {
+                            "type": "string"
+                          },
+                          "distance_m": {
+                            "type": "number"
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "lat": {
+                            "type": "number"
+                          },
+                          "locality": {
+                            "type": "string"
+                          },
+                          "lon": {
+                            "type": "number"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "region": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "query": {
+                      "type": "string"
+                    },
+                    "radius_m": {
+                      "type": "integer"
+                    },
+                    "source": {
+                      "example": "latlng_places",
+                      "type": "string"
+                    },
+                    "type": {
+                      "example": "nearby",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Nearby places response."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request or invalid parameters."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "ApiKeyQuery": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "in": "header",
+            "name": "X-Api-Key",
+            "type": "apiKey"
+          },
+          "ApiKeyQuery": {
+            "in": "query",
+            "name": "api_key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /v1/places/categories": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "placesCategories",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "categories": {
+                      "items": {
+                        "properties": {
+                          "category": {
+                            "type": "string"
+                          },
+                          "count": {
+                            "type": "integer"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Available place categories."
+          }
+        },
+        "security": [],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "in": "header",
+            "name": "X-Api-Key",
+            "type": "apiKey"
+          },
+          "ApiKeyQuery": {
+            "in": "query",
+            "name": "api_key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "operation"
       }
     }
   }

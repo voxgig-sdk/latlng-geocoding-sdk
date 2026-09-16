@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { LatlngGeocodingSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('ReverseEntity', async () => {
 
     const live = 'TRUE' === process.env.LATLNG_GEOCODING_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'reverse.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'reverse.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set LATLNG_GEOCODING_TEST_REVERSE_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"geometry","req":true,"type":"`$OBJECT`","index$":0},{"active":true,"name":"properties","req":true,"type":"`$OBJECT`","index$":1},{"active":true,"name":"type","req":true,"type":"`$STRING`","index$":2}],"name":"reverse","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"query":[{"active":true,"kind":"query","name":"api_key","orig":"api_key","reqd":false,"type":"`$STRING`","index$":0},{"active":true,"example":"en","kind":"query","name":"lang","orig":"lang","reqd":false,"type":"`$STRING`","index$":1},{"active":true,"example":52.517,"kind":"query","name":"lat","orig":"lat","reqd":true,"type":"`$NUMBER`","index$":2},{"active":true,"example":5,"kind":"query","name":"limit","orig":"limit","reqd":false,"type":"`$INTEGER`","index$":3},{"active":true,"example":13.389,"kind":"query","name":"lon","orig":"lon","reqd":true,"type":"`$NUMBER`","index$":4}]},"contract":{"id":"GET /reverse","json":"{\"operationId\":\"reverseGeocode\",\"parameters\":[{\"description\":\"API key alternative to the X-Api-Key header.\",\"in\":\"query\",\"name\":\"api_key\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"example\":52.517,\"in\":\"query\",\"name\":\"lat\",\"required\":true,\"schema\":{\"format\":\"double\",\"type\":\"number\"}},{\"example\":13.389,\"in\":\"query\",\"name\":\"lon\",\"required\":true,\"schema\":{\"format\":\"double\",\"type\":\"number\"}},{\"example\":5,\"in\":\"query\",\"name\":\"limit\",\"schema\":{\"maximum\":50,\"minimum\":1,\"type\":\"integer\"}},{\"example\":\"en\",\"in\":\"query\",\"name\":\"lang\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"features\":{\"items\":{\"properties\":{\"geometry\":{\"properties\":{\"coordinates\":{\"items\":{\"type\":\"number\"},\"type\":\"array\"},\"type\":{\"example\":\"Point\",\"type\":\"string\"}},\"required\":[\"type\",\"coordinates\"],\"type\":\"object\"},\"properties\":{\"additionalProperties\":true,\"type\":\"object\"},\"type\":{\"enum\":[\"Feature\"],\"type\":\"string\"}},\"required\":[\"type\",\"geometry\",\"properties\"],\"type\":\"object\"},\"type\":\"array\"},\"type\":{\"enum\":[\"FeatureCollection\"],\"type\":\"string\"}},\"required\":[\"type\",\"features\"],\"type\":\"object\"}}},\"description\":\"GeoJSON feature collection.\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request or invalid parameters.\"},\"429\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Rate limit exceeded.\",\"headers\":{\"X-RateLimit-Limit\":{\"schema\":{\"type\":\"integer\"}},\"X-RateLimit-Remaining\":{\"schema\":{\"type\":\"integer\"}},\"X-Request-Id\":{\"schema\":{\"type\":\"string\"}}}},\"503\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Upstream geocoding service unavailable.\"}},\"security\":[{\"ApiKeyAuth\":[]},{\"ApiKeyQuery\":[]}],\"securitySchemes\":{\"ApiKeyAuth\":{\"in\":\"header\",\"name\":\"X-Api-Key\",\"type\":\"apiKey\"},\"ApiKeyQuery\":{\"in\":\"query\",\"name\":\"api_key\",\"type\":\"apiKey\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/reverse","segments":[{"lit":"reverse"}],"select":{"exist":["api_key","lang","lat","limit","lon"]},"transform":{"req":"`reqdata`","res":"`body.features`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"reverse","name__orig":"reverse","Name":"Reverse","name_":"reverse","name-":"reverse","NAME":"REVERSE","index$":4}, {"active":true,"entity":"reverse","key$":"BasicReverseFlow","kind":"basic","name":"BasicReverseFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"reverse_ref01"}}],"index$":0}]}, 'Reverse')
     }
     const client = setup.client
     const struct = setup.struct
@@ -109,13 +108,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['LATLNG_GEOCODING_TEST_REVERSE_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'LATLNG_GEOCODING_TEST_REVERSE_ENTID': idmap,
     'LATLNG_GEOCODING_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.LATLNG_GEOCODING_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['LATLNG_GEOCODING_TEST_REVERSE_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new LatlngGeocodingSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -140,7 +138,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -153,7 +152,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.LATLNG_GEOCODING_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

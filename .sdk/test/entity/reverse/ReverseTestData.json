@@ -26,5 +26,221 @@
         "type": "s7a"
       }
     }
+  },
+  "requests": {
+    "GET /reverse": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "reverseGeocode",
+        "parameters": [
+          {
+            "description": "API key alternative to the X-Api-Key header.",
+            "in": "query",
+            "name": "api_key",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": 52.517,
+            "in": "query",
+            "name": "lat",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "example": 13.389,
+            "in": "query",
+            "name": "lon",
+            "required": true,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            }
+          },
+          {
+            "example": 5,
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "maximum": 50,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "example": "en",
+            "in": "query",
+            "name": "lang",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "features": {
+                      "items": {
+                        "properties": {
+                          "geometry": {
+                            "properties": {
+                              "coordinates": {
+                                "items": {
+                                  "type": "number"
+                                },
+                                "type": "array"
+                              },
+                              "type": {
+                                "example": "Point",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "type": "object"
+                          },
+                          "properties": {
+                            "additionalProperties": true,
+                            "type": "object"
+                          },
+                          "type": {
+                            "enum": [
+                              "Feature"
+                            ],
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "geometry",
+                          "properties"
+                        ],
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "type": {
+                      "enum": [
+                        "FeatureCollection"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "features"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "GeoJSON feature collection."
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request or invalid parameters."
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Rate limit exceeded.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-Request-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Upstream geocoding service unavailable."
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "ApiKeyQuery": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "in": "header",
+            "name": "X-Api-Key",
+            "type": "apiKey"
+          },
+          "ApiKeyQuery": {
+            "in": "query",
+            "name": "api_key",
+            "type": "apiKey"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
   }
 }
