@@ -103,6 +103,7 @@ class LatlngGeocodingConfig
                 "base" => "https://api.latlng.work",
                 "auth" => [
                     "prefix" => "",
+                    "name" => "X-Api-Key",
                 ],
                 "headers" => [
           'content-type' => 'application/json',
@@ -554,10 +555,6 @@ class LatlngGeocodingConfig
             [
               'name' => 'confidence',
               'type' => '`$NUMBER`',
-            ],
-            [
-              'name' => 'count',
-              'type' => '`$INTEGER`',
             ],
             [
               'name' => 'country',

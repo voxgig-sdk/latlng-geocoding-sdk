@@ -2,63 +2,59 @@
   "existing": {
     "place": {
       "PLACE00": {
-        "brand": "s78",
-        "category": "s79",
-        "confidence": 122,
-        "count": 123,
-        "country": "s7c",
-        "distance_m": 125,
+        "brand": "s6e",
+        "category": "s6f",
+        "confidence": 112,
+        "country": "s71",
+        "distance_m": 114,
         "id": "PLACE00",
-        "lat": 127,
-        "locality": "s80",
-        "lon": 129,
-        "name": "s82",
-        "region": "s83"
+        "lat": 116,
+        "locality": "s75",
+        "lon": 118,
+        "name": "s77",
+        "region": "s78"
       },
       "PLACE01": {
-        "brand": "sf0",
-        "category": "sf1",
-        "confidence": 242,
-        "count": 243,
-        "country": "sf4",
-        "distance_m": 245,
+        "brand": "sdc",
+        "category": "sdd",
+        "confidence": 222,
+        "country": "sdf",
+        "distance_m": 224,
         "id": "PLACE01",
-        "lat": 247,
-        "locality": "sf8",
-        "lon": 249,
-        "name": "sfa",
-        "region": "sfb"
+        "lat": 226,
+        "locality": "se3",
+        "lon": 228,
+        "name": "se5",
+        "region": "se6"
       },
       "PLACE02": {
-        "brand": "s168",
-        "category": "s169",
-        "confidence": 362,
-        "count": 363,
-        "country": "s16c",
-        "distance_m": 365,
+        "brand": "s14a",
+        "category": "s14b",
+        "confidence": 332,
+        "country": "s14d",
+        "distance_m": 334,
         "id": "PLACE02",
-        "lat": 367,
-        "locality": "s170",
-        "lon": 369,
-        "name": "s172",
-        "region": "s173"
+        "lat": 336,
+        "locality": "s151",
+        "lon": 338,
+        "name": "s153",
+        "region": "s154"
       }
     }
   },
   "new": {
     "place": {
       "place_ref01": {
-        "brand": "s1e0",
-        "category": "s1e1",
-        "confidence": 482,
-        "count": 483,
-        "country": "s1e4",
-        "distance_m": 485,
-        "lat": 487,
-        "locality": "s1e8",
-        "lon": 489,
-        "name": "s1ea",
-        "region": "s1eb"
+        "brand": "s1b8",
+        "category": "s1b9",
+        "confidence": 442,
+        "country": "s1bb",
+        "distance_m": 444,
+        "lat": 446,
+        "locality": "s1bf",
+        "lon": 448,
+        "name": "s1c1",
+        "region": "s1c2"
       }
     }
   },

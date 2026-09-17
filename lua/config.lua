@@ -77,6 +77,7 @@ local function make_config()
       base = "https://api.latlng.work",
       auth = {
         prefix = "",
+        name = "X-Api-Key",
       },
       headers = {
         ["content-type"] = "application/json",
@@ -528,10 +529,6 @@ local function make_config()
           {
             ["name"] = "confidence",
             ["type"] = "`$NUMBER`",
-          },
-          {
-            ["name"] = "count",
-            ["type"] = "`$INTEGER`",
           },
           {
             ["name"] = "country",

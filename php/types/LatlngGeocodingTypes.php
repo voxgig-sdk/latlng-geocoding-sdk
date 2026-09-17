@@ -87,7 +87,6 @@ class Place
     public ?string $brand = null;
     public ?string $category = null;
     public ?float $confidence = null;
-    public ?int $count = null;
     public ?string $country = null;
     public ?float $distance_m = null;
     public ?string $id = null;

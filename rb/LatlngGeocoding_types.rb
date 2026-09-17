@@ -160,9 +160,6 @@ MapCreateData = Struct.new(
 # @!attribute [rw] confidence
 #   @return [Float, nil]
 #
-# @!attribute [rw] count
-#   @return [Integer, nil]
-#
 # @!attribute [rw] country
 #   @return [String, nil]
 #
@@ -190,7 +187,6 @@ Place = Struct.new(
   :brand,
   :category,
   :confidence,
-  :count,
   :country,
   :distance_m,
   :id,

@@ -303,7 +303,6 @@ $place = $client->Place();
 | `brand` | `string` | No |  |
 | `category` | `string` | No |  |
 | `confidence` | `float` | No |  |
-| `count` | `int` | No |  |
 | `country` | `string` | No |  |
 | `distance_m` | `float` | No |  |
 | `id` | `string` | No |  |

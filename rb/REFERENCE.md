@@ -304,7 +304,6 @@ place = client.Place
 | `brand` | `String` | No |  |
 | `category` | `String` | No |  |
 | `confidence` | `Float` | No |  |
-| `count` | `Integer` | No |  |
 | `country` | `String` | No |  |
 | `distance_m` | `Float` | No |  |
 | `id` | `String` | No |  |

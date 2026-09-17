@@ -105,12 +105,12 @@ local results, err = client:Reverse():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
-| Python | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
-| PHP | `voxgig-sdk/latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
+| TypeScript | `@voxgig-sdk/latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
+| Python | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
+| PHP | `voxgig-sdk/latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/latlng-geocoding-sdk/go` | `go get github.com/voxgig-sdk/latlng-geocoding-sdk/go@latest` |
-| Ruby | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
-| Lua | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases) |
+| Ruby | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
+| Lua | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/latlng-geocoding-sdk/go-cli` | `go install github.com/voxgig-sdk/latlng-geocoding-sdk/go-cli/cmd/latlng-geocoding@latest` |
 | Go MCP server | `github.com/voxgig-sdk/latlng-geocoding-sdk/go-mcp` | `go get github.com/voxgig-sdk/latlng-geocoding-sdk/go-mcp@latest` |
 

@@ -44,7 +44,6 @@ export interface Place {
     brand?: string;
     category?: string;
     confidence?: number;
-    count?: number;
     country?: string;
     distance_m?: number;
     id?: string;

@@ -318,7 +318,6 @@ fmt.Println(place.GetName()) // "place"
 | `brand` | `string` | No |  |
 | `category` | `string` | No |  |
 | `confidence` | `float64` | No |  |
-| `count` | `int` | No |  |
 | `country` | `string` | No |  |
 | `distance_m` | `float64` | No |  |
 | `id` | `string` | No |  |

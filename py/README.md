@@ -292,7 +292,6 @@ API path: `/v1/static`
 | `brand` |  |
 | `category` |  |
 | `confidence` |  |
-| `count` |  |
 | `country` |  |
 | `distance_m` |  |
 | `id` |  |
@@ -441,7 +440,6 @@ Create an instance: `place = client.Place()`
 | `brand` | `str` |  |
 | `category` | `str` |  |
 | `confidence` | `float` |  |
-| `count` | `int` |  |
 | `country` | `str` |  |
 | `distance_m` | `float` |  |
 | `id` | `str` |  |
@@ -648,6 +646,7 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 py/
 ├── latlnggeocoding_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations

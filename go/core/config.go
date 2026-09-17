@@ -81,6 +81,7 @@ func MakeConfig() map[string]any {
 			"base": "https://api.latlng.work",
 			"auth": map[string]any{
 				"prefix": "",
+				"name": "X-Api-Key",
 			},
 			"headers": map[string]any{
 				"content-type": "application/json",
@@ -532,10 +533,6 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "confidence",
 						"type": "`$NUMBER`",
-					},
-					map[string]any{
-						"name": "count",
-						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "country",

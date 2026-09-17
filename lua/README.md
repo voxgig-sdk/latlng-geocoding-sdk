@@ -280,7 +280,6 @@ API path: `/v1/static`
 | `brand` |  |
 | `category` |  |
 | `confidence` |  |
-| `count` |  |
 | `country` |  |
 | `distance_m` |  |
 | `id` |  |
@@ -429,7 +428,6 @@ Create an instance: `local place = client:Place(nil)`
 | `brand` | `string` |  |
 | `category` | `string` |  |
 | `confidence` | `number` |  |
-| `count` | `number` |  |
 | `country` | `string` |  |
 | `distance_m` | `number` |  |
 | `id` | `string` |  |
@@ -636,6 +634,7 @@ Use `helpers.to_map()` to safely validate that a value is a table.
 lua/
 ├── latlng-geocoding_sdk.lua    -- Main SDK module
 ├── config.lua               -- Configuration
+├── schema.lua               -- Generated option + entity specs
 ├── features.lua             -- Feature factory
 ├── core/                    -- Core types and context
 ├── entity/                  -- Entity implementations

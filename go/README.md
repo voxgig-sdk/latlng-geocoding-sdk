@@ -310,7 +310,6 @@ API path: `/v1/static`
 | `"brand"` |  |
 | `"category"` |  |
 | `"confidence"` |  |
-| `"count"` |  |
 | `"country"` |  |
 | `"distance_m"` |  |
 | `"id"` |  |
@@ -479,7 +478,6 @@ Create an instance: `place := client.Place(nil)`
 | `brand` | `string` |  |
 | `category` | `string` |  |
 | `confidence` | `float64` |  |
-| `count` | `int` |  |
 | `country` | `string` |  |
 | `distance_m` | `float64` |  |
 | `id` | `string` |  |

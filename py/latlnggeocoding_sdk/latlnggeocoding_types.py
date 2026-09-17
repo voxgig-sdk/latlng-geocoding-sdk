@@ -77,7 +77,6 @@ class Place(TypedDict, total=False):
     brand: str
     category: str
     confidence: float
-    count: int
     country: str
     distance_m: float
     id: str

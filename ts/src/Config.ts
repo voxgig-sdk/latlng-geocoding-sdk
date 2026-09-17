@@ -123,6 +123,7 @@ class Config {
 
     auth: {
       prefix: '',
+      name: 'X-Api-Key',
     },
 
     headers: {
@@ -131,24 +132,24 @@ class Config {
 
     entity: {
       
-      api: {
-      },
-
-      dataset: {
-      },
-
-      map: {
-      },
-
-      place: {
-      },
-
-      reverse: {
-      },
-
-      utility: {
-      },
-
+        api: {
+        },
+  
+        dataset: {
+        },
+  
+        map: {
+        },
+  
+        place: {
+        },
+  
+        reverse: {
+        },
+  
+        utility: {
+        },
+  
     }
   }
 
@@ -591,10 +592,6 @@ class Config {
         {
           "name": "confidence",
           "type": "`$NUMBER`"
-        },
-        {
-          "name": "count",
-          "type": "`$INTEGER`"
         },
         {
           "name": "country",

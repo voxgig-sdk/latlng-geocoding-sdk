@@ -104,6 +104,7 @@ class Config {
         base: "https://api.latlng.work",
         auth: {
             prefix: '',
+            name: 'X-Api-Key',
         },
         headers: {
             "content-type": "application/json"
@@ -555,10 +556,6 @@ class Config {
                 {
                     "name": "confidence",
                     "type": "`$NUMBER`"
-                },
-                {
-                    "name": "count",
-                    "type": "`$INTEGER`"
                 },
                 {
                     "name": "country",

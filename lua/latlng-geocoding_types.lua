@@ -52,7 +52,6 @@
 ---@field brand? string
 ---@field category? string
 ---@field confidence? number
----@field count? number
 ---@field country? string
 ---@field distance_m? number
 ---@field id? string

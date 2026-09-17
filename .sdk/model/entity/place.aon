@@ -21,11 +21,6 @@ main: kit: entity: place: {
       type: "`$NUMBER`"
     }
     {
-      name: "count"
-      req: false
-      type: "`$INTEGER`"
-    }
-    {
       name: "country"
       req: false
       type: "`$STRING`"

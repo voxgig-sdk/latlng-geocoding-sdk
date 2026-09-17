@@ -297,7 +297,6 @@ place = client.Place()
 | `brand` | `str` | No |  |
 | `category` | `str` | No |  |
 | `confidence` | `float` | No |  |
-| `count` | `int` | No |  |
 | `country` | `str` | No |  |
 | `distance_m` | `float` | No |  |
 | `id` | `str` | No |  |

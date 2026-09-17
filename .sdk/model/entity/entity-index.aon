@@ -1,8 +1,8 @@
 # Entity Models
 
-@"api.aon"
-@"dataset.aon"
-@"map.aon"
-@"place.aon"
-@"reverse.aon"
-@"utility.aon"
+@"./api.aon"
+@"./dataset.aon"
+@"./map.aon"
+@"./place.aon"
+@"./reverse.aon"
+@"./utility.aon"

@@ -361,7 +361,6 @@ const place = client.Place()
 | `brand` | `string` | No |  |
 | `category` | `string` | No |  |
 | `confidence` | `number` | No |  |
-| `count` | `number` | No |  |
 | `country` | `string` | No |  |
 | `distance_m` | `number` | No |  |
 | `id` | `string` | No |  |

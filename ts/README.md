@@ -344,7 +344,6 @@ API path: `/v1/static`
 | `brand` |  |
 | `category` |  |
 | `confidence` |  |
-| `count` |  |
 | `country` |  |
 | `distance_m` |  |
 | `id` |  |
@@ -493,7 +492,6 @@ Create an instance: `const place = client.Place()`
 | `brand` | `string` |  |
 | `category` | `string` |  |
 | `confidence` | `number` |  |
-| `count` | `number` |  |
 | `country` | `string` |  |
 | `distance_m` | `number` |  |
 | `id` | `string` |  |

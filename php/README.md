@@ -299,7 +299,6 @@ API path: `/v1/static`
 | `brand` |  |
 | `category` |  |
 | `confidence` |  |
-| `count` |  |
 | `country` |  |
 | `distance_m` |  |
 | `id` |  |
@@ -451,7 +450,6 @@ Create an instance: `$place = $client->Place();`
 | `brand` | `string` |  |
 | `category` | `string` |  |
 | `confidence` | `float` |  |
-| `count` | `int` |  |
 | `country` | `string` |  |
 | `distance_m` | `float` |  |
 | `id` | `string` |  |
@@ -661,6 +659,7 @@ Use `Helpers::to_map()` to safely validate that a value is an array.
 php/
 ├── latlnggeocoding_sdk.php          -- Main SDK class
 ├── config.php                     -- Configuration
+├── schema.php                     -- Generated option + entity specs
 ├── features.php                   -- Feature factory
 ├── core/                          -- Core types and context
 ├── entity/                        -- Entity implementations

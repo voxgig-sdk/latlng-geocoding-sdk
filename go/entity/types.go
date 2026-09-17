@@ -77,7 +77,6 @@ type Place struct {
 	Brand *string `json:"brand,omitempty"`
 	Category *string `json:"category,omitempty"`
 	Confidence *float64 `json:"confidence,omitempty"`
-	Count *int `json:"count,omitempty"`
 	Country *string `json:"country,omitempty"`
 	DistanceM *float64 `json:"distance_m,omitempty"`
 	Id *string `json:"id,omitempty"`
