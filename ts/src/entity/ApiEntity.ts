@@ -19,7 +19,6 @@ import type {
   ApiListMatch,
 } from '../LatlngGeocodingTypes'
 
-// TODO: needs Entity superclass
 class ApiEntity extends LatlngGeocodingEntityBase<Api> {
 
   constructor(client: LatlngGeocodingSDK, entopts: any) {

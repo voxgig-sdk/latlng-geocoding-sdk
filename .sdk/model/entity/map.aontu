@@ -1,0 +1,159 @@
+# Entity: map
+
+main: kit: entity: map: {
+
+  alias: field: {}
+
+  fields: {
+    features: {
+      h: "Features"
+      n: "features"
+      r: true
+      t: "`$ARRAY`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: true
+      t: "`$STRING`"
+    }
+  }
+
+  name: "map"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /v1/static"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "latlng_xxxxx"
+                k: "query"
+                n: "key"
+                or: "key"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/v1/static"
+          q: {
+            exist: [
+              "key"
+            ]
+          }
+          s: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "static"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /v1/static"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "40.748,-73.985"
+                k: "query"
+                n: "center"
+                or: "center"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 600
+                k: "query"
+                n: "height"
+                or: "height"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: "latlng_xxxxx"
+                k: "query"
+                n: "key"
+                or: "key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "40.748,-73.985"
+                k: "query"
+                n: "marker"
+                or: "marker"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 800
+                k: "query"
+                n: "width"
+                or: "width"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 12
+                k: "query"
+                n: "zoom"
+                or: "zoom"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/v1/static"
+          q: {
+            exist: [
+              "center"
+              "height"
+              "key"
+              "marker"
+              "width"
+              "zoom"
+            ]
+          }
+          s: [
+            {
+              lit: "v1"
+            }
+            {
+              lit: "static"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

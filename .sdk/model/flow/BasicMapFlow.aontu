@@ -1,0 +1,36 @@
+# BasicMapFlow
+
+main: kit: flow: BasicMapFlow:
+{
+  entity: "map",
+  kind: "basic",
+  name: "BasicMapFlow",
+  step: [
+    {
+      i: {
+        ref: "map_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      i: {
+        ref: "map_ref01",
+        srcdatavar: "map_ref01_data",
+        suffix: "_dt0"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-map_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicMapFlow"
+}

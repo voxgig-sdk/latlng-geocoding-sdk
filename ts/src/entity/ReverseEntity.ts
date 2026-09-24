@@ -19,7 +19,6 @@ import type {
   ReverseListMatch,
 } from '../LatlngGeocodingTypes'
 
-// TODO: needs Entity superclass
 class ReverseEntity extends LatlngGeocodingEntityBase<Reverse> {
 
   constructor(client: LatlngGeocodingSDK, entopts: any) {

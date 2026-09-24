@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiEntity = void 0;
 const LatlngGeocodingEntityBase_1 = require("../LatlngGeocodingEntityBase");
-// TODO: needs Entity superclass
 class ApiEntity extends LatlngGeocodingEntityBase_1.LatlngGeocodingEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

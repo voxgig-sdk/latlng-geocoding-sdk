@@ -45,7 +45,7 @@ local apis, err = client:Api():list()
 if err then error(err) end
 
 for _, item in ipairs(apis) do
-  print(item["type"])
+  print(item)
 end
 ```
 

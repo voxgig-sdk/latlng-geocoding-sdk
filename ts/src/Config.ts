@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -159,18 +152,21 @@ class Config {
       "fields": [
         {
           "name": "geometry",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Geometry",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "properties",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Properties",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "type",
-          "req": true,
-          "type": "`$STRING`"
+          "title": "Type",
+          "type": "`$STRING`",
+          "req": true
         }
       ],
       "name": "api",
@@ -180,52 +176,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "en",
-                    "kind": "query",
-                    "name": "lang",
-                    "orig": "lang",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 52.52,
-                    "kind": "query",
-                    "name": "lat",
-                    "orig": "lat",
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": 5,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": 13.405,
-                    "kind": "query",
-                    "name": "lon",
-                    "orig": "lon",
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": "Berlin",
-                    "kind": "query",
-                    "name": "q",
-                    "orig": "q",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/api",
@@ -234,6 +184,60 @@ class Config {
                   "lit": "api"
                 }
               ],
+              "parts": [
+                "api"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.features`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "lang",
+                    "orig": "lang",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "en"
+                  },
+                  {
+                    "name": "lat",
+                    "orig": "lat",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "example": 52.52
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 5
+                  },
+                  {
+                    "name": "lon",
+                    "orig": "lon",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "example": 13.405
+                  },
+                  {
+                    "name": "q",
+                    "orig": "q",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": "Berlin"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "api_key",
@@ -243,14 +247,7 @@ class Config {
                   "lon",
                   "q"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.features`"
-              },
-              "parts": [
-                "api"
-              ]
+              }
             }
           ]
         }
@@ -263,6 +260,7 @@ class Config {
       "fields": [
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         }
       ],
@@ -277,7 +275,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/v1/datasets",
@@ -289,15 +286,17 @@ class Config {
                   "lit": "datasets"
                 }
               ],
-              "select": {},
+              "parts": [
+                "v1",
+                "datasets"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "v1",
-                "datasets"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -306,25 +305,9 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "dataset_id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/v1/datasets/{datasetId}",
-              "rename": {
-                "param": {
-                  "datasetId": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "v1"
@@ -336,23 +319,38 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
+              "parts": [
+                "v1",
+                "datasets",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "datasetId": "id"
+                }
               },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "v1",
-                "datasets",
-                "{id}"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "dataset_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             },
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/v1/datasets",
@@ -364,15 +362,17 @@ class Config {
                   "lit": "datasets"
                 }
               ],
-              "select": {},
+              "parts": [
+                "v1",
+                "datasets"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "v1",
-                "datasets"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -381,25 +381,9 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "dataset_id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/v1/datasets/{datasetId}",
-              "rename": {
-                "param": {
-                  "datasetId": "id"
-                }
-              },
               "segments": [
                 {
                   "lit": "v1"
@@ -411,20 +395,36 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
+              "parts": [
+                "v1",
+                "datasets",
+                "{id}"
+              ],
+              "rename": {
+                "param": {
+                  "datasetId": "id"
+                }
               },
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "v1",
-                "datasets",
-                "{id}"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "dataset_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -437,13 +437,15 @@ class Config {
       "fields": [
         {
           "name": "features",
-          "req": true,
-          "type": "`$ARRAY`"
+          "title": "Features",
+          "type": "`$ARRAY`",
+          "req": true
         },
         {
           "name": "type",
-          "req": true,
-          "type": "`$STRING`"
+          "title": "Type",
+          "type": "`$STRING`",
+          "req": true
         }
       ],
       "name": "map",
@@ -453,17 +455,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "example": "latlng_xxxxx",
-                    "kind": "query",
-                    "name": "key",
-                    "orig": "key",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/v1/static",
@@ -475,19 +466,31 @@ class Config {
                   "lit": "static"
                 }
               ],
-              "select": {
-                "exist": [
-                  "key"
-                ]
-              },
+              "parts": [
+                "v1",
+                "static"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "v1",
-                "static"
-              ]
+              "args": {
+                "query": [
+                  {
+                    "name": "key",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "latlng_xxxxx"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "key"
+                ]
+              }
             }
           ]
         },
@@ -496,52 +499,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "example": "40.748,-73.985",
-                    "kind": "query",
-                    "name": "center",
-                    "orig": "center",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 600,
-                    "kind": "query",
-                    "name": "height",
-                    "orig": "height",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": "latlng_xxxxx",
-                    "kind": "query",
-                    "name": "key",
-                    "orig": "key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "40.748,-73.985",
-                    "kind": "query",
-                    "name": "marker",
-                    "orig": "marker",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 800,
-                    "kind": "query",
-                    "name": "width",
-                    "orig": "width",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": 12,
-                    "kind": "query",
-                    "name": "zoom",
-                    "orig": "zoom",
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/v1/static",
@@ -553,6 +510,61 @@ class Config {
                   "lit": "static"
                 }
               ],
+              "parts": [
+                "v1",
+                "static"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "center",
+                    "orig": "center",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "40.748,-73.985"
+                  },
+                  {
+                    "name": "height",
+                    "orig": "height",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 600
+                  },
+                  {
+                    "name": "key",
+                    "orig": "key",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "latlng_xxxxx"
+                  },
+                  {
+                    "name": "marker",
+                    "orig": "marker",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "40.748,-73.985"
+                  },
+                  {
+                    "name": "width",
+                    "orig": "width",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 800
+                  },
+                  {
+                    "name": "zoom",
+                    "orig": "zoom",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 12
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "center",
@@ -562,15 +574,7 @@ class Config {
                   "width",
                   "zoom"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "v1",
-                "static"
-              ]
+              }
             }
           ]
         }
@@ -583,46 +587,57 @@ class Config {
       "fields": [
         {
           "name": "brand",
+          "title": "Brand",
           "type": "`$STRING`"
         },
         {
           "name": "category",
+          "title": "Category",
           "type": "`$STRING`"
         },
         {
           "name": "confidence",
+          "title": "Confidence",
           "type": "`$NUMBER`"
         },
         {
           "name": "country",
+          "title": "Country",
           "type": "`$STRING`"
         },
         {
           "name": "distance_m",
+          "title": "Distance M",
           "type": "`$NUMBER`"
         },
         {
           "name": "id",
+          "title": "Id",
           "type": "`$STRING`"
         },
         {
           "name": "lat",
+          "title": "Lat",
           "type": "`$NUMBER`"
         },
         {
           "name": "locality",
+          "title": "Locality",
           "type": "`$STRING`"
         },
         {
           "name": "lon",
+          "title": "Lon",
           "type": "`$NUMBER`"
         },
         {
           "name": "name",
+          "title": "Name",
           "type": "`$STRING`"
         },
         {
           "name": "region",
+          "title": "Region",
           "type": "`$STRING`"
         }
       ],
@@ -637,66 +652,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "cafe",
-                    "kind": "query",
-                    "name": "category",
-                    "orig": "category",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "US",
-                    "kind": "query",
-                    "name": "country",
-                    "orig": "country",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 40.748,
-                    "kind": "query",
-                    "name": "lat",
-                    "orig": "lat",
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": 5,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": -73.985,
-                    "kind": "query",
-                    "name": "lon",
-                    "orig": "lon",
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": "Starbucks",
-                    "kind": "query",
-                    "name": "q",
-                    "orig": "q",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "cafe",
-                    "kind": "query",
-                    "name": "type",
-                    "orig": "type",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/v1/places/search",
@@ -711,6 +666,76 @@ class Config {
                   "lit": "search"
                 }
               ],
+              "parts": [
+                "v1",
+                "places",
+                "search"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "category",
+                    "orig": "category",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "cafe"
+                  },
+                  {
+                    "name": "country",
+                    "orig": "country",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "US"
+                  },
+                  {
+                    "name": "lat",
+                    "orig": "lat",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "example": 40.748
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 5
+                  },
+                  {
+                    "name": "lon",
+                    "orig": "lon",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "example": -73.985
+                  },
+                  {
+                    "name": "q",
+                    "orig": "q",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": "Starbucks"
+                  },
+                  {
+                    "name": "type",
+                    "orig": "type",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "cafe"
+                  }
+                ]
+              },
               "select": {
                 "$action": "search",
                 "exist": [
@@ -723,72 +748,9 @@ class Config {
                   "q",
                   "type"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "v1",
-                "places",
-                "search"
-              ]
+              }
             },
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "cafe",
-                    "kind": "query",
-                    "name": "category",
-                    "orig": "category",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 40.748,
-                    "kind": "query",
-                    "name": "lat",
-                    "orig": "lat",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": 10,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": -73.985,
-                    "kind": "query",
-                    "name": "lon",
-                    "orig": "lon",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": 500,
-                    "kind": "query",
-                    "name": "radius",
-                    "orig": "radius",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": "cafe",
-                    "kind": "query",
-                    "name": "type",
-                    "orig": "type",
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/v1/places/nearby",
@@ -803,6 +765,70 @@ class Config {
                   "lit": "nearby"
                 }
               ],
+              "parts": [
+                "v1",
+                "places",
+                "nearby"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "category",
+                    "orig": "category",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "cafe"
+                  },
+                  {
+                    "name": "lat",
+                    "orig": "lat",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": 40.748
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 10
+                  },
+                  {
+                    "name": "lon",
+                    "orig": "lon",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": -73.985
+                  },
+                  {
+                    "name": "radius",
+                    "orig": "radius",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 500
+                  },
+                  {
+                    "name": "type",
+                    "orig": "type",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "cafe"
+                  }
+                ]
+              },
               "select": {
                 "$action": "nearby",
                 "exist": [
@@ -814,19 +840,9 @@ class Config {
                   "radius",
                   "type"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "v1",
-                "places",
-                "nearby"
-              ]
+              }
             },
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/v1/places/categories",
@@ -841,18 +857,20 @@ class Config {
                   "lit": "categories"
                 }
               ],
-              "select": {
-                "$action": "category"
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.categories`"
-              },
               "parts": [
                 "v1",
                 "places",
                 "categories"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.categories`"
+              },
+              "args": {},
+              "select": {
+                "$action": "category"
+              }
             }
           ]
         }
@@ -865,18 +883,21 @@ class Config {
       "fields": [
         {
           "name": "geometry",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Geometry",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "properties",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Properties",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "type",
-          "req": true,
-          "type": "`$STRING`"
+          "title": "Type",
+          "type": "`$STRING`",
+          "req": true
         }
       ],
       "name": "reverse",
@@ -886,46 +907,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "api_key",
-                    "orig": "api_key",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": "en",
-                    "kind": "query",
-                    "name": "lang",
-                    "orig": "lang",
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "example": 52.517,
-                    "kind": "query",
-                    "name": "lat",
-                    "orig": "lat",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  },
-                  {
-                    "example": 5,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": 13.389,
-                    "kind": "query",
-                    "name": "lon",
-                    "orig": "lon",
-                    "reqd": true,
-                    "type": "`$NUMBER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/reverse",
@@ -934,6 +915,54 @@ class Config {
                   "lit": "reverse"
                 }
               ],
+              "parts": [
+                "reverse"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.features`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "api_key",
+                    "orig": "api_key",
+                    "type": "`$STRING`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "lang",
+                    "orig": "lang",
+                    "type": "`$STRING`",
+                    "kind": "query",
+                    "example": "en"
+                  },
+                  {
+                    "name": "lat",
+                    "orig": "lat",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": 52.517
+                  },
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 5
+                  },
+                  {
+                    "name": "lon",
+                    "orig": "lon",
+                    "type": "`$NUMBER`",
+                    "kind": "query",
+                    "reqd": true,
+                    "example": 13.389
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "api_key",
@@ -942,14 +971,7 @@ class Config {
                   "limit",
                   "lon"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.features`"
-              },
-              "parts": [
-                "reverse"
-              ]
+              }
             }
           ]
         }
@@ -962,6 +984,7 @@ class Config {
       "fields": [
         {
           "name": "status",
+          "title": "Status",
           "type": "`$STRING`"
         }
       ],
@@ -972,7 +995,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/health",
@@ -981,14 +1003,16 @@ class Config {
                   "lit": "health"
                 }
               ],
-              "select": {},
+              "parts": [
+                "health"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "health"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         }

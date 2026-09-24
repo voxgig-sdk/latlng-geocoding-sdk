@@ -1,0 +1,109 @@
+# Entity: reverse
+
+main: kit: entity: reverse: {
+
+  alias: field: {}
+
+  fields: {
+    geometry: {
+      h: "Geometry"
+      n: "geometry"
+      r: true
+      t: "`$OBJECT`"
+    }
+    properties: {
+      h: "Properties"
+      n: "properties"
+      r: true
+      t: "`$OBJECT`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: true
+      t: "`$STRING`"
+    }
+  }
+
+  name: "reverse"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /reverse"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "api_key"
+                or: "api_key"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: "en"
+                k: "query"
+                n: "lang"
+                or: "lang"
+                r: false
+                t: "`$STRING`"
+              }
+              {
+                ex: 52.517
+                k: "query"
+                n: "lat"
+                or: "lat"
+                r: true
+                t: "`$NUMBER`"
+              }
+              {
+                ex: 5
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 13.389
+                k: "query"
+                n: "lon"
+                or: "lon"
+                r: true
+                t: "`$NUMBER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/reverse"
+          q: {
+            exist: [
+              "api_key"
+              "lang"
+              "lat"
+              "limit"
+              "lon"
+            ]
+          }
+          s: [
+            {
+              lit: "reverse"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.features`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

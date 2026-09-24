@@ -1,0 +1,22 @@
+# BasicReverseFlow
+
+main: kit: flow: BasicReverseFlow:
+{
+  entity: "reverse",
+  kind: "basic",
+  name: "BasicReverseFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "reverse_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicReverseFlow"
+}

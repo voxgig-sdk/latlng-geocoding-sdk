@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReverseEntity = void 0;
 const LatlngGeocodingEntityBase_1 = require("../LatlngGeocodingEntityBase");
-// TODO: needs Entity superclass
 class ReverseEntity extends LatlngGeocodingEntityBase_1.LatlngGeocodingEntityBase {
     constructor(client, entopts) {
         super(client, entopts);

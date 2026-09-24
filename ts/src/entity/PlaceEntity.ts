@@ -19,7 +19,6 @@ import type {
   PlaceListMatch,
 } from '../LatlngGeocodingTypes'
 
-// TODO: needs Entity superclass
 class PlaceEntity extends LatlngGeocodingEntityBase<Place> {
 
   constructor(client: LatlngGeocodingSDK, entopts: any) {
