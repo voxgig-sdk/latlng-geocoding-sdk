@@ -106,11 +106,11 @@ local results, err = client:Reverse():list()
 | Language | Package | Install |
 | --- | --- | --- |
 | TypeScript | `@voxgig-sdk/latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
-| Python | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
-| PHP | `voxgig-sdk/latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
+| Python | `voxgig-sdk-latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
+| PHP | `voxgig-sdk/latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/latlng-geocoding-sdk/go` | `go get github.com/voxgig-sdk/latlng-geocoding-sdk/go@latest` |
-| Ruby | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
-| Lua | `voxgig-sdk-latlng-geocoding` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
+| Ruby | `voxgig-sdk-latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
+| Lua | `voxgig-sdk-latlng-geocoding-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/latlng-geocoding-sdk/go-cli` | `go install github.com/voxgig-sdk/latlng-geocoding-sdk/go-cli/cmd/latlng-geocoding@latest` |
 | Go MCP server | `github.com/voxgig-sdk/latlng-geocoding-sdk/go-mcp` | `go get github.com/voxgig-sdk/latlng-geocoding-sdk/go-mcp@latest` |
 
@@ -357,10 +357,10 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **RatelimitFeature** | Client-side rate limiting via a token bucket |
-| **RetryFeature** | Automatic retry of transient failures with exponential backoff |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-| **TimeoutFeature** | Per-request timeout with transport abort |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 
