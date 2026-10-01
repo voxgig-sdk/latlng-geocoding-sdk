@@ -103,7 +103,7 @@ main: kit: entity: map: {
                 ex: "40.748,-73.985"
                 k: "query"
                 n: "marker"
-                or: "marker"
+                or: "markers"
                 r: false
                 t: "`$STRING`"
               }

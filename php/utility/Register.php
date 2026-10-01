@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 LatlngGeocodingUtility::setRegistrar(function (LatlngGeocodingUtility $u): void {
     $u->clean = [LatlngGeocodingClean::class, 'call'];
+    $u->clean_add = [LatlngGeocodingClean::class, 'add'];
+    $u->clean_explain = [LatlngGeocodingDone::class, 'clean_explain'];
     $u->done = [LatlngGeocodingDone::class, 'call'];
     $u->make_error = [LatlngGeocodingMakeError::class, 'call'];
     $u->feature_add = [LatlngGeocodingFeatureAdd::class, 'call'];

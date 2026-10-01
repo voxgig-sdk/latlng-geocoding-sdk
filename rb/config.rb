@@ -293,7 +293,7 @@ module LatlngGeocodingConfig
                     "params" => [
                       {
                         "name" => "id",
-                        "orig" => "dataset_id",
+                        "orig" => "datasetId",
                         "type" => "`$STRING`",
                         "kind" => "param",
                         "reqd" => true,
@@ -369,7 +369,7 @@ module LatlngGeocodingConfig
                     "params" => [
                       {
                         "name" => "id",
-                        "orig" => "dataset_id",
+                        "orig" => "datasetId",
                         "type" => "`$STRING`",
                         "kind" => "param",
                         "reqd" => true,
@@ -500,7 +500,7 @@ module LatlngGeocodingConfig
                       },
                       {
                         "name" => "marker",
-                        "orig" => "marker",
+                        "orig" => "markers",
                         "type" => "`$STRING`",
                         "kind" => "query",
                         "example" => "40.748,-73.985",

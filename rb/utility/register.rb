@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 LatlngGeocodingUtility.registrar = ->(u) {
   u.clean = LatlngGeocodingUtilities::Clean
+  u.clean_add = LatlngGeocodingUtilities::CleanAdd
+  u.clean_explain = LatlngGeocodingUtilities::CleanExplain
   u.done = LatlngGeocodingUtilities::Done
   u.make_error = LatlngGeocodingUtilities::MakeError
   u.feature_add = LatlngGeocodingUtilities::FeatureAdd

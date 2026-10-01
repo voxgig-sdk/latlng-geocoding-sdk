@@ -60,7 +60,7 @@ main: kit: entity: dataset: {
               {
                 k: "param"
                 n: "id"
-                or: "dataset_id"
+                or: "datasetId"
                 r: true
                 t: "`$STRING`"
               }
@@ -131,7 +131,7 @@ main: kit: entity: dataset: {
               {
                 k: "param"
                 n: "id"
-                or: "dataset_id"
+                or: "datasetId"
                 r: true
                 t: "`$STRING`"
               }

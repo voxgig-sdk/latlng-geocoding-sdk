@@ -281,7 +281,7 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "id",
-                      ["orig"] = "dataset_id",
+                      ["orig"] = "datasetId",
                       ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,
@@ -357,7 +357,7 @@ local function make_config()
                   ["params"] = {
                     {
                       ["name"] = "id",
-                      ["orig"] = "dataset_id",
+                      ["orig"] = "datasetId",
                       ["type"] = "`$STRING`",
                       ["kind"] = "param",
                       ["reqd"] = true,
@@ -488,7 +488,7 @@ local function make_config()
                     },
                     {
                       ["name"] = "marker",
-                      ["orig"] = "marker",
+                      ["orig"] = "markers",
                       ["type"] = "`$STRING`",
                       ["kind"] = "query",
                       ["example"] = "40.748,-73.985",

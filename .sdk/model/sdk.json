@@ -289,7 +289,7 @@
                         "a": true,
                         "k": "param",
                         "n": "id",
-                        "or": "dataset_id",
+                        "or": "datasetId",
                         "r": true,
                         "t": "`$STRING`"
                       }
@@ -369,7 +369,7 @@
                         "a": true,
                         "k": "param",
                         "n": "id",
-                        "or": "dataset_id",
+                        "or": "datasetId",
                         "r": true,
                         "t": "`$STRING`"
                       }
@@ -527,7 +527,7 @@
                         "ex": "40.748,-73.985",
                         "k": "query",
                         "n": "marker",
-                        "or": "marker",
+                        "or": "markers",
                         "r": false,
                         "t": "`$STRING`"
                       },
@@ -1765,7 +1765,12 @@
         },
         "base": "http://localhost:8000",
         "clean": {
-          "keys": "key,token,id"
+          "active": true,
+          "hint": "0",
+          "keys": "key,secret,token,password,passwd,authorization,cookie,credential,signature",
+          "mask": "[redacted]",
+          "min": "4",
+          "values": ""
         },
         "entity": {
           "`$CHILD`": {

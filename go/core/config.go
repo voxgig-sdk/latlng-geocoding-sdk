@@ -285,7 +285,7 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "id",
-											"orig": "dataset_id",
+											"orig": "datasetId",
 											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
@@ -361,7 +361,7 @@ func MakeConfig() map[string]any {
 									"params": []any{
 										map[string]any{
 											"name": "id",
-											"orig": "dataset_id",
+											"orig": "datasetId",
 											"type": "`$STRING`",
 											"kind": "param",
 											"reqd": true,
@@ -492,7 +492,7 @@ func MakeConfig() map[string]any {
 										},
 										map[string]any{
 											"name": "marker",
-											"orig": "marker",
+											"orig": "markers",
 											"type": "`$STRING`",
 											"kind": "query",
 											"example": "40.748,-73.985",
