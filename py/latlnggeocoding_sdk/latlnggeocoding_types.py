@@ -34,7 +34,12 @@ class ApiListMatch(ApiListMatchRequired, total=False):
     lon: float
 
 
-class Dataset(TypedDict, total=False):
+class DatasetRequired(TypedDict):
+    features: list
+    type: str
+
+
+class Dataset(DatasetRequired, total=False):
     id: str
 
 
@@ -42,8 +47,9 @@ class DatasetLoadMatch(TypedDict):
     id: str
 
 
-class DatasetCreateData(TypedDict, total=False):
-    id: str
+class DatasetCreateData(TypedDict):
+    features: list
+    type: str
 
 
 class DatasetRemoveMatch(TypedDict):
@@ -88,16 +94,15 @@ class Place(TypedDict, total=False):
 
 
 class PlaceListMatchRequired(TypedDict):
-    q: str
+    lat: float
+    lon: float
 
 
 class PlaceListMatch(PlaceListMatchRequired, total=False):
     api_key: str
     category: str
-    country: str
-    lat: float
     limit: int
-    lon: float
+    radius: int
     type: str
 
 

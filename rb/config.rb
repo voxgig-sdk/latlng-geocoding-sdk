@@ -79,6 +79,7 @@ module LatlngGeocodingConfig
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -196,13 +197,12 @@ module LatlngGeocodingConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
-                      "lang",
-                      "lat",
-                      "limit",
-                      "lon",
                       "q",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -215,9 +215,21 @@ module LatlngGeocodingConfig
         "dataset" => {
           "fields" => [
             {
+              "name" => "features",
+              "title" => "Features",
+              "type" => "`$ARRAY`",
+              "req" => true,
+            },
+            {
               "name" => "id",
               "title" => "Id",
               "type" => "`$STRING`",
+            },
+            {
+              "name" => "type",
+              "title" => "Type",
+              "type" => "`$STRING`",
+              "req" => true,
             },
           ],
           "id" => {
@@ -253,6 +265,21 @@ module LatlngGeocodingConfig
                   },
                   "args" => {},
                   "select" => {},
+                  "body" => {
+                    "alternatives" => [
+                      {
+                        "binary" => true,
+                        "kind" => "raw",
+                        "media" => "application/octet-stream",
+                      },
+                    ],
+                    "kind" => "json",
+                    "media" => "application/geo+json",
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
+                  },
                 },
               ],
             },
@@ -305,6 +332,10 @@ module LatlngGeocodingConfig
                       "id",
                     ],
                   },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
+                  },
                 },
                 {
                   "kind" => "http",
@@ -329,6 +360,10 @@ module LatlngGeocodingConfig
                   },
                   "args" => {},
                   "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
+                  },
                 },
               ],
             },
@@ -380,6 +415,10 @@ module LatlngGeocodingConfig
                     "exist" => [
                       "id",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -442,10 +481,11 @@ module LatlngGeocodingConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "key",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "binary" => true,
+                    "kind" => "raw",
+                    "media" => "image/png",
                   },
                 },
               ],
@@ -521,15 +561,11 @@ module LatlngGeocodingConfig
                       },
                     ],
                   },
-                  "select" => {
-                    "exist" => [
-                      "center",
-                      "height",
-                      "key",
-                      "marker",
-                      "width",
-                      "zoom",
-                    ],
+                  "select" => {},
+                  "response" => {
+                    "binary" => true,
+                    "kind" => "raw",
+                    "media" => "image/png",
                   },
                 },
               ],
@@ -610,105 +646,6 @@ module LatlngGeocodingConfig
                 {
                   "kind" => "http",
                   "method" => "GET",
-                  "orig" => "/v1/places/search",
-                  "segments" => [
-                    {
-                      "lit" => "v1",
-                    },
-                    {
-                      "lit" => "places",
-                    },
-                    {
-                      "lit" => "search",
-                    },
-                  ],
-                  "parts" => [
-                    "v1",
-                    "places",
-                    "search",
-                  ],
-                  "rename" => {},
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "args" => {
-                    "query" => [
-                      {
-                        "name" => "api_key",
-                        "orig" => "api_key",
-                        "type" => "`$STRING`",
-                        "kind" => "query",
-                      },
-                      {
-                        "name" => "category",
-                        "orig" => "category",
-                        "type" => "`$STRING`",
-                        "kind" => "query",
-                        "example" => "cafe",
-                      },
-                      {
-                        "name" => "country",
-                        "orig" => "country",
-                        "type" => "`$STRING`",
-                        "kind" => "query",
-                        "example" => "US",
-                      },
-                      {
-                        "name" => "lat",
-                        "orig" => "lat",
-                        "type" => "`$NUMBER`",
-                        "kind" => "query",
-                        "example" => 40.748,
-                      },
-                      {
-                        "name" => "limit",
-                        "orig" => "limit",
-                        "type" => "`$INTEGER`",
-                        "kind" => "query",
-                        "example" => 5,
-                      },
-                      {
-                        "name" => "lon",
-                        "orig" => "lon",
-                        "type" => "`$NUMBER`",
-                        "kind" => "query",
-                        "example" => -73.985,
-                      },
-                      {
-                        "name" => "q",
-                        "orig" => "q",
-                        "type" => "`$STRING`",
-                        "kind" => "query",
-                        "reqd" => true,
-                        "example" => "Starbucks",
-                      },
-                      {
-                        "name" => "type",
-                        "orig" => "type",
-                        "type" => "`$STRING`",
-                        "kind" => "query",
-                        "example" => "cafe",
-                      },
-                    ],
-                  },
-                  "select" => {
-                    "$action" => "search",
-                    "exist" => [
-                      "api_key",
-                      "category",
-                      "country",
-                      "lat",
-                      "limit",
-                      "lon",
-                      "q",
-                      "type",
-                    ],
-                  },
-                },
-                {
-                  "kind" => "http",
-                  "method" => "GET",
                   "orig" => "/v1/places/nearby",
                   "segments" => [
                     {
@@ -745,6 +682,7 @@ module LatlngGeocodingConfig
                         "type" => "`$STRING`",
                         "kind" => "query",
                         "example" => "cafe",
+                        "field" => true,
                       },
                       {
                         "name" => "lat",
@@ -753,6 +691,7 @@ module LatlngGeocodingConfig
                         "kind" => "query",
                         "reqd" => true,
                         "example" => 40.748,
+                        "field" => true,
                       },
                       {
                         "name" => "limit",
@@ -768,6 +707,7 @@ module LatlngGeocodingConfig
                         "kind" => "query",
                         "reqd" => true,
                         "example" => -73.985,
+                        "field" => true,
                       },
                       {
                         "name" => "radius",
@@ -788,14 +728,113 @@ module LatlngGeocodingConfig
                   "select" => {
                     "$action" => "nearby",
                     "exist" => [
-                      "api_key",
-                      "category",
                       "lat",
-                      "limit",
                       "lon",
-                      "radius",
-                      "type",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
+                  },
+                },
+                {
+                  "kind" => "http",
+                  "method" => "GET",
+                  "orig" => "/v1/places/search",
+                  "segments" => [
+                    {
+                      "lit" => "v1",
+                    },
+                    {
+                      "lit" => "places",
+                    },
+                    {
+                      "lit" => "search",
+                    },
+                  ],
+                  "parts" => [
+                    "v1",
+                    "places",
+                    "search",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "query" => [
+                      {
+                        "name" => "api_key",
+                        "orig" => "api_key",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                      },
+                      {
+                        "name" => "category",
+                        "orig" => "category",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "cafe",
+                        "field" => true,
+                      },
+                      {
+                        "name" => "country",
+                        "orig" => "country",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "US",
+                        "field" => true,
+                      },
+                      {
+                        "name" => "lat",
+                        "orig" => "lat",
+                        "type" => "`$NUMBER`",
+                        "kind" => "query",
+                        "example" => 40.748,
+                        "field" => true,
+                      },
+                      {
+                        "name" => "limit",
+                        "orig" => "limit",
+                        "type" => "`$INTEGER`",
+                        "kind" => "query",
+                        "example" => 5,
+                      },
+                      {
+                        "name" => "lon",
+                        "orig" => "lon",
+                        "type" => "`$NUMBER`",
+                        "kind" => "query",
+                        "example" => -73.985,
+                        "field" => true,
+                      },
+                      {
+                        "name" => "q",
+                        "orig" => "q",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "reqd" => true,
+                        "example" => "Starbucks",
+                      },
+                      {
+                        "name" => "type",
+                        "orig" => "type",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                        "example" => "cafe",
+                      },
+                    ],
+                  },
+                  "select" => {
+                    "$action" => "search",
+                    "exist" => [
+                      "q",
+                    ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
                 {
@@ -826,6 +865,10 @@ module LatlngGeocodingConfig
                   "args" => {},
                   "select" => {
                     "$action" => "category",
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -921,12 +964,13 @@ module LatlngGeocodingConfig
                   },
                   "select" => {
                     "exist" => [
-                      "api_key",
-                      "lang",
                       "lat",
-                      "limit",
                       "lon",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],
@@ -969,6 +1013,10 @@ module LatlngGeocodingConfig
                   },
                   "args" => {},
                   "select" => {},
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
+                  },
                 },
               ],
             },

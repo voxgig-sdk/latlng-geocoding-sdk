@@ -12,7 +12,7 @@ It exposes the API as capitalised, semantic **Entities** — e.g. `client:Api()`
 
 ## Install
 This package is not yet published to LuaRocks. Install it from the
-GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases)),
+GitHub release tag (`lua/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags)),
 or add the source directory to your `LUA_PATH`:
 
 ```bash
@@ -23,7 +23,7 @@ export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key in the `X-Api-Key` header.
 
 ### 1. Create a client
 
@@ -37,15 +37,16 @@ local client = sdk.new({
 
 ### 2. List api records
 
-Entity operations return `(value, err)`. For `list`, `value` is the
-array of records itself — iterate it directly (there is no wrapper).
+Entity operations return `(value, err)`. For `list`, `value` is an
+array of entities, one per record — iterate it directly (there is no
+wrapper), and read each record with `data_get()`.
 
 ```lua
-local apis, err = client:Api():list()
+local apis, err = client:Api():list({ q = "example" })
 if err then error(err) end
 
 for _, item in ipairs(apis) do
-  print(item)
+  for k, val in pairs(item:data_get()) do print(k, val) end
 end
 ```
 
@@ -56,7 +57,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local reverses, err = client:Reverse():list()
+local dataset, err = client:Dataset():load({ id = "example_id" })
 if err then error(err) end
 ```
 
@@ -114,8 +115,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Reverse():list()
--- result is the returned data; err is set on failure
+local result, err = client:Dataset():load({ id = "test01" })
+-- result is the entity; data_get() reads its mock record; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -208,10 +209,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity. |
-| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria, and return it. |
+| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria, one per record. |
+| `create` | `(reqdata, ctrl) -> any, err` | Create a new entity, and return it. |
+| `remove` | `(reqmatch, ctrl) -> any, err` | Remove an entity, and return it marked as deleted. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -221,19 +222,19 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(value, err)`. The `value` is the operation's
-data **directly** — there is no wrapper:
+Entity operations return `(value, err)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `load` / `create` / `remove` | the entity record (a `table`) |
-| `list` | an array (`table`) of entity records |
+| `load` / `create` / `remove` | the entity, whose `data_get()` reads its record (a `table`) |
+| `list` | an array (`table`) of entities, one per record |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
     local dataset, err = client:Dataset():load({ id = "example_id" })
     if err then error(err) end
-    -- dataset is the loaded record
+    -- dataset is the loaded entity
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -256,7 +257,9 @@ API path: `/api`
 
 | Field | Description |
 | --- | --- |
+| `features` |  |
 | `id` |  |
+| `type` |  |
 
 Operations: Create, Load, Remove.
 
@@ -291,7 +294,7 @@ API path: `/v1/static`
 
 Operations: List.
 
-API path: `/v1/places/search`
+API path: `/v1/places/nearby`
 
 #### Reverse
 
@@ -341,7 +344,7 @@ Create an instance: `local api = client:Api(nil)`
 #### Example: List
 
 ```lua
-local apis, err = client:Api():list()
+local apis, err = client:Api():list({ q = "example" })
 ```
 
 
@@ -361,7 +364,9 @@ Create an instance: `local dataset = client:Dataset(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `features` | `table` |  |
 | `id` | `string` |  |
+| `type` | `string` |  |
 
 #### Example: Load
 
@@ -373,6 +378,8 @@ local dataset, err = client:Dataset():load({ id = "dataset_id" })
 
 ```lua
 local dataset, err = client:Dataset():create({
+  features = {}, -- table
+  type = "example_type", -- string
 })
 ```
 
@@ -437,12 +444,6 @@ Create an instance: `local place = client:Place(nil)`
 | `name` | `string` |  |
 | `region` | `string` |  |
 
-#### Example: List
-
-```lua
-local places, err = client:Place():list()
-```
-
 
 ### Reverse
 
@@ -465,7 +466,7 @@ Create an instance: `local reverse = client:Reverse(nil)`
 #### Example: List
 
 ```lua
-local reverses, err = client:Reverse():list()
+local reverses, err = client:Reverse():list({ lat = 1, lon = 1 })
 ```
 
 
@@ -649,15 +650,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local reverse = client:Reverse()
-reverse:list()
+local dataset = client:Dataset()
+dataset:load({ id = "example_id" })
 
--- reverse:data_get() now returns the reverse data from the last list
--- reverse:match_get() returns the last match criteria
+-- dataset:data_get() now returns the dataset data from the last load
+-- dataset:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

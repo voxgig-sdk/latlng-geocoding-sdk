@@ -20,7 +20,7 @@ export LATLNG_GEOCODING_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
 ./latlng-geocoding-cli list api
-./latlng-geocoding-cli list dataset
+./latlng-geocoding-cli list reverse
 
 # 5. Override the API base URL for a single call
 LATLNG_GEOCODING_BASE=https://api.example.com ./latlng-geocoding-cli list api

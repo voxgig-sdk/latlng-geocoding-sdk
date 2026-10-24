@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `$
 
 ## Install
 This package is not yet published to Packagist. Install it from the
-GitHub release tag (`php/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases)), or
+GitHub release tag (`php/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags)), or
 from a clone as a Composer path repository:
 
 ```bash
@@ -25,7 +25,7 @@ composer require voxgig-sdk/latlng-geocoding-sdk:@dev
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key in the `X-Api-Key` header.
 
 ### 1. Create a client
 
@@ -43,7 +43,7 @@ $client = new LatlngGeocodingSDK([
 ```php
 try {
     // list() returns entity instances; data_get() reads each record.
-    $apis = $client->Api()->list();
+    $apis = $client->Api()->list(["q" => "example"]);
     foreach ($apis as $record) {
         $item = $record->data_get();
         echo $item["geometry"] . "\n";
@@ -61,7 +61,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $reverses = $client->Reverse()->list();
+    $dataset = $client->Dataset()->load(["id" => "example_id"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -233,10 +233,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
-| `create` | `($reqdata, $ctrl): array` | Create a new entity. |
-| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
+| `load` | `($reqmatch, $ctrl): mixed` | Load a single entity by match criteria, and return it. |
+| `list` | `(?array $reqmatch = null, $ctrl): mixed` | List entities matching the criteria (call with no argument to list all), one per record. |
+| `create` | `($reqdata, $ctrl): mixed` | Create a new entity, and return it. |
+| `remove` | `($reqmatch, $ctrl): mixed` | Remove an entity, and return it marked as deleted. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -246,9 +246,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
-ops, a `list` for `list`) and throw on error. Wrap calls in
-`try`/`catch` to handle failures.
+Entity operations return the entity, and `list` an `array` of entities, one
+per record; an entity's `data_get()` reads its record (an `array`). They
+throw on error, so wrap calls in `try`/`catch` to handle failures.
 
 The `direct()` escape hatch never throws — it returns a result `array`
 you branch on via `$result["ok"]`:
@@ -280,7 +280,9 @@ API path: `/api`
 
 | Field | Description |
 | --- | --- |
+| `features` |  |
 | `id` |  |
+| `type` |  |
 
 Operations: Create, Load, Remove.
 
@@ -315,7 +317,7 @@ API path: `/v1/static`
 
 Operations: List.
 
-API path: `/v1/places/search`
+API path: `/v1/places/nearby`
 
 #### Reverse
 
@@ -365,8 +367,8 @@ Create an instance: `$api = $client->Api();`
 #### Example: List
 
 ```php
-// list() returns an array of Api records (throws on error).
-$apis = $client->Api()->list();
+// list() returns an array of Api entities, one per record (throws on error).
+$apis = $client->Api()->list(["q" => "example"]);
 ```
 
 
@@ -386,7 +388,9 @@ Create an instance: `$dataset = $client->Dataset();`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `features` | `array` |  |
 | `id` | `string` |  |
+| `type` | `string` |  |
 
 #### Example: Load
 
@@ -399,6 +403,8 @@ $dataset = $client->Dataset()->load(["id" => "dataset_id"]);
 
 ```php
 $dataset = $client->Dataset()->create([
+    "features" => null, // array
+    "type" => null, // string
 ]);
 ```
 
@@ -464,13 +470,6 @@ Create an instance: `$place = $client->Place();`
 | `name` | `string` |  |
 | `region` | `string` |  |
 
-#### Example: List
-
-```php
-// list() returns an array of Place records (throws on error).
-$places = $client->Place()->list();
-```
-
 
 ### Reverse
 
@@ -493,8 +492,8 @@ Create an instance: `$reverse = $client->Reverse();`
 #### Example: List
 
 ```php
-// list() returns an array of Reverse records (throws on error).
-$reverses = $client->Reverse()->list();
+// list() returns an array of Reverse entities, one per record (throws on error).
+$reverses = $client->Reverse()->list(["lat" => 1, "lon" => 1]);
 ```
 
 
@@ -679,15 +678,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$reverse = $client->Reverse();
-$reverse->list();
+$dataset = $client->Dataset();
+$dataset->load(["id" => "example_id"]);
 
-// $reverse->data_get() now returns the reverse data from the last list
-// $reverse->match_get() returns the last match criteria
+// $dataset->data_get() now returns the dataset data from the last load
+// $dataset->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

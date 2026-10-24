@@ -59,12 +59,12 @@
     }
   },
   "requests": {
-    "GET /v1/places/search": {
+    "GET /v1/places/nearby": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"
     },
-    "GET /v1/places/nearby": {
+    "GET /v1/places/search": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

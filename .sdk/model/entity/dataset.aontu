@@ -5,10 +5,22 @@ main: kit: entity: dataset: {
   alias: field: {}
 
   fields: {
+    features: {
+      h: "Features"
+      n: "features"
+      r: true
+      t: "`$ARRAY`"
+    }
     id: {
       h: "Id"
       n: "id"
       r: false
+      t: "`$STRING`"
+    }
+    type: {
+      h: "Type"
+      n: "type"
+      r: true
       t: "`$STRING`"
     }
   }
@@ -24,6 +36,10 @@ main: kit: entity: dataset: {
       name: "create"
       points: [
         {
+          bf: [
+            "features"
+            "type"
+          ]
           co: {
             id: "POST /v1/datasets"
             source: "openapi3"
@@ -31,6 +47,21 @@ main: kit: entity: dataset: {
           }
           m: "POST"
           o: "/v1/datasets"
+          rb: {
+            alternatives: [
+              {
+                binary: true
+                kind: "raw"
+                media: "application/octet-stream"
+              }
+            ]
+            kind: "json"
+            media: "application/geo+json"
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "v1"
@@ -78,6 +109,10 @@ main: kit: entity: dataset: {
               datasetId: "id"
             }
           }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "v1"
@@ -102,6 +137,10 @@ main: kit: entity: dataset: {
           }
           m: "GET"
           o: "/v1/datasets"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "v1"
@@ -148,6 +187,10 @@ main: kit: entity: dataset: {
             param: {
               datasetId: "id"
             }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

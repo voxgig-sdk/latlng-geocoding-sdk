@@ -114,14 +114,14 @@ api = client.Api()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[ApiEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Api().list({"q": "example"})
 for api in results:
-    print(api)
+    print(api.data_get())
 ```
 
 ### Common Methods
@@ -163,30 +163,34 @@ dataset = client.Dataset()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `features` | `list` | Yes |  |
 | `id` | `str` | No |  |
+| `type` | `str` | Yes |  |
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> dict`
+#### `create(reqdata, ctrl=None) -> DatasetEntity`
 
-Create a new entity with the given data. Returns the created entity data and raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```python
 result = client.Dataset().create({
+    "features": [],  # list
+    "type": "example_type",  # str
 })
 ```
 
-#### `load(reqmatch, ctrl=None) -> dict`
+#### `load(reqmatch, ctrl=None) -> DatasetEntity`
 
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
 
 ```python
 result = client.Dataset().load({"id": "dataset_id"})
 ```
 
-#### `remove(reqmatch, ctrl=None) -> dict`
+#### `remove(reqmatch, ctrl=None) -> DatasetEntity`
 
-Remove the entity matching the given criteria. Raises on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and raises on error.
 
 ```python
 result = client.Dataset().remove({"id": "dataset_id"})
@@ -236,9 +240,9 @@ map = client.Map()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> dict`
+#### `create(reqdata, ctrl=None) -> MapEntity`
 
-Create a new entity with the given data. Returns the created entity data and raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```python
 result = client.Map().create({
@@ -247,9 +251,9 @@ result = client.Map().create({
 })
 ```
 
-#### `load(reqmatch, ctrl=None) -> dict`
+#### `load(reqmatch, ctrl=None) -> MapEntity`
 
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
 
 ```python
 result = client.Map().load()
@@ -308,15 +312,9 @@ place = client.Place()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[PlaceEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
-
-```python
-results = client.Place().list({"q": "example"})
-for place in results:
-    print(place)
-```
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ### Common Methods
 
@@ -363,14 +361,14 @@ reverse = client.Reverse()
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list[ReverseEntity]`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list of entities, one per record, and raises on error.
 
 ```python
 results = client.Reverse().list({"lat": 1, "lon": 1})
 for reverse in results:
-    print(reverse)
+    print(reverse.data_get())
 ```
 
 ### Common Methods
@@ -416,9 +414,9 @@ utility = client.Utility()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> dict`
+#### `load(reqmatch, ctrl=None) -> UtilityEntity`
 
-Load a single entity matching the given criteria. Returns the entity data and raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and raises on error.
 
 ```python
 result = client.Utility().load()
@@ -610,6 +608,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

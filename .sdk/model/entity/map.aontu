@@ -25,6 +25,10 @@ main: kit: entity: map: {
       name: "create"
       points: [
         {
+          bf: [
+            "features"
+            "type"
+          ]
           co: {
             id: "POST /v1/static"
             source: "openapi3"
@@ -44,10 +48,10 @@ main: kit: entity: map: {
           }
           m: "POST"
           o: "/v1/static"
-          q: {
-            exist: [
-              "key"
-            ]
+          rs: {
+            binary: true
+            kind: "raw"
+            media: "image/png"
           }
           s: [
             {
@@ -127,15 +131,10 @@ main: kit: entity: map: {
           }
           m: "GET"
           o: "/v1/static"
-          q: {
-            exist: [
-              "center"
-              "height"
-              "key"
-              "marker"
-              "width"
-              "zoom"
-            ]
+          rs: {
+            binary: true
+            kind: "raw"
+            media: "image/png"
           }
           s: [
             {

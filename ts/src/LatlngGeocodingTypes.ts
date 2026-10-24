@@ -21,7 +21,9 @@ export interface ApiListMatch {
 }
 
 export interface Dataset {
+  features: any[]
   id?: string
+  type: string
 }
 
 export interface DatasetLoadMatch {
@@ -29,7 +31,8 @@ export interface DatasetLoadMatch {
 }
 
 export interface DatasetCreateData {
-  id?: string
+  features: any[]
+  type: string
 }
 
 export interface DatasetRemoveMatch {
@@ -73,11 +76,10 @@ export interface Place {
 export interface PlaceListMatch {
   api_key?: string
   category?: string
-  country?: string
-  lat?: number
+  lat: number
   limit?: number
-  lon?: number
-  q: string
+  lon: number
+  radius?: number
   type?: string
 
   // Selects a custom action instead of the plain list:

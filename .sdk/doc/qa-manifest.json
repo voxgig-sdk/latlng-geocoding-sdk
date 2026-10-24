@@ -3,5 +3,21 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "> LatLng provides affordable maps and location APIs for developers building location-aware apps.\n>\n> The API includes forward geocoding, reverse geocoding, places search, nearby places,\n> place categories, static maps, and custom dataset map tiles powered by OpenStreetMap data.\n>\n> Developers can start free with a generous daily quota. LatLng also offers an MCP server\n> so AI tools can use location APIs directly.\n>\n> Homepage: https://www.latlng.work\n> Documentation: https://www.latlng.work/docs\n> Get a free API key: https://dash.latlng.work\n> MCP server: https://mcp.latlng.work/mcp",
+      "API is healthy",
+      "Available place categories",
+      "Dataset deleted",
+      "Dataset details.",
+      "Dataset list.",
+      "Dataset upload accepted.",
+      "GeoJSON feature collection",
+      "Nearby places response.",
+      "Production API",
+      "Search places response.",
+      "Static map image"
+    ]
+  }
 }

@@ -34,7 +34,9 @@ class ApiListMatch
 /** Dataset entity data model. */
 class Dataset
 {
+    public array $features;
     public ?string $id = null;
+    public string $type;
 }
 
 /** Request payload for Dataset#load. */
@@ -46,7 +48,8 @@ class DatasetLoadMatch
 /** Request payload for Dataset#create. */
 class DatasetCreateData
 {
-    public ?string $id = null;
+    public array $features;
+    public string $type;
 }
 
 /** Request payload for Dataset#remove. */
@@ -102,11 +105,10 @@ class PlaceListMatch
 {
     public ?string $api_key = null;
     public ?string $category = null;
-    public ?string $country = null;
-    public ?float $lat = null;
+    public float $lat;
     public ?int $limit = null;
-    public ?float $lon = null;
-    public string $q;
+    public float $lon;
+    public ?int $radius = null;
     public ?string $type = null;
 }
 

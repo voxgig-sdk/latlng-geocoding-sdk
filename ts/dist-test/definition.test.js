@@ -16,14 +16,18 @@ const PLAN = [
         "path": "/api",
         "args": [],
         "select": {
+            "q": "Berlin",
             "api_key": "v1",
             "lang": "en",
             "lat": 52.52,
             "limit": 5,
-            "lon": 13.405,
-            "q": "Berlin"
+            "lon": 13.405
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "api_key",
             "q",
@@ -31,6 +35,32 @@ const PLAN = [
             "lang",
             "lat",
             "lon"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "api_key"
+            },
+            {
+                "name": "lang",
+                "wire": "lang"
+            },
+            {
+                "name": "lat",
+                "wire": "lat"
+            },
+            {
+                "name": "limit",
+                "wire": "limit"
+            },
+            {
+                "name": "lon",
+                "wire": "lon"
+            },
+            {
+                "name": "q",
+                "wire": "q"
+            }
         ],
         "auth": [
             [
@@ -74,7 +104,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -102,7 +137,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -124,7 +164,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -152,7 +197,12 @@ const PLAN = [
         ],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -176,9 +226,14 @@ const PLAN = [
             "key": "latlng_xxxxx"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "image/png"
+        ],
         "query": [
             "key"
         ],
+        "queryArgs": [],
         "auth": [
             [
                 {
@@ -202,11 +257,15 @@ const PLAN = [
             "center": "40.748,-73.985",
             "height": 600,
             "key": "latlng_xxxxx",
-            "marker": "v1",
+            "marker": "40.748,-73.985",
             "width": 800,
             "zoom": 12
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "image/png"
+        ],
         "query": [
             "key",
             "center",
@@ -214,6 +273,32 @@ const PLAN = [
             "width",
             "height",
             "markers"
+        ],
+        "queryArgs": [
+            {
+                "name": "center",
+                "wire": "center"
+            },
+            {
+                "name": "height",
+                "wire": "height"
+            },
+            {
+                "name": "key",
+                "wire": "key"
+            },
+            {
+                "name": "marker",
+                "wire": "markers"
+            },
+            {
+                "name": "width",
+                "wire": "width"
+            },
+            {
+                "name": "zoom",
+                "wire": "zoom"
+            }
         ],
         "auth": [
             [
@@ -232,29 +317,61 @@ const PLAN = [
         "accessor": "Place",
         "op": "list",
         "method": "GET",
-        "path": "/v1/places/search",
-        "action": "search",
+        "path": "/v1/places/nearby",
+        "action": "nearby",
         "args": [],
         "select": {
+            "lat": 40.748,
+            "lon": -73.985,
             "api_key": "v1",
             "category": "cafe",
-            "country": "US",
-            "lat": 40.748,
-            "limit": 5,
-            "lon": -73.985,
-            "q": "Starbucks",
+            "limit": 10,
+            "radius": 500,
             "type": "cafe"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "api_key",
-            "q",
             "lat",
             "lon",
+            "radius",
             "type",
             "category",
-            "country",
             "limit"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "api_key"
+            },
+            {
+                "name": "category",
+                "wire": "category"
+            },
+            {
+                "name": "lat",
+                "wire": "lat"
+            },
+            {
+                "name": "limit",
+                "wire": "limit"
+            },
+            {
+                "name": "lon",
+                "wire": "lon"
+            },
+            {
+                "name": "radius",
+                "wire": "radius"
+            },
+            {
+                "name": "type",
+                "wire": "type"
+            }
         ],
         "auth": [
             [
@@ -277,17 +394,17 @@ const PLAN = [
             "count": 1,
             "places": [
                 {
-                    "brand": "x",
+                    "id": "x",
+                    "name": "x",
                     "category": "x",
+                    "lat": 1,
+                    "lon": 1,
                     "confidence": 1,
                     "country": "x",
-                    "distance_m": 1,
-                    "id": "x",
-                    "lat": 1,
+                    "region": "x",
                     "locality": "x",
-                    "lon": 1,
-                    "name": "x",
-                    "region": "x"
+                    "brand": "x",
+                    "distance_m": 1
                 }
             ]
         },
@@ -298,27 +415,57 @@ const PLAN = [
         "accessor": "Place",
         "op": "list",
         "method": "GET",
-        "path": "/v1/places/nearby",
-        "action": "nearby",
+        "path": "/v1/places/search",
+        "action": "search",
         "args": [],
         "select": {
+            "q": "Starbucks",
             "api_key": "v1",
             "category": "cafe",
-            "lat": 40.748,
-            "limit": 10,
-            "lon": -73.985,
-            "radius": 500,
+            "country": "US",
+            "limit": 5,
             "type": "cafe"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "api_key",
+            "q",
             "lat",
             "lon",
-            "radius",
             "type",
             "category",
+            "country",
             "limit"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "api_key"
+            },
+            {
+                "name": "category",
+                "wire": "category"
+            },
+            {
+                "name": "country",
+                "wire": "country"
+            },
+            {
+                "name": "limit",
+                "wire": "limit"
+            },
+            {
+                "name": "q",
+                "wire": "q"
+            },
+            {
+                "name": "type",
+                "wire": "type"
+            }
         ],
         "auth": [
             [
@@ -341,17 +488,17 @@ const PLAN = [
             "count": 1,
             "places": [
                 {
-                    "brand": "x",
+                    "id": "x",
+                    "name": "x",
                     "category": "x",
+                    "lat": 1,
+                    "lon": 1,
                     "confidence": 1,
                     "country": "x",
-                    "distance_m": 1,
-                    "id": "x",
-                    "lat": 1,
+                    "region": "x",
                     "locality": "x",
-                    "lon": 1,
-                    "name": "x",
-                    "region": "x"
+                    "brand": "x",
+                    "distance_m": 1
                 }
             ]
         },
@@ -367,7 +514,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": [],
         "status": 200,
         "sample": {
@@ -389,19 +541,45 @@ const PLAN = [
         "path": "/reverse",
         "args": [],
         "select": {
+            "lat": 52.517,
+            "lon": 13.389,
             "api_key": "v1",
             "lang": "en",
-            "lat": 52.517,
-            "limit": 5,
-            "lon": 13.389
+            "limit": 5
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "api_key",
             "lat",
             "lon",
             "limit",
             "lang"
+        ],
+        "queryArgs": [
+            {
+                "name": "api_key",
+                "wire": "api_key"
+            },
+            {
+                "name": "lang",
+                "wire": "lang"
+            },
+            {
+                "name": "lat",
+                "wire": "lat"
+            },
+            {
+                "name": "limit",
+                "wire": "limit"
+            },
+            {
+                "name": "lon",
+                "wire": "lon"
+            }
         ],
         "auth": [
             [
@@ -416,14 +594,14 @@ const PLAN = [
             "type": "FeatureCollection",
             "features": [
                 {
+                    "type": "Feature",
                     "geometry": {
+                        "type": "Point",
                         "coordinates": [
                             1
-                        ],
-                        "type": "Point"
+                        ]
                     },
-                    "properties": {},
-                    "type": "Feature"
+                    "properties": {}
                 }
             ]
         },
@@ -438,7 +616,12 @@ const PLAN = [
         "args": [],
         "select": {},
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [],
+        "queryArgs": [],
         "auth": [],
         "status": 200,
         "sample": {

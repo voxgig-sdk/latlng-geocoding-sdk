@@ -54,6 +54,53 @@ const utility_1 = require("../../utility");
         const ent = testsdk.Api();
         (0, node_assert_1.default)(null != ent);
     });
+    class FailHook extends __1.BaseFeature {
+        name = 'failhook';
+        version = '0.0.1';
+        active = true;
+        unexpected = 0;
+        init() { }
+        PreSpec() { throw new Error('api hook failed'); }
+        PreUnexpected() { this.unexpected++; }
+    }
+    (0, node_test_1.test)('stream-error', async () => {
+        const offline = { net: { offline: true } };
+        await node_assert_1.default.rejects(async () => {
+            for await (const _item of __1.LatlngGeocodingSDK.test(offline).Api().stream('list')) { }
+        }, /offline/);
+        for await (const _item of __1.LatlngGeocodingSDK.test(offline).Api()
+            .stream('list', undefined, { ctrl: { throw: false } })) { }
+        if (null != __1.config.feature?.rbac) {
+            const denied = __1.LatlngGeocodingSDK.test(undefined, { feature: { rbac: { active: true, deny: true } } });
+            await node_assert_1.default.rejects(async () => {
+                for await (const _item of denied.Api().stream('list')) { }
+            }, (err) => 'rbac_denied' === err.code);
+        }
+    });
+    (0, node_test_1.test)('stream-ctrl', async () => {
+        const explain = {};
+        const ctrl = { explain };
+        for await (const _item of __1.LatlngGeocodingSDK.test().Api().stream('list', undefined, { ctrl })) { }
+        node_assert_1.default.deepStrictEqual(Object.keys(ctrl), ['explain']);
+        (0, node_assert_1.default)(explain === ctrl.explain && 0 < Object.keys(explain).length);
+    });
+    (0, node_test_1.test)('unexpected', async () => {
+        const hook = new FailHook();
+        const client = new __1.LatlngGeocodingSDK({ feature: { test: { active: true } }, extend: [hook] });
+        await node_assert_1.default.rejects(client.Api().list(), /hook failed/);
+        (0, node_assert_1.default)(0 < hook.unexpected);
+        const fired = hook.unexpected;
+        node_assert_1.default.strictEqual(await client.Api().list(undefined, { throw: false }), undefined);
+        (0, node_assert_1.default)(fired < hook.unexpected);
+    });
+    (0, node_test_1.test)('validate', async (t) => {
+        if (null == __1.config.feature?.validate) {
+            t.skip('feature not present in this SDK: validate');
+            return;
+        }
+        const client = __1.LatlngGeocodingSDK.test(undefined, { feature: { validate: { active: true } } });
+        await node_assert_1.default.rejects(client.Api().list({ "api_key": 1, "q": "x" }), (err) => 'validate_failed' === err.code);
+    });
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.LATLNG_GEOCODING_TEST_LIVE;
         for (const op of ['list']) {
@@ -62,7 +109,7 @@ const utility_1 = require("../../utility");
         }
         const setup = basicSetup();
         if (setup.live) {
-            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "geometry": { "a": true, "h": "Geometry", "n": "geometry", "r": true, "t": "`$OBJECT`", "key$": "geometry", "index$": 0 }, "properties": { "a": true, "h": "Properties", "n": "properties", "r": true, "t": "`$OBJECT`", "key$": "properties", "index$": 1 }, "type": { "a": true, "h": "Type", "n": "type", "r": true, "t": "`$STRING`", "key$": "type", "index$": 2 } }, "name": "api", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /api", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "k": "query", "n": "api_key", "or": "api_key", "r": false, "t": "`$STRING`", "index$": 0 }, { "a": true, "ex": "en", "k": "query", "n": "lang", "or": "lang", "r": false, "t": "`$STRING`", "index$": 1 }, { "a": true, "ex": 52.52, "k": "query", "n": "lat", "or": "lat", "r": false, "t": "`$NUMBER`", "index$": 2 }, { "a": true, "ex": 5, "k": "query", "n": "limit", "or": "limit", "r": false, "t": "`$INTEGER`", "index$": 3 }, { "a": true, "ex": 13.405, "k": "query", "n": "lon", "or": "lon", "r": false, "t": "`$NUMBER`", "index$": 4 }, { "a": true, "ex": "Berlin", "k": "query", "n": "q", "or": "q", "r": true, "t": "`$STRING`", "index$": 5 }] }, "k": "http", "m": "GET", "o": "/api", "q": { "exist": ["api_key", "lang", "lat", "limit", "lon", "q"] }, "r": {}, "s": [{ "lit": "api" }], "t": { "req": "`reqdata`", "res": "`body.features`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "api", "name__orig": "api", "Name": "Api", "name_": "api", "name-": "api", "NAME": "API", "index$": 0 }, { "active": true, "entity": "api", "key$": "BasicApiFlow", "kind": "basic", "name": "BasicApiFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "api_ref01" } }], "index$": 0 }] }, 'Api', { "GET /api": { "protocol": "http", "parameters": [{ "name": "api_key", "in": "query", "required": false, "schema": { "type": "string" }, "description": "API key alternative to the X-Api-Key header.", "x-ref": "#/components/parameters/ApiKeyQuery", "index$": 0 }, { "name": "q", "in": "query", "required": true, "schema": { "type": "string" }, "example": "Berlin", "description": "Address or place name to geocode.", "index$": 1 }, { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50 }, "example": 5, "index$": 2 }, { "name": "lang", "in": "query", "schema": { "type": "string" }, "example": "en", "index$": 3 }, { "name": "lat", "in": "query", "schema": { "type": "number", "format": "double" }, "example": 52.52, "description": "Bias results near this latitude.", "index$": 4 }, { "name": "lon", "in": "query", "schema": { "type": "number", "format": "double" }, "example": 13.405, "description": "Bias results near this longitude.", "index$": 5 }] } });
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": { "geometry": { "a": true, "h": "Geometry", "n": "geometry", "r": true, "t": "`$OBJECT`", "key$": "geometry", "index$": 0 }, "properties": { "a": true, "h": "Properties", "n": "properties", "r": true, "t": "`$OBJECT`", "key$": "properties", "index$": 1 }, "type": { "a": true, "h": "Type", "n": "type", "r": true, "t": "`$STRING`", "key$": "type", "index$": 2 } }, "name": "api", "op": { "list": { "input": "data", "name": "list", "points": [{ "a": true, "co": { "id": "GET /api", "source": "openapi3", "version": 2 }, "g": { "query": [{ "a": true, "k": "query", "n": "api_key", "or": "api_key", "r": false, "t": "`$STRING`", "index$": 0 }, { "a": true, "ex": "en", "k": "query", "n": "lang", "or": "lang", "r": false, "t": "`$STRING`", "index$": 1 }, { "a": true, "ex": 52.52, "k": "query", "n": "lat", "or": "lat", "r": false, "t": "`$NUMBER`", "index$": 2 }, { "a": true, "ex": 5, "k": "query", "n": "limit", "or": "limit", "r": false, "t": "`$INTEGER`", "index$": 3 }, { "a": true, "ex": 13.405, "k": "query", "n": "lon", "or": "lon", "r": false, "t": "`$NUMBER`", "index$": 4 }, { "a": true, "ex": "Berlin", "k": "query", "n": "q", "or": "q", "r": true, "t": "`$STRING`", "index$": 5 }] }, "k": "http", "m": "GET", "o": "/api", "q": { "exist": ["q"] }, "r": {}, "rs": { "kind": "json", "media": "application/json" }, "s": [{ "lit": "api" }], "t": { "req": "`reqdata`", "res": "`body.features`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "api", "name__orig": "api", "Name": "Api", "name_": "api", "name-": "api", "NAME": "API", "index$": 0 }, { "active": true, "entity": "api", "key$": "BasicApiFlow", "kind": "basic", "name": "BasicApiFlow", "param": {}, "step": [{ "a": true, "d": {}, "i": {}, "m": {}, "o": "list", "s": [], "v": [{ "apply": "ItemExists", "def": { "ref": "api_ref01" } }], "index$": 0 }] }, 'Api', { "GET /api": { "protocol": "http", "parameters": [{ "name": "api_key", "in": "query", "required": false, "schema": { "type": "string" }, "description": "API key alternative to the X-Api-Key header.", "x-ref": "#/components/parameters/ApiKeyQuery", "index$": 0 }, { "name": "q", "in": "query", "required": true, "schema": { "type": "string" }, "example": "Berlin", "description": "Address or place name to geocode.", "index$": 1 }, { "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 50 }, "example": 5, "index$": 2 }, { "name": "lang", "in": "query", "schema": { "type": "string" }, "example": "en", "index$": 3 }, { "name": "lat", "in": "query", "schema": { "type": "number", "format": "double" }, "example": 52.52, "description": "Bias results near this latitude.", "index$": 4 }, { "name": "lon", "in": "query", "schema": { "type": "number", "format": "double" }, "example": 13.405, "description": "Bias results near this longitude.", "index$": 5 }] } }, { strict: LIVE_STRICT, t });
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -75,6 +122,11 @@ const utility_1 = require("../../utility");
         const api_ref01_list = (await api_ref01_ent.list(api_ref01_match)).map((e) => e.data());
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function basicSetup(extra) {
     // TODO: fix test def options
     const options = {}; // null

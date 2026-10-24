@@ -37,7 +37,8 @@ type DatasetLoadMatch struct {
 
 // DatasetCreateData is the typed request payload for Dataset.CreateTyped.
 type DatasetCreateData struct {
-	Id *string `json:"id,omitempty"`
+	Features []any `json:"features"`
+	Type string `json:"type"`
 }
 
 // DatasetRemoveMatch is the typed request payload for Dataset.RemoveTyped.
@@ -74,11 +75,10 @@ type Place struct {
 type PlaceListMatch struct {
 	ApiKey *string `json:"api_key,omitempty"`
 	Category *string `json:"category,omitempty"`
-	Country *string `json:"country,omitempty"`
-	Lat *float64 `json:"lat,omitempty"`
+	Lat float64 `json:"lat"`
 	Limit *int `json:"limit,omitempty"`
-	Lon *float64 `json:"lon,omitempty"`
-	Q string `json:"q"`
+	Lon float64 `json:"lon"`
+	Radius *int `json:"radius,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
 

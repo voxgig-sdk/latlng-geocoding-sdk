@@ -15,7 +15,7 @@ keeps the cognitive load low.
 
 ## Install
 This package is not yet published to PyPI. Install it from the GitHub
-release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases)) or
+release tag (`py/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags)) or
 from a source checkout:
 
 ```bash
@@ -26,7 +26,7 @@ pip install -e .
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key in the `X-Api-Key` header.
 
 ### 1. Create a client
 
@@ -41,14 +41,14 @@ client = LatlngGeocodingSDK({
 
 ### 2. List api records
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+`list()` returns a `list` of entities, one per record, and raises on
+error; an entity's `data_get()` reads its record (a `dict`).
 
 ```python
 try:
     apis = client.Api().list({"q": "example"})
     for api in apis:
-        print(api)
+        print(api.data_get())
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -60,10 +60,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    reverses = client.Reverse().list()
-    print(reverses)
+    dataset = client.Dataset().load({"id": "example_id"})
+    print(dataset.data_get())
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -127,10 +127,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = LatlngGeocodingSDK.test()
 
-# Entity ops return the ENTITY and raises on error;
-# call data_get() for the record.
-reverse = client.Reverse().list()
-# reverse contains the mock response record
+# Entity ops return the entity, and list one per record; they raise on error.
+dataset = client.Dataset().load({"id": "test01"})
+# data_get() on an entity reads its mock response record
 ```
 
 ### Use a custom fetch function
@@ -221,10 +220,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria, one per record. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity, and return it marked as deleted. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -234,9 +233,9 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
-ops, a `list` for `list`) and raise on error. Wrap calls in
-`try`/`except` to handle failures.
+Entity operations return the entity, and `list` a `list` of entities, one
+per record; an entity's `data_get()` reads its record (a `dict`). They raise
+on error, so wrap calls in `try`/`except` to handle failures.
 
 The `direct()` escape hatch never raises — it returns a result `dict`
 you branch on via `result["ok"]`:
@@ -268,7 +267,9 @@ API path: `/api`
 
 | Field | Description |
 | --- | --- |
+| `features` |  |
 | `id` |  |
+| `type` |  |
 
 Operations: Create, Load, Remove.
 
@@ -303,7 +304,7 @@ API path: `/v1/static`
 
 Operations: List.
 
-API path: `/v1/places/search`
+API path: `/v1/places/nearby`
 
 #### Reverse
 
@@ -373,7 +374,9 @@ Create an instance: `dataset = client.Dataset()`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `features` | `list` |  |
 | `id` | `str` |  |
+| `type` | `str` |  |
 
 #### Example: Load
 
@@ -385,6 +388,8 @@ dataset = client.Dataset().load({"id": "dataset_id"})
 
 ```python
 dataset = client.Dataset().create({
+    "features": [],  # list
+    "type": "example_type",  # str
 })
 ```
 
@@ -448,12 +453,6 @@ Create an instance: `place = client.Place()`
 | `lon` | `float` |  |
 | `name` | `str` |  |
 | `region` | `str` |  |
-
-#### Example: List
-
-```python
-places = client.Place().list({"q": "example"})
-```
 
 
 ### Reverse
@@ -660,15 +659,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-reverse = client.Reverse()
-reverse.list()
+dataset = client.Dataset()
+dataset.load({"id": "example_id"})
 
-# reverse.data_get() now returns the reverse data from the last list
-# reverse.match_get() returns the last match criteria
+# dataset.data_get() now returns the dataset data from the last load
+# dataset.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

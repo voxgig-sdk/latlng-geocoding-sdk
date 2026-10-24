@@ -2,19 +2,28 @@
   "existing": {
     "dataset": {
       "DATASET00": {
-        "id": "DATASET00"
+        "features": [],
+        "id": "DATASET00",
+        "type": "s20"
       },
       "DATASET01": {
-        "id": "DATASET01"
+        "features": [],
+        "id": "DATASET01",
+        "type": "s3e"
       },
       "DATASET02": {
-        "id": "DATASET02"
+        "features": [],
+        "id": "DATASET02",
+        "type": "s5c"
       }
     }
   },
   "new": {
     "dataset": {
-      "dataset_ref01": {}
+      "dataset_ref01": {
+        "features": [],
+        "type": "s7a"
+      }
     }
   },
   "requests": {

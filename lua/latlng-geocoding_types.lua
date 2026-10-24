@@ -20,13 +20,16 @@
 ---@field q string
 
 ---@class Dataset
+---@field features table
 ---@field id? string
+---@field type string
 
 ---@class DatasetLoadMatch
 ---@field id string
 
 ---@class DatasetCreateData
----@field id? string
+---@field features table
+---@field type string
 
 ---@class DatasetRemoveMatch
 ---@field id string
@@ -64,11 +67,10 @@
 ---@class PlaceListMatch
 ---@field api_key? string
 ---@field category? string
----@field country? string
----@field lat? number
+---@field lat number
 ---@field limit? number
----@field lon? number
----@field q string
+---@field lon number
+---@field radius? number
 ---@field type? string
 
 ---@class Reverse

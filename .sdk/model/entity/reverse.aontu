@@ -83,12 +83,13 @@ main: kit: entity: reverse: {
           o: "/reverse"
           q: {
             exist: [
-              "api_key"
-              "lang"
               "lat"
-              "limit"
               "lon"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

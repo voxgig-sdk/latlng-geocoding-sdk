@@ -194,15 +194,14 @@
                   "o": "/api",
                   "q": {
                     "exist": [
-                      "api_key",
-                      "lang",
-                      "lat",
-                      "limit",
-                      "lon",
                       "q"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "api"
@@ -226,11 +225,25 @@
             "field": {}
           },
           "fields": {
+            "features": {
+              "a": true,
+              "h": "Features",
+              "n": "features",
+              "r": true,
+              "t": "`$ARRAY`"
+            },
             "id": {
               "a": true,
               "h": "Id",
               "n": "id",
               "r": false,
+              "t": "`$STRING`"
+            },
+            "type": {
+              "a": true,
+              "h": "Type",
+              "n": "type",
+              "r": true,
               "t": "`$STRING`"
             }
           },
@@ -246,6 +259,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "features",
+                    "type"
+                  ],
                   "co": {
                     "id": "POST /v1/datasets",
                     "source": "openapi3",
@@ -257,6 +274,21 @@
                   "o": "/v1/datasets",
                   "q": {},
                   "r": {},
+                  "rb": {
+                    "alternatives": [
+                      {
+                        "binary": true,
+                        "kind": "raw",
+                        "media": "application/octet-stream"
+                      }
+                    ],
+                    "kind": "json",
+                    "media": "application/geo+json"
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "v1"
@@ -308,6 +340,10 @@
                       "datasetId": "id"
                     }
                   },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "v1"
@@ -337,6 +373,10 @@
                   "o": "/v1/datasets",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "v1"
@@ -387,6 +427,10 @@
                     "param": {
                       "datasetId": "id"
                     }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
                   },
                   "s": [
                     {
@@ -440,6 +484,10 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "features",
+                    "type"
+                  ],
                   "co": {
                     "id": "POST /v1/static",
                     "source": "openapi3",
@@ -461,12 +509,13 @@
                   "k": "http",
                   "m": "POST",
                   "o": "/v1/static",
-                  "q": {
-                    "exist": [
-                      "key"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "binary": true,
+                    "kind": "raw",
+                    "media": "image/png"
+                  },
                   "s": [
                     {
                       "lit": "v1"
@@ -554,17 +603,13 @@
                   "k": "http",
                   "m": "GET",
                   "o": "/v1/static",
-                  "q": {
-                    "exist": [
-                      "center",
-                      "height",
-                      "key",
-                      "marker",
-                      "width",
-                      "zoom"
-                    ]
-                  },
+                  "q": {},
                   "r": {},
+                  "rs": {
+                    "binary": true,
+                    "kind": "raw",
+                    "media": "image/png"
+                  },
                   "s": [
                     {
                       "lit": "v1"
@@ -682,6 +727,110 @@
                 {
                   "a": true,
                   "co": {
+                    "id": "GET /v1/places/nearby",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "query": [
+                      {
+                        "a": true,
+                        "k": "query",
+                        "n": "api_key",
+                        "or": "api_key",
+                        "r": false,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "cafe",
+                        "k": "query",
+                        "n": "category",
+                        "or": "category",
+                        "r": false,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "ex": 40.748,
+                        "k": "query",
+                        "n": "lat",
+                        "or": "lat",
+                        "r": true,
+                        "t": "`$NUMBER`"
+                      },
+                      {
+                        "a": true,
+                        "ex": 10,
+                        "k": "query",
+                        "n": "limit",
+                        "or": "limit",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "ex": -73.985,
+                        "k": "query",
+                        "n": "lon",
+                        "or": "lon",
+                        "r": true,
+                        "t": "`$NUMBER`"
+                      },
+                      {
+                        "a": true,
+                        "ex": 500,
+                        "k": "query",
+                        "n": "radius",
+                        "or": "radius",
+                        "r": false,
+                        "t": "`$INTEGER`"
+                      },
+                      {
+                        "a": true,
+                        "ex": "cafe",
+                        "k": "query",
+                        "n": "type",
+                        "or": "type",
+                        "r": false,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/v1/places/nearby",
+                  "q": {
+                    "$action": "nearby",
+                    "exist": [
+                      "lat",
+                      "lon"
+                    ]
+                  },
+                  "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "v1"
+                    },
+                    {
+                      "lit": "places"
+                    },
+                    {
+                      "lit": "nearby"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "a": true,
+                  "co": {
                     "id": "GET /v1/places/search",
                     "source": "openapi3",
                     "version": 2
@@ -767,17 +916,14 @@
                   "q": {
                     "$action": "search",
                     "exist": [
-                      "api_key",
-                      "category",
-                      "country",
-                      "lat",
-                      "limit",
-                      "lon",
-                      "q",
-                      "type"
+                      "q"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "v1"
@@ -787,111 +933,6 @@
                     },
                     {
                       "lit": "search"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                },
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /v1/places/nearby",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "query": [
-                      {
-                        "a": true,
-                        "k": "query",
-                        "n": "api_key",
-                        "or": "api_key",
-                        "r": false,
-                        "t": "`$STRING`"
-                      },
-                      {
-                        "a": true,
-                        "ex": "cafe",
-                        "k": "query",
-                        "n": "category",
-                        "or": "category",
-                        "r": false,
-                        "t": "`$STRING`"
-                      },
-                      {
-                        "a": true,
-                        "ex": 40.748,
-                        "k": "query",
-                        "n": "lat",
-                        "or": "lat",
-                        "r": true,
-                        "t": "`$NUMBER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": 10,
-                        "k": "query",
-                        "n": "limit",
-                        "or": "limit",
-                        "r": false,
-                        "t": "`$INTEGER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": -73.985,
-                        "k": "query",
-                        "n": "lon",
-                        "or": "lon",
-                        "r": true,
-                        "t": "`$NUMBER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": 500,
-                        "k": "query",
-                        "n": "radius",
-                        "or": "radius",
-                        "r": false,
-                        "t": "`$INTEGER`"
-                      },
-                      {
-                        "a": true,
-                        "ex": "cafe",
-                        "k": "query",
-                        "n": "type",
-                        "or": "type",
-                        "r": false,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/v1/places/nearby",
-                  "q": {
-                    "$action": "nearby",
-                    "exist": [
-                      "api_key",
-                      "category",
-                      "lat",
-                      "limit",
-                      "lon",
-                      "radius",
-                      "type"
-                    ]
-                  },
-                  "r": {},
-                  "s": [
-                    {
-                      "lit": "v1"
-                    },
-                    {
-                      "lit": "places"
-                    },
-                    {
-                      "lit": "nearby"
                     }
                   ],
                   "t": {
@@ -914,6 +955,10 @@
                     "$action": "category"
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "v1"
@@ -1031,14 +1076,15 @@
                   "o": "/reverse",
                   "q": {
                     "exist": [
-                      "api_key",
-                      "lang",
                       "lat",
-                      "limit",
                       "lon"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "reverse"
@@ -1089,6 +1135,10 @@
                   "o": "/health",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "health"
@@ -1429,6 +1479,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -1732,6 +1783,17 @@
         "description": "LatLng provides affordable maps and location APIs for developers building location-aware apps.\n\nThe API includes forward geocoding, reverse geocoding, places search, nearby places,\nplace categories, static maps, and custom dataset map tiles powered by OpenStreetMap data.\n\nDevelopers can start free with a generous daily quota. LatLng also offers an MCP server\nso AI tools can use location APIs directly.\n\nHomepage: https://www.latlng.work\nDocumentation: https://www.latlng.work/docs\nGet a free API key: https://dash.latlng.work\nMCP server: https://mcp.latlng.work/mcp\n",
         "meta_source": "https://www.freepublicapis.com",
         "security": {
+          "alternatives": [
+            [
+              {
+                "in": "query",
+                "name": "api_key",
+                "prefix": "",
+                "scheme": "ApiKeyQuery",
+                "type": "apiKey"
+              }
+            ]
+          ],
           "in": "header",
           "name": "X-Api-Key",
           "prefix": "",
@@ -1754,7 +1816,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -1807,6 +1869,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -2037,7 +2104,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -2414,6 +2484,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

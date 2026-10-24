@@ -91,13 +91,12 @@ main: kit: entity: api: {
           o: "/api"
           q: {
             exist: [
-              "api_key"
-              "lang"
-              "lat"
-              "limit"
-              "lon"
               "q"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

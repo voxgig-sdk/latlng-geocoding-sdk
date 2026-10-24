@@ -12,7 +12,7 @@ The SDK exposes the API as capitalised, semantic **Entities** — for example `c
 
 ## Install
 This package is not yet published to RubyGems. Install it from the
-GitHub release tag (`rb/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/latlng-geocoding-sdk/releases)), or
+GitHub release tag (`rb/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/latlng-geocoding-sdk/tags)), or
 from a clone:
 
 ```bash
@@ -29,7 +29,7 @@ gem "voxgig-sdk-latlng-geocoding-sdk", path: "./latlng-geocoding-sdk/rb"
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key in the `X-Api-Key` header.
 
 ### 1. Create a client
 
@@ -45,10 +45,11 @@ client = LatlngGeocodingSDK.new({
 
 ```ruby
 begin
-  # list returns an Array of Api records — iterate directly.
-  apis = client.Api.list
+  # list returns an Array of Api entities, one per record; data_get reads the record.
+  apis = client.Api.list({ "q" => "example" })
   apis.each do |item|
-    puts "#{item["geometry"]}"
+    record = item.data_get
+    puts "#{record["geometry"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -62,9 +63,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  reverses = client.Reverse.list()
+  dataset = client.Dataset.load({ "id" => "example_id" })
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -125,15 +126,18 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = LatlngGeocodingSDK.test
+client = LatlngGeocodingSDK.test({
+  "entity" => { "dataset" => { "test01" => { "id" => "test01" } } },
+})
 
 # Entity ops return the ENTITY (raises on error);
-# call data_get for the mock record.
-reverse = client.Reverse.list()
-puts reverse
+# data_get reads its mock record.
+dataset = client.Dataset.load({ "id" => "test01" })
+puts dataset.data_get
 ```
 
 ### Use a custom fetch function
@@ -224,10 +228,10 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria, and return it. Raises on error. |
+| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all), one per record. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity, and return it. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity, and return it marked as deleted. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -237,9 +241,10 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the result data directly. On failure they
-raise a `LatlngGeocodingError` (a `StandardError` subclass), so wrap
-calls in `begin`/`rescue` where you need to handle errors.
+Entity operations return the entity, and `list` an `Array` of entities, one
+per record; an entity's `data_get` reads its record. On failure they raise a
+`LatlngGeocodingError` (a `StandardError` subclass), so wrap calls in
+`begin`/`rescue` where you need to handle errors.
 
 The `direct` escape hatch is the exception: it never raises and instead
 returns a result `Hash` with these keys:
@@ -270,7 +275,9 @@ API path: `/api`
 
 | Field | Description |
 | --- | --- |
+| `features` |  |
 | `id` |  |
+| `type` |  |
 
 Operations: Create, Load, Remove.
 
@@ -305,7 +312,7 @@ API path: `/v1/static`
 
 Operations: List.
 
-API path: `/v1/places/search`
+API path: `/v1/places/nearby`
 
 #### Reverse
 
@@ -355,8 +362,9 @@ Create an instance: `api = client.Api`
 #### Example: List
 
 ```ruby
-# list returns an Array of Api records (raises on error).
-apis = client.Api.list
+# list returns an Array of Api entities, one per record (raises on error).
+apis = client.Api.list({ "q" => "example" })
+apis.each { |item| puts item.data_get }
 ```
 
 
@@ -376,7 +384,9 @@ Create an instance: `dataset = client.Dataset`
 
 | Field | Type | Description |
 | --- | --- | --- |
+| `features` | `Array` |  |
 | `id` | `String` |  |
+| `type` | `String` |  |
 
 #### Example: Load
 
@@ -389,6 +399,8 @@ dataset = client.Dataset.load({ "id" => "dataset_id" })
 
 ```ruby
 dataset = client.Dataset.create({
+  "features" => [], # Array
+  "type" => "example_type", # String
 })
 ```
 
@@ -454,13 +466,6 @@ Create an instance: `place = client.Place`
 | `name` | `String` |  |
 | `region` | `String` |  |
 
-#### Example: List
-
-```ruby
-# list returns an Array of Place records (raises on error).
-places = client.Place.list
-```
-
 
 ### Reverse
 
@@ -483,8 +488,9 @@ Create an instance: `reverse = client.Reverse`
 #### Example: List
 
 ```ruby
-# list returns an Array of Reverse records (raises on error).
-reverses = client.Reverse.list
+# list returns an Array of Reverse entities, one per record (raises on error).
+reverses = client.Reverse.list({ "lat" => 1, "lon" => 1 })
+reverses.each { |item| puts item.data_get }
 ```
 
 
@@ -669,15 +675,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-reverse = client.Reverse
-reverse.list()
+dataset = client.Dataset
+dataset.load({ "id" => "example_id" })
 
-# reverse.data_get now returns the reverse data from the last list
-# reverse.match_get returns the last match criteria
+# dataset.data_get now returns the dataset data from the last load
+# dataset.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

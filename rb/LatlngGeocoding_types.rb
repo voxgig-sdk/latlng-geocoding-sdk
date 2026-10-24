@@ -56,10 +56,18 @@ ApiListMatch = Struct.new(
 
 # Dataset entity data model.
 #
+# @!attribute [rw] features
+#   @return [Array]
+#
 # @!attribute [rw] id
 #   @return [String, nil]
+#
+# @!attribute [rw] type
+#   @return [String]
 Dataset = Struct.new(
+  :features,
   :id,
+  :type,
   keyword_init: true
 )
 
@@ -74,10 +82,14 @@ DatasetLoadMatch = Struct.new(
 
 # Request payload for Dataset#create.
 #
-# @!attribute [rw] id
-#   @return [String, nil]
+# @!attribute [rw] features
+#   @return [Array]
+#
+# @!attribute [rw] type
+#   @return [String]
 DatasetCreateData = Struct.new(
-  :id,
+  :features,
+  :type,
   keyword_init: true
 )
 
@@ -206,31 +218,27 @@ Place = Struct.new(
 # @!attribute [rw] category
 #   @return [String, nil]
 #
-# @!attribute [rw] country
-#   @return [String, nil]
-#
 # @!attribute [rw] lat
-#   @return [Float, nil]
+#   @return [Float]
 #
 # @!attribute [rw] limit
 #   @return [Integer, nil]
 #
 # @!attribute [rw] lon
-#   @return [Float, nil]
+#   @return [Float]
 #
-# @!attribute [rw] q
-#   @return [String]
+# @!attribute [rw] radius
+#   @return [Integer, nil]
 #
 # @!attribute [rw] type
 #   @return [String, nil]
 PlaceListMatch = Struct.new(
   :api_key,
   :category,
-  :country,
   :lat,
   :limit,
   :lon,
-  :q,
+  :radius,
   :type,
   keyword_init: true
 )

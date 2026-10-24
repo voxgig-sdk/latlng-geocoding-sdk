@@ -121,10 +121,10 @@ $api = $client->Api();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->Api()->list();
+$results = $client->Api()->list(["q" => "example"]);
 ```
 
 ### Common Methods
@@ -167,22 +167,26 @@ $dataset = $client->Dataset();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `features` | `array` | Yes |  |
 | `id` | `string` | No |  |
+| `type` | `string` | Yes |  |
 
 ### Operations
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Dataset()->create([
+  "features" => null, // array
+  "type" => null, // string
 ]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Dataset()->load(["id" => "dataset_id"]);
@@ -190,7 +194,7 @@ $result = $client->Dataset()->load(["id" => "dataset_id"]);
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
 
-Remove the entity matching the given criteria. Throws on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and throws on error.
 
 ```php
 $result = $client->Dataset()->remove(["id" => "dataset_id"]);
@@ -243,7 +247,7 @@ $map = $client->Map();
 
 #### `create(array $reqdata, ?array $ctrl = null): mixed`
 
-Create a new entity with the given data. Throws on error.
+Create a new entity with the given data. Returns the created entity and throws on error.
 
 ```php
 $result = $client->Map()->create([
@@ -254,7 +258,7 @@ $result = $client->Map()->create([
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Map()->load();
@@ -316,11 +320,7 @@ $place = $client->Place();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
-
-```php
-$results = $client->Place()->list();
-```
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ### Common Methods
 
@@ -370,10 +370,10 @@ $reverse = $client->Reverse();
 
 #### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record, and throws on error.
 
 ```php
-$results = $client->Reverse()->list();
+$results = $client->Reverse()->list(["lat" => 1, "lon" => 1]);
 ```
 
 ### Common Methods
@@ -422,7 +422,7 @@ $utility = $client->Utility();
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria. Throws on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, and throws on error.
 
 ```php
 $result = $client->Utility()->load();
@@ -615,6 +615,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

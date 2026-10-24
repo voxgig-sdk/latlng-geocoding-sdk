@@ -23,6 +23,17 @@ Get a free API key: https://dash.latlng.work
 MCP server: https://mcp.latlng.work/mcp
 `
       security: {
+        alternatives: [
+          [
+            {
+              in: "query"
+              name: "api_key"
+              prefix: ""
+              scheme: "ApiKeyQuery"
+              type: "apiKey"
+            }
+          ]
+        ]
         in: "header"
         name: "X-Api-Key"
         prefix: ""

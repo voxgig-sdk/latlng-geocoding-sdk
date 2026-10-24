@@ -122,10 +122,11 @@ api = client.Api
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.Api.list
+results = client.Api.list({ "q" => "example" })
+results.each { |item| puts item.data_get }
 ```
 
 ### Common Methods
@@ -168,22 +169,26 @@ dataset = client.Dataset
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
+| `features` | `Array` | Yes |  |
 | `id` | `String` | No |  |
+| `type` | `String` | Yes |  |
 
 ### Operations
 
 #### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data. Raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```ruby
 result = client.Dataset.create({
+  "features" => [], # Array
+  "type" => "example_type", # String
 })
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.Dataset.load({ "id" => "dataset_id" })
@@ -191,7 +196,7 @@ result = client.Dataset.load({ "id" => "dataset_id" })
 
 #### `remove(reqmatch, ctrl = nil) -> result`
 
-Remove the entity matching the given criteria. Raises on error.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, and raises on error.
 
 ```ruby
 result = client.Dataset.remove({ "id" => "dataset_id" })
@@ -244,7 +249,7 @@ map = client.Map
 
 #### `create(reqdata, ctrl = nil) -> result`
 
-Create a new entity with the given data. Raises on error.
+Create a new entity with the given data. Returns the created entity and raises on error.
 
 ```ruby
 result = client.Map.create({
@@ -255,7 +260,7 @@ result = client.Map.create({
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.Map.load()
@@ -317,11 +322,7 @@ place = client.Place
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
-
-```ruby
-results = client.Place.list
-```
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ### Common Methods
 
@@ -371,10 +372,11 @@ reverse = client.Reverse
 
 #### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array of entities, one per record; `data_get` reads each record. Raises on error.
 
 ```ruby
-results = client.Reverse.list
+results = client.Reverse.list({ "lat" => 1, "lon" => 1 })
+results.each { |item| puts item.data_get }
 ```
 
 ### Common Methods
@@ -423,7 +425,7 @@ utility = client.Utility
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria. Raises on error.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get` reads, and raises on error.
 
 ```ruby
 result = client.Utility.load()
@@ -616,6 +618,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

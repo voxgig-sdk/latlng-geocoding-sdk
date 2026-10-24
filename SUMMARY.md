@@ -1,6 +1,17 @@
 # LatLng API
 
-LatLng provides affordable maps and location APIs for developers building location-aware apps. The API includes forward geocoding, reverse geocoding, places search, nearby places, place categories, static maps, and custom dataset map tiles powered by OpenStreetMap data. Developers can start free with a generous daily quota. LatLng also offers an MCP server so AI tools can use location APIs directly. Homepage: https://www.latlng.work Documentation: https://www.latlng.work/docs Get a free API key: https://dash.latlng.work MCP server: https://mcp.latlng.work/mcp
+> LatLng provides affordable maps and location APIs for developers building location-aware apps.
+>
+> The API includes forward geocoding, reverse geocoding, places search, nearby places,
+> place categories, static maps, and custom dataset map tiles powered by OpenStreetMap data.
+>
+> Developers can start free with a generous daily quota. LatLng also offers an MCP server
+> so AI tools can use location APIs directly.
+>
+> Homepage: https://www.latlng.work
+> Documentation: https://www.latlng.work/docs
+> Get a free API key: https://dash.latlng.work
+> MCP server: https://mcp.latlng.work/mcp
 
 ## Start here
 
@@ -32,7 +43,7 @@ SDK operations: `create`, `load`.
 
 ### Place
 
-Results: Search places response.; Nearby places response.; Available place categories.
+Results: Nearby places response.; Search places response.; Available place categories.
 
 SDK operations: `list`.
 
@@ -61,8 +72,8 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | Dataset | `remove` | `DELETE /v1/datasets/{datasetId}` | Required |
 | Map | `create` | `POST /v1/static` | Required |
 | Map | `load` | `GET /v1/static` | Required |
-| Place | `list` | `GET /v1/places/search` | Required |
 | Place | `list` | `GET /v1/places/nearby` | Required |
+| Place | `list` | `GET /v1/places/search` | Required |
 | Place | `list` | `GET /v1/places/categories` | Not required |
 | Reverse | `list` | `GET /reverse` | Required |
 | Utility | `load` | `GET /health` | Not required |

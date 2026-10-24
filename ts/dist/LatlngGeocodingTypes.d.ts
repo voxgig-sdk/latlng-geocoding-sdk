@@ -12,13 +12,16 @@ export interface ApiListMatch {
     q: string;
 }
 export interface Dataset {
+    features: any[];
     id?: string;
+    type: string;
 }
 export interface DatasetLoadMatch {
     id: string;
 }
 export interface DatasetCreateData {
-    id?: string;
+    features: any[];
+    type: string;
 }
 export interface DatasetRemoveMatch {
     id: string;
@@ -56,11 +59,10 @@ export interface Place {
 export interface PlaceListMatch {
     api_key?: string;
     category?: string;
-    country?: string;
-    lat?: number;
+    lat: number;
     limit?: number;
-    lon?: number;
-    q: string;
+    lon: number;
+    radius?: number;
     type?: string;
     $action?: string;
     [action: string]: any;
